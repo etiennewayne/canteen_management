@@ -1,17 +1,18 @@
 <template>
     <div>
         <div class="my-hero-container">
-            <div class="video">
-                <video autoplay muted loop class="my-video">
-                    <source src="/vid/banner-video.mp4" type="video/mp4">
-                    Your browser does not support HTML5 video.
-                </video>
+
+            <div class="columns is-centered">
+                <div class="column is-6">
+                    <b-field>
+                        <b-input type="text" expanded placeholder="Search Food here..."></b-input>
+                        <p class="control">
+                            <button class="button is-success">SEARCH</button>
+                        </p>
+                    </b-field>
+                </div>
             </div>
 
-            <div class="main-text-container">
-                <p class="main-title">DENTAL CLINIC</p>
-                <p class="main-subtitle">Exceptional Care for all ages.</p>
-            </div>
         </div>
 
 
@@ -58,25 +59,7 @@ export default {
         padding: 30px;
         opacity: .6;
     }
-    .main-title{
-        color: white;
-        font-size: 3em;
-        font-weight: bold;
-        opacity: 1;
-    }
 
-    .main-subtitle{
-        color: white;
-        font-size: 2em;
-        font-weight: bold;
-
-    }
-
-    .my-video{
-        z-index: -1;
-        width: 100%;
-        /*display: none;*/
-    }
 
     @media only screen and (max-width: 1024px) {
 

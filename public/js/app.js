@@ -17614,6 +17614,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: ['propUser'],
   data: function data() {
@@ -36596,7 +36597,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.my-hero-container[data-v-a4d20914]{\n    display: flex;\n    flex-direction: column;\n}\n.main-text-container[data-v-a4d20914]{\n    position: absolute;\n    top: 50%;\n    transform: translateY(-50%);\n    margin: 0 25px 0 100px;\n    z-index: 0;\n    background: black;\n    padding: 30px;\n    opacity: .6;\n}\n.main-title[data-v-a4d20914]{\n    color: white;\n    font-size: 3em;\n    font-weight: bold;\n    opacity: 1;\n}\n.main-subtitle[data-v-a4d20914]{\n    color: white;\n    font-size: 2em;\n    font-weight: bold;\n}\n.my-video[data-v-a4d20914]{\n    z-index: -1;\n    width: 100%;\n    /*display: none;*/\n}\n@media only screen and (max-width: 1024px) {\n}\n@media only screen and (max-width: 768px) {\n.main-text-container[data-v-a4d20914]{\n        top: 230px;\n        width: 100%;\n        margin: 0;\n}\n}\n@media only screen and (max-width: 480px) {\n.main-text-container[data-v-a4d20914]{\n        padding: 15px;\n}\n.main-title[data-v-a4d20914]{\n        font-size: 1.2em;\n}\n.main-subtitle[data-v-a4d20914]{\n        font-size: .8em;\n}\n}\n\n\n\n\n\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.my-hero-container[data-v-a4d20914]{\n    display: flex;\n    flex-direction: column;\n}\n.main-text-container[data-v-a4d20914]{\n    position: absolute;\n    top: 50%;\n    transform: translateY(-50%);\n    margin: 0 25px 0 100px;\n    z-index: 0;\n    background: black;\n    padding: 30px;\n    opacity: .6;\n}\n@media only screen and (max-width: 1024px) {\n}\n@media only screen and (max-width: 768px) {\n.main-text-container[data-v-a4d20914]{\n        top: 230px;\n        width: 100%;\n        margin: 0;\n}\n}\n@media only screen and (max-width: 480px) {\n.main-text-container[data-v-a4d20914]{\n        padding: 15px;\n}\n.main-title[data-v-a4d20914]{\n        font-size: 1.2em;\n}\n.main-subtitle[data-v-a4d20914]{\n        font-size: .8em;\n}\n}\n\n\n\n\n\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -58146,9 +58147,7 @@ var render = function () {
         fn: function () {
           return [
             _c("b-navbar-item", [
-              _c("h1", { staticClass: "title is-4" }, [
-                _vm._v("DENTAL CLINIC"),
-              ]),
+              _c("h1", { staticClass: "title is-4" }, [_vm._v("CANTEEN")]),
             ]),
           ]
         },
@@ -58860,43 +58859,38 @@ var render = function () {
   var _c = _vm._self._c || _h
   return _c("div", [
     _c("div", { staticClass: "my-hero-container" }, [
-      _c("div", { staticClass: "video" }, [
+      _c("div", { staticClass: "columns is-centered" }, [
         _c(
-          "video",
-          {
-            staticClass: "my-video",
-            attrs: { autoplay: "", muted: "", loop: "" },
-            domProps: { muted: true },
-          },
+          "div",
+          { staticClass: "column is-6" },
           [
-            _c("source", {
-              attrs: { src: "/vid/banner-video.mp4", type: "video/mp4" },
-            }),
-            _vm._v(
-              "\n                Your browser does not support HTML5 video.\n            "
+            _c(
+              "b-field",
+              [
+                _c("b-input", {
+                  attrs: {
+                    type: "text",
+                    expanded: "",
+                    placeholder: "Search Food here...",
+                  },
+                }),
+                _vm._v(" "),
+                _c("p", { staticClass: "control" }, [
+                  _c("button", { staticClass: "button is-success" }, [
+                    _vm._v("SEARCH"),
+                  ]),
+                ]),
+              ],
+              1
             ),
-          ]
+          ],
+          1
         ),
       ]),
-      _vm._v(" "),
-      _vm._m(0),
     ]),
   ])
 }
-var staticRenderFns = [
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "main-text-container" }, [
-      _c("p", { staticClass: "main-title" }, [_vm._v("DENTAL CLINIC")]),
-      _vm._v(" "),
-      _c("p", { staticClass: "main-subtitle" }, [
-        _vm._v("Exceptional Care for all ages."),
-      ]),
-    ])
-  },
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
