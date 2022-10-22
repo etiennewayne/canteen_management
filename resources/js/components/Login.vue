@@ -52,12 +52,13 @@ export default {
                 if(res.data.role === 'ADMINISTRATOR' || res.data.role === 'STAFF'){
                     window.location = '/admin-home';
                 }
-                if(res.data.role === 'USER'){
+                if(res.data.role === 'CUSTOMER'){
                     window.location = '/';
                 }
-                if(res.data.role === 'DENTIST'){
-                    window.location = '/dentist/dashboard';
+                if(res.data.role === 'VENDOR'){
+                    window.location = '/vendor/dashboard';
                 }
+
                //window.location = '/dashboard';
             }).catch(err=>{
                 if(err.response.status === 422){

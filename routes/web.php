@@ -66,10 +66,8 @@ Route::get('/load-user', function(){
 
 
 Route::post('/login', [App\Http\Controllers\Auth\LoginController::class, 'login']);
-
 Route::post('/logout', [App\Http\Controllers\Auth\LoginController::class, 'logout']);
 
-Route::get('/sample',[App\Http\Controllers\SampleController::class,'index']);
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
@@ -78,19 +76,6 @@ Route::post('/sign-up', [App\Http\Controllers\SignUpController::class, 'store'])
 
 
 Route::get('/get-user/{id}', [App\Http\Controllers\OpenUserController::class, 'getUser']);
-
-
-
-
-
-//QUICK BOOK NOW
-Route::post('/book-now', [App\Http\Controllers\BookNowController::class, 'store']);
-
-
-
-
-Route::get('/dental-chart', [App\Http\Controllers\DentalChartController::class, 'index']);
-
 
 
 
@@ -109,155 +94,17 @@ Route::get('/get-user-offices', [App\Http\Controllers\Administrator\UserControll
 Route::post('/user-reset-password/{id}', [App\Http\Controllers\Administrator\UserController::class, 'resetPassword']);
 
 
-//services
-Route::resource('/services', App\Http\Controllers\Administrator\ServicesController::class);
-Route::get('/get-services', [App\Http\Controllers\Administrator\ServicesController::class, 'getServices']);
-Route::get('/get-all-services', [App\Http\Controllers\Administrator\ServicesController::class, 'getAllServices']);
+/*/////////////////     ADMINSITRATOR          */
 
-//Route::get('/get-open-appointment-types', [App\Http\Controllers\ServicesController::class, 'getOpenSer']);
 
+Route::resource('/vendor/dashboard', App\Http\Controllers\Vendor\VendorDashboardController::class);
 
-Route::resource('/request-appointment', App\Http\Controllers\Administrator\RequestAppointment::class);
-Route::get('/get-request-appointments', [App\Http\Controllers\Administrator\RequestAppointment::class, 'getRequestAppointments']);
+Route::resource('/vendor/my-store', App\Http\Controllers\Vendor\VendorMyStoreController::class);
+Route::get('/vendor/get-my-stores', [App\Http\Controllers\Vendor\VendorMyStoreController::class, 'getMyStores']);
+Route::get('/vendor/store-info/{id}', [App\Http\Controllers\Vendor\VendorStoreInfoController::class, 'index']);
 
 
-Route::resource('/appointments', App\Http\Controllers\Administrator\AppointmentController::class);
-Route::get('/get-appointments', [App\Http\Controllers\Administrator\AppointmentController::class, 'getAppointments']);
-Route::post('appointment-admit/{id}', [App\Http\Controllers\Administrator\AppointmentController::class, 'appointmentAdmit']);
-Route::post('appointment-cancel/{id}', [App\Http\Controllers\Administrator\AppointmentController::class, 'appointmentCancel']);
-
-Route::get('/report/inventory', [App\Http\Controllers\Administrator\ReportController::class, 'reportInventory']);
-Route::get('/report/get-inventory', [App\Http\Controllers\Administrator\ReportController::class, 'getReportInventory']);
-Route::get('/report/appointment', [App\Http\Controllers\Administrator\ReportController::class, 'reportAppointment']);
-Route::get('/report/get-appointment', [App\Http\Controllers\Administrator\ReportController::class, 'getReportAppointment']);
-Route::get('/report/print-appointment', [App\Http\Controllers\Administrator\ReportController::class, 'printAppointment']);
-
-
-Route::get('/get-report-track', [App\Http\Controllers\Administrator\ReportController::class, 'getReportTrack']);
-
-//Offices Administrator (For office management)
-
-/*     ADMINSITRATOR          */
-
-
-//USER
-//dentist
-//Route::resource('/dentist', App\Http\Controllers\Administrator\DentistController::class);
-//Route::get('/get-dentist', [App\Http\Controllers\Administrator\DentistController::class, 'getDentists']);
-
-
-Route::get('/get-browse-dentist', [App\Http\Controllers\Administrator\DentistController::class, 'getBrowseDentist']);
-
-
-
-
-//APPOINTMENT
-Route::resource('/my-appointment', App\Http\Controllers\MyAppointmentController::class);
-Route::get('/get-my-appointments', [App\Http\Controllers\MyAppointmentController::class, 'getMyAppointments']);
-Route::post('/cancel-my-appointment/{id}', [App\Http\Controllers\MyAppointmentController::class, 'cancelMyAppointment']);
-Route::post('/change-password', [App\Http\Controllers\MyAppointmentController::class, 'changePassword']);
-
-
-//ITEM
-Route::resource('/items', App\Http\Controllers\Administrator\ItemController::class);
-Route::get('/get-items', [App\Http\Controllers\Administrator\ItemController::class, 'getItems']);
-Route::get('/get-browse-items', [App\Http\Controllers\Administrator\ItemController::class, 'getBrowseItems']);
-
-
-Route::resource('/dashboard-user', App\Http\Controllers\User\DashboardUserController::class);
-Route::get('/get-user', [App\Http\Controllers\User\DashboardUserController::class, 'getUser']);
-Route::get('/get-dashboard-info', [App\Http\Controllers\User\DashboardUserController::class, 'getDashboardInfo']);
-
-Route::resource('/my-profile', App\Http\Controllers\User\MyProfileController::class);
-Route::get('/get-my-profile', [App\Http\Controllers\User\MyProfileController::class, 'getProfile']);
-
-Route::get('/my-upcoming-appointment', [App\Http\Controllers\User\MyAppointmentController::class, 'upcomingAppointment']);
-
-
-
-//DENTIST MODULE
-Route::resource('/dentist/dashboard', App\Http\Controllers\Dentist\DashboardController::class);
-Route::get('/dentist/get-dashboard-info', [App\Http\Controllers\Dentist\DashboardController::class, 'getDashboardInfo']);
-
-Route::resource('/dentist/appointments', App\Http\Controllers\Dentist\DentistAppointmentController::class);
-
-Route::get('/dentist/get-appointments', [App\Http\Controllers\Dentist\DentistAppointmentController::class, 'getAppointments']);
-
-Route::post('/dentist/approve-appointment/{id}', [App\Http\Controllers\Dentist\DentistAppointmentController::class, 'approveAppointment']);
-
-Route::post('/dentist/cancel-appointment/{id}', [App\Http\Controllers\Dentist\DentistAppointmentController::class, 'cancelAppointment']);
-
-Route::post('/dentist/admit-appointment/{id}', [App\Http\Controllers\Dentist\DentistAppointmentController::class, 'admitAppointment']);
-
-
-Route::resource('/dentist/my-patients', App\Http\Controllers\Dentist\DentistMyPatientController::class);
-Route::get('/dentist/get-admits-patients', [App\Http\Controllers\Dentist\DentistMyPatientController::class, 'getAdmitsPatients']);
-Route::get('/dentist/get-admit/{id}', [App\Http\Controllers\Dentist\DentistMyPatientController::class, 'getAdmit']);
-
-//My Dentist Profile
-Route::resource('/dentist/my-profile', App\Http\Controllers\Dentist\DentistMyProfileController::class);
-Route::get('/dentist/get-my-profile', [App\Http\Controllers\Dentist\DentistMyProfileController::class, 'myProfile']);
-Route::get('/dentist/change-password', [App\Http\Controllers\Dentist\DentistMyProfileController::class, 'changePassword']);
-
-
-//Dentist Schedule
-Route::resource('/dentist/dentist-schedule', App\Http\Controllers\Dentist\DentistScheduleContoller::class);
-Route::put('/dentist/dentist-schedule-update', [App\Http\Controllers\Dentist\DentistScheduleContoller::class, 'update']);
-
-Route::get('/dentist/get-dentist-schedules', [App\Http\Controllers\Dentist\DentistScheduleContoller::class, 'getDentistSchedules']);
-
-
-
-
-//patient dentist dashboard
-//during admit
-Route::resource('/dentist/dentist-dashboard-patients', App\Http\Controllers\Dentist\DentistDashboardPatientController::class);
-
-Route::resource('/dentist/dentist-service-patient', App\Http\Controllers\Dentist\DentistServicePatientController::class);
-
-
-//admit services table
-
-Route::resource('/dentist/admit-services', App\Http\Controllers\Dentist\DentistAdmitServiceController::class);
-Route::get('/dentist/get-admit-services/{id}/{tid}', [App\Http\Controllers\Dentist\DentistAdmitServiceController::class, 'getAdmitServices']);
-
-
-//service inventory
-Route::post('/dentist/admit-services-inventory', [App\Http\Controllers\Dentist\DentistServiceInventoryController::class, 'store']);
-Route::delete('/dentist/admit-services-inventory/{id}', [App\Http\Controllers\Dentist\DentistServiceInventoryController::class, 'destroy']);
-
-
-
-
-
-
-//possible below not use
-Route::post('/dentist/pending-appointment/{id}', [App\Http\Controllers\Dentist\DentistAppointmentController::class, 'pendingAppointment']);
-
-Route::get('/dentist/services-log', [App\Http\Controllers\Dentist\DentistAppointmentController::class, 'servicesLog']);
-Route::get('/dentist/get-services-log', [App\Http\Controllers\Dentist\DentistAppointmentController::class, 'getServicesLog']);
-
-
-Route::resource('/dentist/dentist-items', App\Http\Controllers\Dentist\DentistItemController::class);
-Route::get('/dentist/get-dentist-items', [App\Http\Controllers\Dentist\DentistItemController::class, 'getDentistItems']);
-
-
-//appointment services controller
-
-//Route::resource('/dentist/appointment-services', App\Http\Controllers\Dentist\AppointmentServiceController::class);
-
-//inventory item for each service
-//Route::resource('/dentist/services-log-inv', App\Http\Controllers\Dentist\DentistServiceInventoryController::class);
-
-
-
-//ITEM sa dentist
-Route::resource('/dentist/items', App\Http\Controllers\Dentist\ItemController::class);
-Route::get('/dentist/get-items', [App\Http\Controllers\Dentist\ItemController::class, 'getItems']);
-Route::get('/dentist/get-browse-items', [App\Http\Controllers\Dentist\ItemController::class, 'getBrowseItems']);
-
-
-
+/* ///////////////    ADMINSITRATOR          */
 
 
 

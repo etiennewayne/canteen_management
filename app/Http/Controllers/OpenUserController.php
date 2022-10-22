@@ -13,11 +13,7 @@ class OpenUserController extends Controller
 
 
     public function getUser($id){
-       
-
         return User::where('user_id', $id)->first();
-
-       
     }
 
 

@@ -3,6 +3,7 @@
 // Variables
 @import 'variables';
 
+//@import url('/fonts/Roboto/Roboto-Medium.ttf');
 
 
 @import '~@mdi/font/css/materialdesignicons.css';
@@ -22,8 +23,9 @@
 
 
 
+
 html body{
-    font-family:'Amaranth', sans-serif;
+    //font-family: 'Familjen Grotesk', sans-serif;
     background: white;
 }
 

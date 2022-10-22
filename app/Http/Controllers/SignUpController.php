@@ -23,21 +23,20 @@ class SignUpController extends Controller
             'lname' => ['required', 'string', 'max:100'],
             'fname' => ['required', 'string', 'max:100'],
             'sex' => ['required', 'string', 'max:20'],
+            'role' => ['required'],
             'email' => ['required', 'unique:users'],
             'password' => ['required', 'string', 'confirmed'],
             'province' => ['required', 'string'],
             'city' => ['required', 'string'],
             'barangay' => ['required', 'string'],
+        ], $message = [
+            'role' => 'Account type is required.'
         ]);
 
-        $msg = 'Hi '.$req->lname . ', ' . $req->fname . '. Welcome to Dental Clinic Services. You have successfully created an account.';
-
-        
-
-        $qr_code = substr(md5(time() . $req->lname . $req->fname), -8);
+        //$qr_code = substr(md5(time() . $req->lname . $req->fname), -8);
 
         User::create([
-            'qr_ref' => $qr_code,
+            //'qr_ref' => $qr_code,
             'username' => $req->username,
             'password' => Hash::make($req->password),
             'email' => $req->email,
@@ -47,18 +46,12 @@ class SignUpController extends Controller
             'suffix' => strtoupper($req->suffix),
             'sex' => $req->sex,
             'contact_no' => $req->contact_no,
-            'role' => 'USER',
+            'role' => strtoupper($req->role),
             'province' => $req->province,
             'city' => $req->city,
             'barangay' => $req->barangay,
             'street' => strtoupper($req->street)
         ]);
-
-        try{
-            Http::withHeaders([
-                'Content-Type' => 'text/plain'
-            ])->post('http://'. env('IP_SMS_GATEWAY') .'/services/api/messaging?Message='.$msg.'&To='.$req->contact_no.'&Slot=1', []);
-        }catch(Exception $e){} //just hide the error
 
         return response()->json([
             'status' => 'saved'

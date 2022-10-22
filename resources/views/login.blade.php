@@ -1,4 +1,4 @@
-@extends('layouts.no-navbar')
+extends('layouts.no-navbar')
 
 @section('content')
 <Login></Login>
