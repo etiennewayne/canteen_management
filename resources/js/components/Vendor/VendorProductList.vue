@@ -65,7 +65,10 @@
                                 {{ props.row.product }}
                             </b-table-column>
 
-                        
+                            <b-table-column field="product_img_path" label="Filename" sortable v-slot="props">
+                                {{ props.row.product_img_path }}
+                            </b-table-column>
+
                             <b-table-column label="Action" v-slot="props">
                                 <div class="is-flex">
                                     <b-tooltip label="Edit" type="is-warning">
@@ -74,7 +77,6 @@
                                     <b-tooltip label="Delete" type="is-danger">
                                         <b-button class="button is-small mr-1" icon-right="delete" @click="confirmDelete(props.row.product_list_id)"></b-button>
                                     </b-tooltip>
-                                  
                                 </div>
                             </b-table-column>
                         </b-table>
@@ -116,6 +118,23 @@
                                         <b-input v-model="fields.product"
                                                  placeholder="Product" required>
                                         </b-input>
+                                    </b-field>
+                                </div>
+                            </div>
+                            <div class="columns">
+                                <div class="column">
+                                    <b-field label="Product Image"
+                                            :type="this.errors.product_img_path ? 'is-danger':''"
+                                            :message="this.errors.product_img_path ? this.errors.product_img_path[0] : ''">
+                                        <b-upload v-model="fields.product_img" class="file-label">
+                                            <span class="file-cta">
+                                                <b-icon class="file-icon" icon="upload"></b-icon>
+                                                <span class="file-label">Click to upload</span>
+                                            </span>
+                                                <span class="file-name" v-if="fields.product_img">
+                                                {{ fields.product_img.name }}
+                                            </span>
+                                        </b-upload>
                                     </b-field>
                                 </div>
                             </div>
@@ -161,7 +180,9 @@ export default{
 
             isModalCreate: false,
 
-            fields: {},
+            fields: {
+                product: '',
+            },
             errors: {},
 
             btnClass: {
@@ -234,9 +255,13 @@ export default{
 
 
         submit: function(){
+            var formData = new FormData();
+            formData.append('product', this.fields.product ? this.fields.product : '');
+            formData.append('product_img_path', this.fields.product_img ? this.fields.product_img : '');
+
             if(this.global_id > 0){
                 //update
-                axios.put('/vendor/my-products/'+this.global_id, this.fields).then(res=>{
+                axios.post('/vendor/my-products/'+this.global_id, formData).then(res=>{
                     if(res.data.status === 'updated'){
                         this.$buefy.dialog.alert({
                             title: 'UPDATED!',
@@ -257,7 +282,7 @@ export default{
                 })
             }else{
                 //INSERT HERE
-                axios.post('/vendor/my-products', this.fields).then(res=>{
+                axios.post('/vendor/my-products', formData).then(res=>{
                     if(res.data.status === 'saved'){
                         this.$buefy.dialog.alert({
                             title: 'SAVED!',
@@ -288,9 +313,9 @@ export default{
             this.$buefy.dialog.confirm({
                 title: 'DELETE!',
                 type: 'is-danger',
-                message: 'Are you sure you want to delete this data?',
+                message: 'Are you sure you want to delete this?',
                 cancelText: 'Cancel',
-                confirmText: 'Delete user account?',
+                confirmText: 'Delete',
                 onConfirm: () => this.deleteSubmit(delete_id)
             });
         },
@@ -320,8 +345,9 @@ export default{
 
 
             //nested axios for getting the address 1 by 1 or request by request
-            axios.get('/vendor/my-products/'+data_id).then(res=>{
+            axios.get('/vendor/my-products/'+ data_id).then(res=>{
                 this.fields = res.data;
+                
             });
         },
 

@@ -13,6 +13,6 @@ class ProductList extends Model
     protected $primaryKey = 'product_list_id';
 
 
-    protected $fillable = ['user_id', 'product'];
+    protected $fillable = ['user_id', 'product', 'product_img_path'];
 
 }

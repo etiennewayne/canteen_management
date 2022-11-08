@@ -9837,6 +9837,25 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -9853,7 +9872,9 @@ __webpack_require__.r(__webpack_exports__);
         product: ''
       },
       isModalCreate: false,
-      fields: {},
+      fields: {
+        product: ''
+      },
       errors: {},
       btnClass: {
         'is-success': true,
@@ -9917,9 +9938,13 @@ __webpack_require__.r(__webpack_exports__);
     submit: function submit() {
       var _this2 = this;
 
+      var formData = new FormData();
+      formData.append('product', this.fields.product ? this.fields.product : '');
+      formData.append('product_img_path', this.fields.product_img ? this.fields.product_img : '');
+
       if (this.global_id > 0) {
         //update
-        axios.put('/vendor/my-products/' + this.global_id, this.fields).then(function (res) {
+        axios.post('/vendor/my-products/' + this.global_id, formData).then(function (res) {
           if (res.data.status === 'updated') {
             _this2.$buefy.dialog.alert({
               title: 'UPDATED!',
@@ -9942,7 +9967,7 @@ __webpack_require__.r(__webpack_exports__);
         });
       } else {
         //INSERT HERE
-        axios.post('/vendor/my-products', this.fields).then(function (res) {
+        axios.post('/vendor/my-products', formData).then(function (res) {
           if (res.data.status === 'saved') {
             _this2.$buefy.dialog.alert({
               title: 'SAVED!',
@@ -9974,9 +9999,9 @@ __webpack_require__.r(__webpack_exports__);
       this.$buefy.dialog.confirm({
         title: 'DELETE!',
         type: 'is-danger',
-        message: 'Are you sure you want to delete this data?',
+        message: 'Are you sure you want to delete this?',
         cancelText: 'Cancel',
-        confirmText: 'Delete user account?',
+        confirmText: 'Delete',
         onConfirm: function onConfirm() {
           return _this3.deleteSubmit(delete_id);
         }
@@ -28578,7 +28603,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.border-line[data-v-22e9d773]{\n    padding-bottom: 5px;\n    border-bottom: 1px solid gray;\n}\n.product-head[data-v-22e9d773]{\n    display: flex;\n}\n.products[data-v-22e9d773]{\n    display: flex;\n    flex-wrap: wrap;\n}\n.product-box[data-v-22e9d773]{\n    width: 200px;\n    padding: 15px;\n    margin: 15px;\n    height: 200px;\n    border: 1px solid green;\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.border-line[data-v-22e9d773]{\r\n    padding-bottom: 5px;\r\n    border-bottom: 1px solid gray;\n}\n.product-head[data-v-22e9d773]{\r\n    display: flex;\n}\n.products[data-v-22e9d773]{\r\n    display: flex;\r\n    flex-wrap: wrap;\n}\n.product-box[data-v-22e9d773]{\r\n    width: 200px;\r\n    padding: 15px;\r\n    margin: 15px;\r\n    height: 200px;\r\n    border: 1px solid green;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -28650,7 +28675,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.logo[data-v-f1c9d938]{\n    padding: 0 30px 0 30px;\n    height: 90px;\n}\n.burger-div[data-v-f1c9d938]{\n    width: 20px;\n    height: 3px;\n    background-color: #696969;\n    margin: 0 0 3px 0;\n    margin-left: auto;\n    border-radius: 10px;\n}\n.burger-button[data-v-f1c9d938]{\n    display: flex;\n    flex-direction: column;\n    margin-left: auto;\n}\n.mynav[data-v-f1c9d938]{\n    padding: 25px;\n    border-bottom: 2px solid rgba(196, 196, 196, 0.53);\n    display: flex;\n}\n.mynav-brand[data-v-f1c9d938]{\n    font-weight: bold;\n    font-size: 1.2em;\n}\n\n/* .hero{\n      background-image: url(\"/img/bg-hero.jpg\");\n      background-repeat: no-repeat;\n      background-size: cover;\n  } */\n\n\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.logo[data-v-f1c9d938]{\r\n    padding: 0 30px 0 30px;\r\n    height: 90px;\n}\n.burger-div[data-v-f1c9d938]{\r\n    width: 20px;\r\n    height: 3px;\r\n    background-color: #696969;\r\n    margin: 0 0 3px 0;\r\n    margin-left: auto;\r\n    border-radius: 10px;\n}\n.burger-button[data-v-f1c9d938]{\r\n    display: flex;\r\n    flex-direction: column;\r\n    margin-left: auto;\n}\n.mynav[data-v-f1c9d938]{\r\n    padding: 25px;\r\n    border-bottom: 2px solid rgba(196, 196, 196, 0.53);\r\n    display: flex;\n}\n.mynav-brand[data-v-f1c9d938]{\r\n    font-weight: bold;\r\n    font-size: 1.2em;\n}\r\n\r\n/* .hero{\r\n      background-image: url(\"/img/bg-hero.jpg\");\r\n      background-repeat: no-repeat;\r\n      background-size: cover;\r\n  } */\r\n\r\n\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -34955,6 +34980,28 @@ var render = function () {
                     }),
                     _vm._v(" "),
                     _c("b-table-column", {
+                      attrs: {
+                        field: "product_img_path",
+                        label: "Filename",
+                        sortable: "",
+                      },
+                      scopedSlots: _vm._u([
+                        {
+                          key: "default",
+                          fn: function (props) {
+                            return [
+                              _vm._v(
+                                "\n                            " +
+                                  _vm._s(props.row.product_img_path) +
+                                  "\n                        "
+                              ),
+                            ]
+                          },
+                        },
+                      ]),
+                    }),
+                    _vm._v(" "),
+                    _c("b-table-column", {
                       attrs: { label: "Action" },
                       scopedSlots: _vm._u([
                         {
@@ -35111,6 +35158,77 @@ var render = function () {
                                   expression: "fields.product",
                                 },
                               }),
+                            ],
+                            1
+                          ),
+                        ],
+                        1
+                      ),
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "columns" }, [
+                      _c(
+                        "div",
+                        { staticClass: "column" },
+                        [
+                          _c(
+                            "b-field",
+                            {
+                              attrs: {
+                                label: "Product Image",
+                                type: this.errors.product_img_path
+                                  ? "is-danger"
+                                  : "",
+                                message: this.errors.product_img_path
+                                  ? this.errors.product_img_path[0]
+                                  : "",
+                              },
+                            },
+                            [
+                              _c(
+                                "b-upload",
+                                {
+                                  staticClass: "file-label",
+                                  model: {
+                                    value: _vm.fields.product_img,
+                                    callback: function ($$v) {
+                                      _vm.$set(_vm.fields, "product_img", $$v)
+                                    },
+                                    expression: "fields.product_img",
+                                  },
+                                },
+                                [
+                                  _c(
+                                    "span",
+                                    { staticClass: "file-cta" },
+                                    [
+                                      _c("b-icon", {
+                                        staticClass: "file-icon",
+                                        attrs: { icon: "upload" },
+                                      }),
+                                      _vm._v(" "),
+                                      _c(
+                                        "span",
+                                        { staticClass: "file-label" },
+                                        [_vm._v("Click to upload")]
+                                      ),
+                                    ],
+                                    1
+                                  ),
+                                  _vm._v(" "),
+                                  _vm.fields.product_img
+                                    ? _c("span", { staticClass: "file-name" }, [
+                                        _vm._v(
+                                          "\n                                            " +
+                                            _vm._s(
+                                              _vm.fields.product_img.name
+                                            ) +
+                                            "\n                                        "
+                                        ),
+                                      ])
+                                    : _vm._e(),
+                                ]
+                              ),
                             ],
                             1
                           ),

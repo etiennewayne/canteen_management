@@ -21,6 +21,7 @@ class CreateProductListsTable extends Migration
                 ->onUpdate('cascade')->onDelete('cascade');
             
             $table->string('product')->nullable();
+            $table->string('product_img_path')->nullable();
 
             $table->timestamps();
         });
