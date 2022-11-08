@@ -103,6 +103,11 @@ Route::resource('/vendor/my-store', App\Http\Controllers\Vendor\VendorMyStoreCon
 Route::get('/vendor/get-my-stores', [App\Http\Controllers\Vendor\VendorMyStoreController::class, 'getMyStores']);
 Route::get('/vendor/store-info/{id}', [App\Http\Controllers\Vendor\VendorStoreInfoController::class, 'index']);
 
+Route::get('/vendor/my-products', [App\Http\Controllers\Vendor\VendorProductListController::class, 'index']);
+Route::post('/vendor/my-products', [App\Http\Controllers\Vendor\VendorProductListController::class, 'store']);
+Route::put('/vendor/my-products', [App\Http\Controllers\Vendor\VendorProductListController::class, 'update']);
+Route::get('/vendor/get-product-lists', [App\Http\Controllers\Vendor\VendorProductListController::class, 'getProductLists']);
+
 
 /* ///////////////    ADMINSITRATOR          */
 

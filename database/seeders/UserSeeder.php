@@ -27,7 +27,7 @@ class UserSeeder extends Seeder
                 'barangay' => '126510026',
                 'street' => 'P-6',
                 'email' => 'admin@dev.com',
-                'contact_no' => '09167789585',
+                'contact_no' => '091655464654',
                 'role' => 'ADMINISTRATOR',
                 'password' => Hash::make('a')
             ],
@@ -44,7 +44,7 @@ class UserSeeder extends Seeder
                 'barangay' => '126510026',
                 'street' => 'P-6',
                 'email' => 'jonehter@dev.com',
-                'contact_no' => '09167789585',
+                'contact_no' => '091655464654',
                 'role' => 'CUSTOMER',
                 'password' => Hash::make('a')
             ],
@@ -60,13 +60,26 @@ class UserSeeder extends Seeder
                 'barangay' => '126510026',
                 'street' => 'P-6',
                 'email' => 'vilma@dev.com',
-                'contact_no' => '09167789585',
+                'contact_no' => '091655464654',
                 'role' => 'VENDOR',
                 'password' => Hash::make('a')
             ],
 
-
-
+            [
+                'username' => 'ladion',
+                'lname' => 'LADION',
+                'fname' => 'HONEY MAE',
+                'mname' => 'P',
+                'sex' => 'FEMALE',
+                'province' => '1265',
+                'city' => '126510',
+                'barangay' => '126510026',
+                'street' => 'P-6',
+                'email' => 'ladion@dev.com',
+                'contact_no' => '091655464654',
+                'role' => 'VENDOR',
+                'password' => Hash::make('a')
+            ],
 
         ];
 

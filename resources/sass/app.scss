@@ -144,7 +144,8 @@ html body{
 @import "~bulma/sass/utilities/_all";
 //
 ////Set your colors
-$primary: #3490dc;
+//$primary: #3490dc;
+$primary: #f01c1c;
 $primary-light: findLightColor($primary);
 $primary-dark: findDarkColor($primary);
 $primary-invert: findColorInvert($primary);

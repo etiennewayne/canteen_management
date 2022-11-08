@@ -12,6 +12,9 @@
                 <div class="menu-box">
                     <a href="/vendor/my-store">MY STORE</a>
                 </div>
+                <div class="menu-box">
+                    <a href="/vendor/my-products">PRODUCTS</a>
+                </div>
             </div>
         </div>
 
@@ -39,6 +42,8 @@
         padding: 15px;
         margin: 15px;
         height: 200px;
+        font-weight: bold;
+        text-align: center;
         border: 1px solid green;
     }
 </style>
