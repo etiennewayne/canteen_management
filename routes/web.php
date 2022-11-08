@@ -105,8 +105,9 @@ Route::get('/vendor/store-info/{id}', [App\Http\Controllers\Vendor\VendorStoreIn
 
 Route::get('/vendor/my-products', [App\Http\Controllers\Vendor\VendorProductListController::class, 'index']);
 Route::post('/vendor/my-products', [App\Http\Controllers\Vendor\VendorProductListController::class, 'store']);
-Route::put('/vendor/my-products', [App\Http\Controllers\Vendor\VendorProductListController::class, 'update']);
+Route::put('/vendor/my-products/{id}', [App\Http\Controllers\Vendor\VendorProductListController::class, 'update']);
 Route::get('/vendor/get-product-lists', [App\Http\Controllers\Vendor\VendorProductListController::class, 'getProductLists']);
+Route::get('/vendor/my-products/{id}', [App\Http\Controllers\Vendor\VendorProductListController::class, 'show']);
 
 
 /* ///////////////    ADMINSITRATOR          */

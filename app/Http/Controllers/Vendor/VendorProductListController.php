@@ -38,8 +38,7 @@ class VendorProductListController extends Controller
     public function show($id){
         $user = Auth::user();
 
-        return ProductList::where('user_id', $user_id)
-            ->where('product_list_id', $id)->first();
+        return ProductList::find($id);
     }
 
     public function store(Request $req){
@@ -63,5 +62,16 @@ class VendorProductListController extends Controller
 
     public function update(Request $req, $id){
 
+        $validate = $req->validate([
+            'product' => ['required']
+        ]);
+
+        $data = ProductList::find($id);
+        $data->product = $req->product;
+        $data->save();
+
+        return response()->json([
+            'status' => 'updated'
+        ],200);
     }
 }

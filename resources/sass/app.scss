@@ -135,6 +135,10 @@ html body{
     background-color: #3490dc;
 }
 
+.color-text{
+    color: #d03316;
+} 
+
 
 
 //@import '~animate.css/animate';
@@ -145,7 +149,7 @@ html body{
 //
 ////Set your colors
 //$primary: #3490dc;
-$primary: #f01c1c;
+$primary: #d03316;
 $primary-light: findLightColor($primary);
 $primary-dark: findDarkColor($primary);
 $primary-invert: findColorInvert($primary);
