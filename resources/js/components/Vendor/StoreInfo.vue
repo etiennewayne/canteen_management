@@ -30,11 +30,11 @@
                             <div style="font-weight: bold; margin-right: 10px;">RATINGS:</div>
                             <b-rate
                                 v-model="rate"
-                                :custom-text="rate"></b-rate>
+                                custom-text="4.6"></b-rate>
                         </div>
                         <div style="display: flex">
                             <div style="font-weight: bold; margin-right: 10px;">PRICE:</div>
-                            <div>{{ item.product_price }}</div>
+                            <div>{{ item.product_price | formatPrice }}</div> <!--formatPrice format the number using js-->
                         </div>
                     </div>
 
@@ -108,6 +108,14 @@
                                             controls-position="compact"></b-numberinput>
                                     </b-field>
                                 </div>
+                                <div class="column">
+                                    <b-field label="Price">
+                                        <b-numberinput controls-alignment="left"
+                                            v-model="fields.product_price" min="0"
+                                            placeholder="Price"
+                                            controls-position="compact"></b-numberinput>
+                                    </b-field>
+                                </div>
                             </div>
                             <div class="columns">
                                 <div class="column">
@@ -174,7 +182,8 @@ export default {
             fields: {
                 product: '',
                 qty: 0,
-                is_inv: 0
+                is_inv: 0,
+                product_price: 0.00,
             },
 
             btnClass: {
@@ -211,7 +220,6 @@ export default {
 
             axios.get(`/vendor/get-product-lists?${params}`).then(res=>{
                 this.products = res.data;
-
             })
         },
 
@@ -228,6 +236,7 @@ export default {
             formData.append('product', this.fields.product ? this.fields.product : '');
             formData.append('qty', this.fields.qty ? this.fields.qty : 0);
             formData.append('is_inv', this.fields.is_inv);
+            formData.append('product_price', this.fields.product_price);
 
             formData.append('product_img_path', this.fields.product_img ? this.fields.product_img : '');
 
@@ -282,7 +291,8 @@ export default {
             this.fields = {
                 product: '',
                 qty: 0,
-                is_inv: 0
+                is_inv: 0,
+                product_price: 0.00
             };
         },
 
@@ -307,6 +317,20 @@ export default {
                 if (err.response.status === 422) {
                     this.errors = err.response.data.errors;
                 }
+            });
+        },
+
+
+        //update code here
+        getData: function(data_id){
+            this.clearFields();
+            this.global_id = data_id;
+            this.isModalCreate = true;
+
+
+            //nested axios for getting the address 1 by 1 or request by request
+            axios.get('/vendor/my-products/'+ data_id).then(res=>{
+                this.fields = res.data;
             });
         },
 

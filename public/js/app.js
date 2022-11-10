@@ -9414,6 +9414,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: ['propData'],
   data: function data() {
@@ -9434,7 +9442,8 @@ __webpack_require__.r(__webpack_exports__);
       fields: {
         product: '',
         qty: 0,
-        is_inv: 0
+        is_inv: 0,
+        product_price: 0.00
       },
       btnClass: {
         'is-success': true,
@@ -9472,6 +9481,7 @@ __webpack_require__.r(__webpack_exports__);
       formData.append('product', this.fields.product ? this.fields.product : '');
       formData.append('qty', this.fields.qty ? this.fields.qty : 0);
       formData.append('is_inv', this.fields.is_inv);
+      formData.append('product_price', this.fields.product_price);
       formData.append('product_img_path', this.fields.product_img ? this.fields.product_img : '');
 
       if (this.global_id > 0) {
@@ -9528,7 +9538,8 @@ __webpack_require__.r(__webpack_exports__);
       this.fields = {
         product: '',
         qty: 0,
-        is_inv: 0
+        is_inv: 0,
+        product_price: 0.00
       };
     },
     //alert box ask for deletion
@@ -9556,6 +9567,18 @@ __webpack_require__.r(__webpack_exports__);
         if (err.response.status === 422) {
           _this4.errors = err.response.data.errors;
         }
+      });
+    },
+    //update code here
+    getData: function getData(data_id) {
+      var _this5 = this;
+
+      this.clearFields();
+      this.global_id = data_id;
+      this.isModalCreate = true; //nested axios for getting the address 1 by 1 or request by request
+
+      axios.get('/vendor/my-products/' + data_id).then(function (res) {
+        _this5.fields = res.data;
       });
     }
   },
@@ -10398,6 +10421,10 @@ Vue.filter('formatTime', function (value) {
   var ampm = H < 12 ? " AM" : " PM";
   timeString = h + timeString.substr(2, 3) + ampm;
   return timeString;
+});
+Vue.filter('formatPrice', function (value) {
+  return (Math.round(value * 100) / 100).toFixed(2);
+  ;
 });
 var app = new Vue({
   el: '#app'
@@ -28847,7 +28874,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.border-line[data-v-22e9d773]{\n    padding-bottom: 5px;\n    border-bottom: 1px solid gray;\n}\n.product-head[data-v-22e9d773]{\n    display: flex;\n}\n.products[data-v-22e9d773]{\n}\n.product[data-v-22e9d773]{\n    margin: 15px;\n    box-shadow: 0px 0px 2px 0px rgba(0,0,0,0.71);\n    padding: 15px;\n    display: flex;\n}\n.product-img-container[data-v-22e9d773]{\n    height: 150px;\n    width: 150px;\n    position:relative;\n    overflow:hidden;\n}\n.product-img[data-v-22e9d773]{\n    position:absolute;\n    top:0;\n    bottom:0;\n    margin: auto;\n    width:100%;\n}\n.product-box[data-v-22e9d773]{\n    width: 200px;\n    padding: 15px;\n    margin: 15px;\n    height: 200px;\n    border: 1px solid green;\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.border-line[data-v-22e9d773]{\r\n    padding-bottom: 5px;\r\n    border-bottom: 1px solid gray;\n}\n.product-head[data-v-22e9d773]{\r\n    display: flex;\n}\n.products[data-v-22e9d773]{\n}\n.product[data-v-22e9d773]{\r\n    margin: 15px;\r\n    box-shadow: 0px 0px 2px 0px rgba(0,0,0,0.71);\r\n    padding: 15px;\r\n    display: flex;\n}\n.product-img-container[data-v-22e9d773]{\r\n    height: 150px;\r\n    width: 150px;\r\n    position:relative;\r\n    overflow:hidden;\n}\n.product-img[data-v-22e9d773]{\r\n    position:absolute;\r\n    top:0;\r\n    bottom:0;\r\n    margin: auto;\r\n    width:100%;\n}\n.product-box[data-v-22e9d773]{\r\n    width: 200px;\r\n    padding: 15px;\r\n    margin: 15px;\r\n    height: 200px;\r\n    border: 1px solid green;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -28919,7 +28946,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.logo[data-v-f1c9d938]{\n    padding: 0 30px 0 30px;\n    height: 90px;\n}\n.burger-div[data-v-f1c9d938]{\n    width: 20px;\n    height: 3px;\n    background-color: #696969;\n    margin: 0 0 3px 0;\n    margin-left: auto;\n    border-radius: 10px;\n}\n.burger-button[data-v-f1c9d938]{\n    display: flex;\n    flex-direction: column;\n    margin-left: auto;\n}\n.mynav[data-v-f1c9d938]{\n    padding: 25px;\n    border-bottom: 2px solid rgba(196, 196, 196, 0.53);\n    display: flex;\n}\n.mynav-brand[data-v-f1c9d938]{\n    font-weight: bold;\n    font-size: 1.2em;\n}\n\n/* .hero{\n      background-image: url(\"/img/bg-hero.jpg\");\n      background-repeat: no-repeat;\n      background-size: cover;\n  } */\n\n\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.logo[data-v-f1c9d938]{\r\n    padding: 0 30px 0 30px;\r\n    height: 90px;\n}\n.burger-div[data-v-f1c9d938]{\r\n    width: 20px;\r\n    height: 3px;\r\n    background-color: #696969;\r\n    margin: 0 0 3px 0;\r\n    margin-left: auto;\r\n    border-radius: 10px;\n}\n.burger-button[data-v-f1c9d938]{\r\n    display: flex;\r\n    flex-direction: column;\r\n    margin-left: auto;\n}\n.mynav[data-v-f1c9d938]{\r\n    padding: 25px;\r\n    border-bottom: 2px solid rgba(196, 196, 196, 0.53);\r\n    display: flex;\n}\n.mynav-brand[data-v-f1c9d938]{\r\n    font-weight: bold;\r\n    font-size: 1.2em;\n}\r\n\r\n/* .hero{\r\n      background-image: url(\"/img/bg-hero.jpg\");\r\n      background-repeat: no-repeat;\r\n      background-size: cover;\r\n  } */\r\n\r\n\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -34539,7 +34566,7 @@ var render = function () {
                     ),
                     _vm._v(" "),
                     _c("b-rate", {
-                      attrs: { "custom-text": _vm.rate },
+                      attrs: { "custom-text": "4.6" },
                       model: {
                         value: _vm.rate,
                         callback: function ($$v) {
@@ -34564,7 +34591,9 @@ var render = function () {
                     [_vm._v("PRICE:")]
                   ),
                   _vm._v(" "),
-                  _c("div", [_vm._v(_vm._s(item.product_price))]),
+                  _c("div", [
+                    _vm._v(_vm._s(_vm._f("formatPrice")(item.product_price))),
+                  ]),
                 ]),
               ]),
               _vm._v(" "),
@@ -34755,6 +34784,36 @@ var render = function () {
                                     _vm.$set(_vm.fields, "qty", $$v)
                                   },
                                   expression: "fields.qty",
+                                },
+                              }),
+                            ],
+                            1
+                          ),
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        { staticClass: "column" },
+                        [
+                          _c(
+                            "b-field",
+                            { attrs: { label: "Price" } },
+                            [
+                              _c("b-numberinput", {
+                                attrs: {
+                                  "controls-alignment": "left",
+                                  min: "0",
+                                  placeholder: "Price",
+                                  "controls-position": "compact",
+                                },
+                                model: {
+                                  value: _vm.fields.product_price,
+                                  callback: function ($$v) {
+                                    _vm.$set(_vm.fields, "product_price", $$v)
+                                  },
+                                  expression: "fields.product_price",
                                 },
                               }),
                             ],

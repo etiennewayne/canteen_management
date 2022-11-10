@@ -19,7 +19,11 @@ class VendorProductController extends Controller
         $this->middleware('vendor');
     }
 
-    public function getProductLists(Request $req){
+    public function show($id){
+        return Product::find($id);
+    }
+
+    public function getProducts(Request $req){
 
         $sort = explode('.', $req->sort_by);
 
@@ -61,6 +65,42 @@ class VendorProductController extends Controller
 
     public function update(Request $req, $id){
 
+        $imgPath = $req->file('product_img_path');
+        $product_img_path = null;
+
+        if($imgPath){
+            $validate = $req->validate([
+                'product' => ['required'],
+                'product_img_path' => ['mimes:jpg,png,bmp'],
+            ], $message = [
+                'product_img_path.mimes' => 'Type of the file must be jpg, png or bmp.'
+            ]);
+        }else{
+            $validate = $req->validate([
+                'product' => ['required'],
+            ]);
+        }
+
+        $data = Product::find($id);
+        $data->product = $req->product;
+        $data->qty = $req->qty;
+        $data->is_inv = $req->is_inv;
+        $data->product_price = $req->product_price;
+        if($imgPath){
+            //check the file and delete to update
+            if(Storage::exists('public/products/' .$data->product_img_path)) {
+                Storage::delete('public/products/' . $data->product_img_path);
+            }
+            $pathFile = $imgPath->store('public/products'); //get path of the file
+            $product_img_path = explode('/', $pathFile); //split into array using /
+            $data->product_img_path = $product_img_path[2];
+        }
+
+        $data->save();
+
+        return response()->json([
+            'status' => 'updated'
+        ],200);
     }
 
 
