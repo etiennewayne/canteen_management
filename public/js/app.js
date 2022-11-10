@@ -10365,6 +10365,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: ['propUser'],
   data: function data() {
@@ -29038,7 +29044,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.products-container[data-v-a4d20914]{\n    max-width: 1024px;\n    display: flex;\n    flex-wrap: wrap;\n    margin: auto;\n}\n.product-item[data-v-a4d20914]{\n    padding: 15px;\n    margin: 15px;\n    border: 1px solid red;\n}\n.product-img-container[data-v-a4d20914]{\n    height: 150px;\n    width: 150px;\n    position:relative;\n    overflow:hidden;\n}\n.product-img[data-v-a4d20914]{\n    position:absolute;\n    top:0;\n    bottom:0;\n    margin: auto;\n    width:100%;\n}\n.product-title[data-v-a4d20914]{\n    font-weight: bold;\n}\n@media only screen and (max-width: 1024px) {\n}\n@media only screen and (max-width: 768px) {\n}\n@media only screen and (max-width: 480px) {\n.product-item[data-v-a4d20914]{\n        padding: 15px;\n        margin: 15px auto;\n}\n}\n\n\n\n\n\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.banner[data-v-a4d20914]{\n    margin: auto;\n    max-width: 1024px;\n    height: 400px;\n    display: flex;\n}\n.banner-text[data-v-a4d20914]{\n    font-weight: bold;\n    margin: auto;\n    font-size: 2.0em;\n}\n.banner-img-container[data-v-a4d20914]{\n    height: 500px;\n    width: 500px;\n    position:relative;\n    overflow:hidden;\n}\n.banner-img[data-v-a4d20914]{\n    position:absolute;\n    top:0;\n    bottom:0;\n    margin: auto;\n    width:100%;\n}\n.product-section[data-v-a4d20914]{\n    max-width: 1024px;\n    margin: 20px auto;\n}\n.search-bar[data-v-a4d20914]{\n    margin: 15px;\n}\n.products-container[data-v-a4d20914]{\n    display: flex;\n    flex-wrap: wrap;\n}\n.product-item[data-v-a4d20914]{\n    padding: 15px;\n    margin: 15px;\n    border: 1px solid red;\n}\n.product-img-container[data-v-a4d20914]{\n    height: 150px;\n    width: 150px;\n    position:relative;\n    overflow:hidden;\n}\n.product-img[data-v-a4d20914]{\n    position:absolute;\n    top:0;\n    bottom:0;\n    margin: auto;\n    width:100%;\n}\n.product-title[data-v-a4d20914]{\n    font-weight: bold;\n}\n@media only screen and (max-width: 1024px) {\n.banner-text[data-v-a4d20914]{\n        font-weight: bold;\n        margin: auto 0 auto 15px;\n        font-size: 2.0em;\n}\n}\n@media only screen and (max-width: 768px) {\n.banner[data-v-a4d20914]{\n        display: flex;\n        flex-direction: column;\n}\n.banner-text[data-v-a4d20914]{\n        margin: auto;\n}\n.banner-img-container[data-v-a4d20914]{\n        height: 500px;\n        width: 500px;\n        position:relative;\n        overflow:hidden;\n        margin: auto;\n}\n.banner-img[data-v-a4d20914]{\n        position:absolute;\n        top:0;\n        bottom:0;\n        margin: auto;\n        width:100%;\n}\n}\n@media only screen and (max-width: 480px) {\n.banner[data-v-a4d20914]{\n        display: flex;\n        flex-direction: column;\n}\n.banner-text[data-v-a4d20914]{\n        margin: auto;\n        text-align: center;\n}\n.banner-img-container[data-v-a4d20914]{\n        width: 500px;\n}\n.product-item[data-v-a4d20914]{\n        padding: 15px;\n        margin: 15px auto;\n}\n}\n\n\n\n\n\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -35990,108 +35996,126 @@ var render = function () {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _c("div", { staticClass: "section" }, [
-      _c("div", { staticClass: "my-hero-container" }, [
-        _c("div", { staticClass: "columns is-centered" }, [
-          _c(
-            "div",
-            { staticClass: "column is-6" },
-            [
-              _c(
-                "b-field",
-                [
-                  _c("b-input", {
-                    attrs: {
-                      type: "text",
-                      expanded: "",
-                      placeholder: "Search Food here...",
-                    },
-                  }),
-                  _vm._v(" "),
-                  _c("p", { staticClass: "control" }, [
-                    _c("button", { staticClass: "button is-success" }, [
-                      _vm._v("SEARCH"),
-                    ]),
-                  ]),
-                ],
-                1
-              ),
-            ],
-            1
-          ),
-        ]),
-      ]),
-    ]),
+    _vm._m(0),
     _vm._v(" "),
-    _c(
-      "div",
-      { staticClass: "products-container" },
-      _vm._l(_vm.products.data, function (item, index) {
-        return _c("div", { key: index, staticClass: "product-item" }, [
-          _c("div", { staticClass: "product-img-container" }, [
-            _c("img", {
-              staticClass: "product-img",
-              attrs: { src: "/storage/products/" + item.product_img_path },
-            }),
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "product-title" }, [
-            _vm._v(
-              "\n                " + _vm._s(item.product) + "\n            "
-            ),
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "product-price" }, [
-            _vm._v(
-              "\n                P" +
-                _vm._s(_vm._f("formatPrice")(item.product_price)) +
-                "\n            "
-            ),
-          ]),
-          _vm._v(" "),
+    _c("div", { staticClass: "product-section" }, [
+      _c(
+        "div",
+        { staticClass: "search-bar" },
+        [
           _c(
-            "div",
-            { staticClass: "product-rating" },
+            "b-field",
             [
-              _c("b-rate", {
-                model: {
-                  value: _vm.rate,
-                  callback: function ($$v) {
-                    _vm.rate = $$v
-                  },
-                  expression: "rate",
+              _c("b-input", {
+                attrs: {
+                  type: "text",
+                  expanded: "",
+                  placeholder: "Search Food here...",
                 },
               }),
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "div",
-            { staticStyle: { display: "flex", "flex-direction": "column" } },
-            [
-              _c(
-                "b-button",
-                {
-                  staticClass: "button is-primary is-outlined my-2",
-                  attrs: { "icon-right": "cart-plus" },
-                },
-                [_vm._v("Add to Cart")]
-              ),
               _vm._v(" "),
-              _c("b-button", { staticClass: "button is-primary" }, [
-                _vm._v("Buy Now"),
+              _c("p", { staticClass: "control" }, [
+                _c("button", { staticClass: "button is-success" }, [
+                  _vm._v("SEARCH"),
+                ]),
               ]),
             ],
             1
           ),
-        ])
-      }),
-      0
-    ),
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "products-container" },
+        _vm._l(_vm.products.data, function (item, index) {
+          return _c("div", { key: index, staticClass: "product-item" }, [
+            _c("div", { staticClass: "product-img-container" }, [
+              _c("img", {
+                staticClass: "product-img",
+                attrs: { src: "/storage/products/" + item.product_img_path },
+              }),
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "product-title" }, [
+              _vm._v(
+                "\n                    " +
+                  _vm._s(item.product) +
+                  "\n                "
+              ),
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "product-price" }, [
+              _vm._v(
+                "\n                    P" +
+                  _vm._s(_vm._f("formatPrice")(item.product_price)) +
+                  "\n                "
+              ),
+            ]),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "product-rating" },
+              [
+                _c("b-rate", {
+                  model: {
+                    value: _vm.rate,
+                    callback: function ($$v) {
+                      _vm.rate = $$v
+                    },
+                    expression: "rate",
+                  },
+                }),
+              ],
+              1
+            ),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticStyle: { display: "flex", "flex-direction": "column" } },
+              [
+                _c(
+                  "b-button",
+                  {
+                    staticClass: "button is-primary is-outlined my-2",
+                    attrs: { "icon-right": "cart-plus" },
+                  },
+                  [_vm._v("Add to Cart")]
+                ),
+                _vm._v(" "),
+                _c("b-button", { staticClass: "button is-primary" }, [
+                  _vm._v("Buy Now"),
+                ]),
+              ],
+              1
+            ),
+          ])
+        }),
+        0
+      ),
+    ]),
   ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "banner" }, [
+      _c("div", { staticClass: "banner-text" }, [
+        _vm._v("\n            FOOD ORDERING MANAGEMENT SYSTEM\n        "),
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "banner-img-container" }, [
+        _c("img", {
+          staticClass: "banner-img",
+          attrs: { src: "/img/banner-logo.jpg" },
+        }),
+      ]),
+    ])
+  },
+]
 render._withStripped = true
 
 
