@@ -10361,6 +10361,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: ['propUser'],
   data: function data() {
@@ -28842,7 +28846,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.navbar-item{\n    font-weight: bold;\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.navbar-item{\n    font-weight: bold;\n}\n.navbar{\n    border-bottom: 2px solid rgb(238, 93, 67);\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -29034,7 +29038,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.products-container[data-v-a4d20914]{\n    max-width: 1024px;\n    display: flex;\n    flex-wrap: wrap;\n    border: 1px solid red;\n    margin: auto;\n}\n.product-item[data-v-a4d20914]{\n    padding: 15px;\n    margin: 15px;\n    border: 1px solid red;\n}\n.product-img-container[data-v-a4d20914]{\n    height: 150px;\n    width: 150px;\n    position:relative;\n    overflow:hidden;\n}\n.product-img[data-v-a4d20914]{\n    position:absolute;\n    top:0;\n    bottom:0;\n    margin: auto;\n    width:100%;\n}\n.product-title[data-v-a4d20914]{\n    font-weight: bold;\n}\n@media only screen and (max-width: 1024px) {\n}\n@media only screen and (max-width: 768px) {\n}\n@media only screen and (max-width: 480px) {\n.product-item[data-v-a4d20914]{\n        padding: 15px;\n        margin: 15px auto;\n}\n}\n\n\n\n\n\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.products-container[data-v-a4d20914]{\n    max-width: 1024px;\n    display: flex;\n    flex-wrap: wrap;\n    margin: auto;\n}\n.product-item[data-v-a4d20914]{\n    padding: 15px;\n    margin: 15px;\n    border: 1px solid red;\n}\n.product-img-container[data-v-a4d20914]{\n    height: 150px;\n    width: 150px;\n    position:relative;\n    overflow:hidden;\n}\n.product-img[data-v-a4d20914]{\n    position:absolute;\n    top:0;\n    bottom:0;\n    margin: auto;\n    width:100%;\n}\n.product-title[data-v-a4d20914]{\n    font-weight: bold;\n}\n@media only screen and (max-width: 1024px) {\n}\n@media only screen and (max-width: 768px) {\n}\n@media only screen and (max-width: 480px) {\n.product-item[data-v-a4d20914]{\n        padding: 15px;\n        margin: 15px auto;\n}\n}\n\n\n\n\n\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -36058,6 +36062,26 @@ var render = function () {
                   expression: "rate",
                 },
               }),
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticStyle: { display: "flex", "flex-direction": "column" } },
+            [
+              _c(
+                "b-button",
+                {
+                  staticClass: "button is-primary is-outlined my-2",
+                  attrs: { "icon-right": "cart-plus" },
+                },
+                [_vm._v("Add to Cart")]
+              ),
+              _vm._v(" "),
+              _c("b-button", { staticClass: "button is-primary" }, [
+                _vm._v("Buy Now"),
+              ]),
             ],
             1
           ),

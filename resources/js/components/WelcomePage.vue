@@ -30,6 +30,10 @@
                 <div class="product-rating">
                     <b-rate v-model="rate"></b-rate>
                 </div>
+                <div style="display: flex; flex-direction: column;">
+                    <b-button class="button is-primary is-outlined my-2" icon-right="cart-plus">Add to Cart</b-button>
+                    <b-button class="button is-primary">Buy Now</b-button>
+                </div>
             </div>
         </div>
 
@@ -63,7 +67,7 @@ export default {
                 product: '',
             },
 
-            
+
         }
 
     },
@@ -99,7 +103,6 @@ export default {
         max-width: 1024px;
         display: flex;
         flex-wrap: wrap;
-        border: 1px solid red;
         margin: auto;
     }
 

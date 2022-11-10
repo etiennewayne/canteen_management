@@ -87,4 +87,8 @@ export default {
     .navbar-item{
         font-weight: bold;
     }
+
+    .navbar{
+        border-bottom: 2px solid rgb(238, 93, 67);
+    }
 </style>
