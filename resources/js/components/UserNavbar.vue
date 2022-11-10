@@ -2,7 +2,7 @@
     <b-navbar>
         <template #brand>
             <b-navbar-item>
-                <h1 class="title is-4">CANTEEN</h1>
+                <img src="/img/logo.png">
             </b-navbar-item>
         </template>
 

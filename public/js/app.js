@@ -10344,16 +10344,56 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: ['propUser'],
   data: function data() {
     return {
+      total: 0,
+      loading: false,
+      sortField: 'product_id',
+      sortOrder: 'desc',
+      page: 1,
+      perPage: 5,
+      defaultSortDirection: 'asc',
       locale: undefined,
-      isModalActive: false
+      isModalActive: false,
+      rate: 4,
+      products: [],
+      search: {
+        product: ''
+      }
     };
   },
-  methods: {},
-  mounted: function mounted() {}
+  methods: {
+    loadProducts: function loadProducts() {
+      var _this = this;
+
+      var params = ["sort_by=".concat(this.sortField, ".").concat(this.sortOrder), "product=".concat(this.search.product), "perpage=".concat(this.perPage), "page=".concat(this.page)].join('&');
+      axios.get("/welcome-page-load-all-products?".concat(params)).then(function (res) {
+        _this.products = res.data;
+      });
+    }
+  },
+  mounted: function mounted() {
+    this.loadProducts();
+  }
 });
 
 /***/ }),
@@ -28994,7 +29034,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n@media only screen and (max-width: 1024px) {\n}\n@media only screen and (max-width: 768px) {\n}\n@media only screen and (max-width: 480px) {\n}\n\n\n\n\n\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.products-container[data-v-a4d20914]{\n    max-width: 1024px;\n    display: flex;\n    flex-wrap: wrap;\n    border: 1px solid red;\n    margin: auto;\n}\n.product-item[data-v-a4d20914]{\n    padding: 15px;\n    margin: 15px;\n    border: 1px solid red;\n}\n.product-img-container[data-v-a4d20914]{\n    height: 150px;\n    width: 150px;\n    position:relative;\n    overflow:hidden;\n}\n.product-img[data-v-a4d20914]{\n    position:absolute;\n    top:0;\n    bottom:0;\n    margin: auto;\n    width:100%;\n}\n.product-title[data-v-a4d20914]{\n    font-weight: bold;\n}\n@media only screen and (max-width: 1024px) {\n}\n@media only screen and (max-width: 768px) {\n}\n@media only screen and (max-width: 480px) {\n.product-item[data-v-a4d20914]{\n        padding: 15px;\n        margin: 15px auto;\n}\n}\n\n\n\n\n\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -33771,7 +33811,7 @@ var render = function () {
         fn: function () {
           return [
             _c("b-navbar-item", [
-              _c("h1", { staticClass: "title is-4" }, [_vm._v("CANTEEN")]),
+              _c("img", { attrs: { src: "/img/logo.png" } }),
             ]),
           ]
         },
@@ -35978,6 +36018,53 @@ var render = function () {
         ]),
       ]),
     ]),
+    _vm._v(" "),
+    _c(
+      "div",
+      { staticClass: "products-container" },
+      _vm._l(_vm.products.data, function (item, index) {
+        return _c("div", { key: index, staticClass: "product-item" }, [
+          _c("div", { staticClass: "product-img-container" }, [
+            _c("img", {
+              staticClass: "product-img",
+              attrs: { src: "/storage/products/" + item.product_img_path },
+            }),
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "product-title" }, [
+            _vm._v(
+              "\n                " + _vm._s(item.product) + "\n            "
+            ),
+          ]),
+          _vm._v(" "),
+          _c("div", { staticClass: "product-price" }, [
+            _vm._v(
+              "\n                P" +
+                _vm._s(_vm._f("formatPrice")(item.product_price)) +
+                "\n            "
+            ),
+          ]),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "product-rating" },
+            [
+              _c("b-rate", {
+                model: {
+                  value: _vm.rate,
+                  callback: function ($$v) {
+                    _vm.rate = $$v
+                  },
+                  expression: "rate",
+                },
+              }),
+            ],
+            1
+          ),
+        ])
+      }),
+      0
+    ),
   ])
 }
 var staticRenderFns = []

@@ -1,3 +1,4 @@
+@import url(https://fonts.googleapis.com/css2?family=Kanit:wght@300&display=swap);
 /* MaterialDesignIcons.com */
 @font-face {
   font-family: "Material Design Icons";
@@ -26632,6 +26633,7 @@
 }
 @charset "UTF-8";
 html body {
+  font-family: "Kanit", sans-serif;
   background: white;
 }
 

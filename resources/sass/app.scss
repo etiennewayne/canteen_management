@@ -2,35 +2,22 @@
 //@import url('https://fonts.googleapis.com/css?family=Tangerine');
 // Variables
 @import 'variables';
-
 //@import url('/fonts/Roboto/Roboto-Medium.ttf');
-
-
 @import '~@mdi/font/css/materialdesignicons.css';
-
-
 //ref website -> https://materialdesignicons.com/
 //npm i @mdi/font
-
 // Bootstrap
 //@import '~bootstrap/scss/bootstrap';
-
-
+@import url('https://fonts.googleapis.com/css2?family=Kanit:wght@300&display=swap');
 //font awesome
 //@import '~font-awesome/css/font-awesome.css';
 //npm i font-awesome
 //https://fontawesome.com/v4.7.0/
-
-
-
-
-html body{
+html body {
     //font-family: 'Familjen Grotesk', sans-serif;
+    font-family: 'Kanit', sans-serif;
     background: white;
 }
-
-
-
 
 @media screen and (max-width: 1023px) {
     .b-sidebar {
@@ -63,6 +50,7 @@ html body{
         }
     }
 }
+
 @media screen and (min-width: 1024px) {
     .b-sidebar {
         .sidebar-content {
@@ -94,6 +82,7 @@ html body{
         }
     }
 }
+
 .is-mini-expand {
     .menu-list a {
         white-space: nowrap;
@@ -102,25 +91,20 @@ html body{
     }
 }
 
-
-
-.box{
+.box {
     border: 1px solid rgb(228, 228, 228);
 }
-
 
 .tooth-chart {
     width: 450px;
 }
 
 #Spots {
-
     polygon,
     path {
         -webkit-transition: fill .25s;
         transition: fill .25s;
     }
-
     polygon:hover,
     polygon:active,
     path:hover,
@@ -129,21 +113,17 @@ html body{
     }
 }
 
-
-.line{
+.line {
     height: 10px;
     background-color: #3490dc;
 }
 
-.color-text{
+.color-text {
     color: #d03316;
-} 
-
-
+}
 
 //@import '~animate.css/animate';
 //npm install animate.css --save
-
 // Import Bulma's core
 @import "~bulma/sass/utilities/_all";
 //
@@ -155,85 +135,22 @@ $primary-dark: findDarkColor($primary);
 $primary-invert: findColorInvert($primary);
 $twitter: #4099FF;
 $twitter-invert: findColorInvert($twitter);
-
 // Lists and maps
 $custom-colors: null !default;
 $custom-shades: null !default;
-
 // Setup $colors to use as bulma classes (e.g. 'is-twitter')
-    $colors: mergeColorMaps(
-            (
-                "white": (
-                    $white,
-                    $black,
-                ),
-                "black": (
-                    $black,
-                    $white,
-                ),
-                "light": (
-                    $light,
-                    $light-invert,
-                ),
-                "dark": (
-                    $dark,
-                    $dark-invert,
-                ),
-                "primary": (
-                    $primary,
-                    $primary-invert,
-                    $primary-light,
-                    $primary-dark,
-                ),
-                "link": (
-                    $link,
-                    $link-invert,
-                    $link-light,
-                    $link-dark,
-                ),
-                "info": (
-                    $info,
-                    $info-invert,
-                    $info-light,
-                    $info-dark,
-                ),
-                "success": (
-                    $success,
-                    $success-invert,
-                    $success-light,
-                    $success-dark,
-                ),
-                "warning": (
-                    $warning,
-                    $warning-invert,
-                    $warning-light,
-                    $warning-dark,
-                ),
-                "danger": (
-                    $danger,
-                    $danger-invert,
-                    $danger-light,
-                    $danger-dark,
-                ),
-            ),
-            $custom-colors
-    );
-
+$colors: mergeColorMaps( ( "white": ( $white, $black, ), "black": ( $black, $white, ), "light": ( $light, $light-invert, ), "dark": ( $dark, $dark-invert, ), "primary": ( $primary, $primary-invert, $primary-light, $primary-dark, ), "link": ( $link, $link-invert, $link-light, $link-dark, ), "info": ( $info, $info-invert, $info-light, $info-dark, ), "success": ( $success, $success-invert, $success-light, $success-dark, ), "warning": ( $warning, $warning-invert, $warning-light, $warning-dark, ), "danger": ( $danger, $danger-invert, $danger-light, $danger-dark, ), ),
+$custom-colors);
 //// Links
 $link: $primary;
 $link-invert: $primary-invert;
 $link-focus-border: $primary;
-
-
 //navbar
 $navbar-height: 5rem;
 $navbar-item-img-max-height: 4rem;
-
-
 //$navbar-burger-color: white;
 //$navbar-item-color: #ffffff;
 //$navbar-item-hover-color: #a7f1a7;
-
 //.navbar-start > .navbar-item {
 //    font-weight: bold;
 //
@@ -249,23 +166,13 @@ $navbar-item-img-max-height: 4rem;
 //.navbar-start > .navbar-item > .navbar-link:hover{
 //    border-bottom: 3px solid blue;
 //}
-
-
 // Import Bulma and Buefy styles
-
 @import "~bulma";
-
-.sidebar-content{
+.sidebar-content {
     background-color: #2a2a2a;
 }
 
-
 @import "~buefy/src/scss/buefy";
-
-
-
-
-
 // Import only what you need from Bulma
 //@import "~bulma/sass/utilities/_all.sass";
 //@import "~bulma/sass/base/_all.sass";
@@ -276,4 +183,3 @@ $navbar-item-img-max-height: 4rem;
 //@import "~bulma/sass/components/navbar.sass";
 //@import "~bulma/sass/layout/hero.sass";
 //@import "~bulma/sass/layout/section.sass";
-
