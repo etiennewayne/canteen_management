@@ -14,7 +14,7 @@ class Product extends Model
     protected $primaryKey = 'product_id';
 
 
-    protected $fillable = ['store_id', 'store', 'owner', 'contact_no'];
+    protected $fillable = ['store_id', 'product', 'qty', 'is_inv', 'is_available', 'product_price', 'product_img_path'];
 
     public function store(){
         return $this->belongsTo(User::class, 'store_id', 'store_id');

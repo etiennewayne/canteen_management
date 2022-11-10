@@ -29,9 +29,9 @@ class VendorProductListController extends Controller
 
     public function getProductLists(Request $req){
         //return ProductList::all();
-        
+
         $user = Auth::user();
-       
+
         $sort = explode('.', $req->sort_by);
 
         $data = ProductList::where('product', 'like', $req->product . '%')
@@ -94,7 +94,7 @@ class VendorProductListController extends Controller
                 'product' => ['required'],
             ]);
         }
-       
+
         $data = ProductList::find($id);
         $data->product = $req->product;
 
@@ -107,7 +107,7 @@ class VendorProductListController extends Controller
             $product_img_path = explode('/', $pathFile); //split into array using /
             $data->product_img_path = $product_img_path[2];
         }
-        
+
         $data->save();
 
         return response()->json([

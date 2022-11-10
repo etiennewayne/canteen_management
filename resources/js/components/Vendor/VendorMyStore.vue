@@ -58,7 +58,7 @@
                                      :message="this.errors.store ? this.errors.store[0] : ''">
                                 <b-input type="text" v-model="fields.store" placeholder="Store" required />
                             </b-field>
-                            <b-field label="Owner"
+                            <b-field label="Owner/Manager"
                                      :type="this.errors.owner ? 'is-danger':''"
                                      :message="this.errors.owner ? this.errors.owner[0] : ''">
                                 <b-input type="text" v-model="fields.owner" placeholder="Owner" required />
