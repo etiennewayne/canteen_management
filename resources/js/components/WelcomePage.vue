@@ -33,7 +33,7 @@
                     <div class="product-rating">
                         <b-rate v-model="rate"></b-rate>
                     </div>
-                    <div style="display: flex; flex-direction: column;">
+                    <div class="product-footer">
                         <b-button class="button is-primary is-outlined my-2" icon-right="cart-plus">Add to Cart</b-button>
                         <b-button class="button is-primary">Buy Now</b-button>
                     </div>
@@ -41,7 +41,7 @@
             </div>
 
         </div>
-        
+
 
     </div> <!--root div-->
 </template>
@@ -141,12 +141,15 @@ export default {
     .products-container{
         display: flex;
         flex-wrap: wrap;
+
     }
-   
+
     .product-item{
         padding: 15px;
         margin: 15px;
+        max-width: 185px;
         border: 1px solid red;
+        position: relative;
     }
 
     .product-img-container{
@@ -164,6 +167,15 @@ export default {
     }
     .product-title{
         font-weight: bold;
+    }
+    .product-rating{
+        position: relative;
+    }
+    .product-footer{
+        display: flex;
+        flex-direction: column;
+        /*position: absolute;*/
+        /*bottom: 0;*/
     }
 
 

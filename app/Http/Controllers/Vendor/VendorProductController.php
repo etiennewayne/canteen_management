@@ -55,6 +55,7 @@ class VendorProductController extends Controller
             'product' => $req->product,
             'qty' => $req->qty,
             'is_inv' => $req->is_inv,
+            'product_price' => $req->product_price,
             'product_img_path' => $imgPath[2] != null ? $imgPath[2]: '',
         ]);
 
@@ -86,6 +87,7 @@ class VendorProductController extends Controller
         $data->qty = $req->qty;
         $data->is_inv = $req->is_inv;
         $data->product_price = $req->product_price;
+
         if($imgPath){
             //check the file and delete to update
             if(Storage::exists('public/products/' .$data->product_img_path)) {
