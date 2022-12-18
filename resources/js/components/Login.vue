@@ -1,15 +1,17 @@
 <template>
     <div class="login-wrapper">
         <div class="login">
-
             <form @submit.prevent="submit">
-                <div class="box">
-                    <div class="title is-4">
-                        SECURITY CHECK
+                <div class="box-login">
+                    <div class="box-header">
+                        <div class="title is-4">
+                            <b-icon icon="login" class="sign-in-logo"></b-icon>
+                            Sign In
+                        </div>
                     </div>
-                    <hr>
+                 
 
-                    <div class="panel-body">
+                    <div class="box-body">
                         <b-field label="Username" label-position="on-border"
                             :type="this.errors.username ? 'is-danger':''"
                             :message="this.errors.username ? this.errors.username[0] : ''">
@@ -18,12 +20,10 @@
 
                         <b-field label="Password" label-position="on-border">
                             <b-input type="password" v-model="fields.password" password-reveal placeholder="Password" />
-                        </b-field>
-
-                        <div class="buttons">
-                            <button class="button is-primary">LOGIN</button>
-                        </div>
+                        </b-field> 
                     </div>
+
+                    <button class="box-button is-primary">Login</button>
                 </div>
             </form>
 
@@ -71,21 +71,6 @@ export default {
 </script>
 
 
-<style scoped>
-    .login-wrapper{
-        height: 100vh;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-
-    .login{
-        width: 500px;
-    }
-
-    .box{
-        border: 1px solid rgb(223, 223, 223);
-    }
-
-
+<style scoped src="../../css/login.css">
+    
 </style>

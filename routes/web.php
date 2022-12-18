@@ -64,6 +64,7 @@ Route::post('/sign-up', [App\Http\Controllers\SignUpController::class, 'store'])
 
 
 Route::get('/get-user/{id}', [App\Http\Controllers\OpenUserController::class, 'getUser']);
+Route::get('/get-offices', [App\Http\Controllers\OpenOfficeController::class, 'getOffices']);
 
 
 
@@ -103,49 +104,40 @@ Route::delete('/vendor/my-products/{id}', [App\Http\Controllers\Vendor\VendorPro
 
 
 
+Route::get('/buy-now/{product_id}', [App\Http\Controllers\BuyNowController::class, 'index']);
+Route::post('/buy-now-store', [App\Http\Controllers\BuyNowController::class, 'store']);
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*     USER          */
+Route::get('/my-order', [App\Http\Controllers\User\MyOrderController::class, 'index']);
+
+
+
+
+
+
+
+
+
+
+
 Route::get('/session', function(){
     return Session::all();
 });
 
 
-Route::get('/before', function(){
-    //return Session::all();
 
-
-    $beforeDay = date('Y-m-d H:i', strtotime('+24 hour', strtotime(date('Y-m-d H:i'))));
-
-    $data = \DB::table('appointments')
-        ->where('appoint_date', date('Y-m-d', strtotime($beforeDay)))
-        ->where('appoint_time', date('H:i', strtotime($beforeDay)))
-        ->where('is_notify', 0)
-        ->get();
-
-    foreach($data as $i){
-
-        $user = User::find($i->user_id);
-
-        $msg = 'Hi '.$user->lname . ', ' . $user->fname . ', this is just a reminder that you have an appointment tomorrow. Your ref no. is: ' . $i->qr_code . '.';
-        try{
-            Http::withHeaders([
-                'Content-Type' => 'text/plain'
-            ])->post('http://'. env('IP_SMS_GATEWAY') .'/services/api/messaging?Message='.$msg.'&To='.$user->contact_no.'&Slot=1', []);
-        }catch(Exception $e){} //just hide the error
-
-        $appoint = Appointment::find($i->appointment_id);
-        $appoint->is_notify = 1;
-        $appoint->save();
-    }
-
-    //$beforeDay = date($today, strtotime('-1 day'));
-    return $data;
-});
-
-
-
-
-Route::get('/collect', function(){
-    return $collection = collect([1, 2, 3]);
-});
 
 
 Route::get('/applogout', function(Request $req){

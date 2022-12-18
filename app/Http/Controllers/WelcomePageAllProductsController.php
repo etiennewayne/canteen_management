@@ -11,10 +11,9 @@ class WelcomePageAllProductsController extends Controller
 
 
     public function getProducts(Request $req){
-
         $sort = explode('.', $req->sort_by);
         
-        $data = Product::where('product', 'like', $req->prod . '%')
+        $data = Product::where('product', 'like', $req->product . '%')
         ->orderBy($sort[0], $sort[1])
         ->paginate($req->perpage);
 

@@ -18,8 +18,8 @@
             <!-- <b-navbar-item href="/about">
                 ABOUT
             </b-navbar-item> -->
-            <b-navbar-item href="/my-appointment" v-if="currentLogin">
-                MY APPOINTMENT
+            <b-navbar-item href="/my-order" v-if="currentLogin">
+                MY ORDER
             </b-navbar-item>
             <b-navbar-item tag="div">
                 <div v-if="!currentLogin" class="buttons">

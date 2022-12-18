@@ -12,9 +12,12 @@
         <div class="product-section">
             <div class="search-bar">
                 <b-field>
-                    <b-input type="text" expanded placeholder="Search Food here..."></b-input>
+                    <b-input type="text" expanded 
+                        placeholder="Search Food here..."
+                        v-model="search.product"
+                        @keydown.native.enter="loadProducts"></b-input>
                     <p class="control">
-                        <button class="button is-success">SEARCH</button>
+                        <button class="button is-success" @click="loadProducts">SEARCH</button>
                     </p>
                 </b-field>
             </div>
@@ -35,7 +38,7 @@
                     </div>
                     <div class="product-footer">
                         <b-button class="button is-primary is-outlined my-2" icon-right="cart-plus">Add to Cart</b-button>
-                        <b-button class="button is-primary">Buy Now</b-button>
+                        <b-button class="button is-primary" tag="a" :href="`/buy-now/${item.product_id}`">Buy Now</b-button>
                     </div>
                 </div>
             </div>
