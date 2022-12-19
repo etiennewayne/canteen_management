@@ -29,7 +29,27 @@ class BuyNowController extends Controller
 
 
     public function store(Request $req){
+       
+        $req->validate([
+            'qty' => ['min:1'],
+            'delivery_type' => ['required'],
+        ],[
+            'qty.min' => 'Quantity must have atleast 1.'
+        ]);
+
+        if($req->delivery_type == 'DELIVER'){
+            $req->validate([
+                'qty' => ['min:1'],
+                'delivery_type' => ['required'],
+                'office' => ['required'],
+            ],[
+                'qty.min' => 'Quantity must have atleast 1.'
+            ]);
+        }
+            
+
         return $req;
+
         $user =  Auth::user();
 
         $data = ProductOrder::create([

@@ -74,9 +74,6 @@
 </template>
 
 <script>
-import { tsImportEqualsDeclaration } from '@babel/types'
-
-
 export default {
     props: ['propRole', 'propProductId', 'propProduct'],
     data() {
@@ -93,9 +90,8 @@ export default {
                 delivery_type: '',
                 office: '',
             },
-            
-            offices: [],
 
+            offices: [],
         }
     },
 
@@ -105,7 +101,6 @@ export default {
                 this.product = res.data
             })
         },
-
         initData(){
             this.productId = parseFloat(this.propProductId)
             this.product = JSON.parse(this.propProduct)

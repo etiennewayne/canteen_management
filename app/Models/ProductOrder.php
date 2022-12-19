@@ -18,7 +18,9 @@ class ProductOrder extends Model
         'product_id', 'qty', 
         'price', 
         'delivery_type', '
-        date_purchase', 'office'];
+        date_purchase', 
+        'office'
+    ];
 
     public function customer(){
         return $this->hasOne(User::class, 'user_id', 'customer_id');
