@@ -9243,6 +9243,53 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -9256,6 +9303,16 @@ __webpack_require__.r(__webpack_exports__);
       defaultSortDirection: 'asc',
       search: {
         product: ''
+      },
+      fields: {
+        product_id: 0
+      },
+      errors: {},
+      modalRating: false,
+      btnClass: {
+        'is-success': true,
+        'button': true,
+        'is-loading': false
       }
     };
   },
@@ -9303,6 +9360,13 @@ __webpack_require__.r(__webpack_exports__);
     },
     setPerPage: function setPerPage() {
       this.loadAsyncData();
+    },
+    rateProduct: function rateProduct(dataId) {
+      this.modalRating = true;
+      this.fields.product_id = dataId;
+    },
+    submitRating: function submitRating() {
+      axios.post('/submit-product-rating', this.fields).then(function (res) {})["catch"](function (err) {});
     }
   },
   mounted: function mounted() {
@@ -34491,237 +34555,344 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [
-    _c("div", { staticClass: "section" }, [
-      _c("div", { staticClass: "columns is-centered" }, [
-        _c("div", { staticClass: "column is-8" }, [
-          _c("div", { staticClass: "box" }, [
-            _c("div", { staticClass: "box-header" }, [
-              _vm._v(
-                "\n                        Order History\n                    "
+  return _c(
+    "div",
+    [
+      _c("div", { staticClass: "section" }, [
+        _c("div", { staticClass: "columns is-centered" }, [
+          _c("div", { staticClass: "column is-8" }, [
+            _c("div", { staticClass: "box" }, [
+              _c("div", { staticClass: "box-header" }, [
+                _vm._v(
+                  "\n                        Order History\n                    "
+                ),
+              ]),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "box-body" },
+                [
+                  _c(
+                    "b-table",
+                    {
+                      attrs: {
+                        data: _vm.data,
+                        loading: _vm.loading,
+                        paginated: "",
+                        "backend-pagination": "",
+                        total: _vm.total,
+                        "pagination-rounded": true,
+                        "per-page": _vm.perPage,
+                        "aria-next-label": "Next page",
+                        "aria-previous-label": "Previous page",
+                        "aria-page-label": "Page",
+                        "aria-current-label": "Current page",
+                        "backend-sorting": "",
+                        "default-sort-direction": _vm.defaultSortDirection,
+                      },
+                      on: { "page-change": _vm.onPageChange, sort: _vm.onSort },
+                    },
+                    [
+                      _c("b-table-column", {
+                        attrs: {
+                          field: "product_order_id",
+                          label: "ID",
+                          sortable: "",
+                        },
+                        scopedSlots: _vm._u([
+                          {
+                            key: "default",
+                            fn: function (props) {
+                              return [
+                                _vm._v(
+                                  "\n                                " +
+                                    _vm._s(props.row.product_order_id) +
+                                    "\n                            "
+                                ),
+                              ]
+                            },
+                          },
+                        ]),
+                      }),
+                      _vm._v(" "),
+                      _c("b-table-column", {
+                        attrs: { field: "store", label: "Store", sortable: "" },
+                        scopedSlots: _vm._u([
+                          {
+                            key: "default",
+                            fn: function (props) {
+                              return [
+                                _vm._v(
+                                  "\n                                " +
+                                    _vm._s(props.row.product.store.store) +
+                                    "\n                            "
+                                ),
+                              ]
+                            },
+                          },
+                        ]),
+                      }),
+                      _vm._v(" "),
+                      _c("b-table-column", {
+                        attrs: {
+                          field: "username",
+                          label: "Product",
+                          sortable: "",
+                        },
+                        scopedSlots: _vm._u([
+                          {
+                            key: "default",
+                            fn: function (props) {
+                              return [
+                                _vm._v(
+                                  "\n                                " +
+                                    _vm._s(props.row.product.product) +
+                                    "\n                            "
+                                ),
+                              ]
+                            },
+                          },
+                        ]),
+                      }),
+                      _vm._v(" "),
+                      _c("b-table-column", {
+                        attrs: {
+                          field: "is_delivered",
+                          label: "Delivered",
+                          centered: "",
+                          sortable: "",
+                        },
+                        scopedSlots: _vm._u([
+                          {
+                            key: "default",
+                            fn: function (props) {
+                              return [
+                                props.row.is_delivered
+                                  ? _c("span", [_vm._v("Yes")])
+                                  : _c("span", [_vm._v("No")]),
+                              ]
+                            },
+                          },
+                        ]),
+                      }),
+                      _vm._v(" "),
+                      _c("b-table-column", {
+                        attrs: { field: "qty", label: "Qty", centered: "" },
+                        scopedSlots: _vm._u([
+                          {
+                            key: "default",
+                            fn: function (props) {
+                              return [
+                                _vm._v(
+                                  "\n                                " +
+                                    _vm._s(props.row.qty) +
+                                    "\n                            "
+                                ),
+                              ]
+                            },
+                          },
+                        ]),
+                      }),
+                      _vm._v(" "),
+                      _c("b-table-column", {
+                        attrs: { field: "price", label: "Price", centered: "" },
+                        scopedSlots: _vm._u([
+                          {
+                            key: "default",
+                            fn: function (props) {
+                              return [
+                                _vm._v(
+                                  "\n                                " +
+                                    _vm._s(
+                                      _vm._f("formatPrice")(props.row.price)
+                                    ) +
+                                    "\n                            "
+                                ),
+                              ]
+                            },
+                          },
+                        ]),
+                      }),
+                      _vm._v(" "),
+                      _c("b-table-column", {
+                        attrs: { field: "date_order", label: "Date Order" },
+                        scopedSlots: _vm._u([
+                          {
+                            key: "default",
+                            fn: function (props) {
+                              return [
+                                _vm._v(
+                                  "\n                                " +
+                                    _vm._s(props.row.date_order) +
+                                    "\n                            "
+                                ),
+                              ]
+                            },
+                          },
+                        ]),
+                      }),
+                      _vm._v(" "),
+                      _c("b-table-column", {
+                        attrs: { label: "Action" },
+                        scopedSlots: _vm._u([
+                          {
+                            key: "default",
+                            fn: function (props) {
+                              return [
+                                _c(
+                                  "div",
+                                  { staticClass: "is-flex" },
+                                  [
+                                    _c(
+                                      "b-tooltip",
+                                      {
+                                        attrs: {
+                                          label: "Rate",
+                                          type: "is-warning",
+                                        },
+                                      },
+                                      [
+                                        _c("b-button", {
+                                          staticClass: "button is-info mr-1",
+                                          attrs: {
+                                            tag: "a",
+                                            "icon-right": "star",
+                                          },
+                                          on: {
+                                            click: function ($event) {
+                                              return _vm.rateProduct(
+                                                props.row.product_id
+                                              )
+                                            },
+                                          },
+                                        }),
+                                      ],
+                                      1
+                                    ),
+                                  ],
+                                  1
+                                ),
+                              ]
+                            },
+                          },
+                        ]),
+                      }),
+                    ],
+                    1
+                  ),
+                ],
+                1
               ),
             ]),
-            _vm._v(" "),
-            _c(
-              "div",
-              { staticClass: "box-body" },
-              [
-                _c(
-                  "b-table",
-                  {
-                    attrs: {
-                      data: _vm.data,
-                      loading: _vm.loading,
-                      paginated: "",
-                      "backend-pagination": "",
-                      total: _vm.total,
-                      "pagination-rounded": true,
-                      "per-page": _vm.perPage,
-                      "aria-next-label": "Next page",
-                      "aria-previous-label": "Previous page",
-                      "aria-page-label": "Page",
-                      "aria-current-label": "Current page",
-                      "backend-sorting": "",
-                      "default-sort-direction": _vm.defaultSortDirection,
-                    },
-                    on: { "page-change": _vm.onPageChange, sort: _vm.onSort },
-                  },
-                  [
-                    _c("b-table-column", {
-                      attrs: {
-                        field: "product_order_id",
-                        label: "ID",
-                        sortable: "",
-                      },
-                      scopedSlots: _vm._u([
-                        {
-                          key: "default",
-                          fn: function (props) {
-                            return [
-                              _vm._v(
-                                "\n                                " +
-                                  _vm._s(props.row.product_order_id) +
-                                  "\n                            "
-                              ),
-                            ]
-                          },
-                        },
-                      ]),
-                    }),
-                    _vm._v(" "),
-                    _c("b-table-column", {
-                      attrs: { field: "store", label: "Store", sortable: "" },
-                      scopedSlots: _vm._u([
-                        {
-                          key: "default",
-                          fn: function (props) {
-                            return [
-                              _vm._v(
-                                "\n                                " +
-                                  _vm._s(props.row.product.store.store) +
-                                  "\n                            "
-                              ),
-                            ]
-                          },
-                        },
-                      ]),
-                    }),
-                    _vm._v(" "),
-                    _c("b-table-column", {
-                      attrs: {
-                        field: "username",
-                        label: "Product",
-                        sortable: "",
-                      },
-                      scopedSlots: _vm._u([
-                        {
-                          key: "default",
-                          fn: function (props) {
-                            return [
-                              _vm._v(
-                                "\n                                " +
-                                  _vm._s(props.row.product.product) +
-                                  "\n                            "
-                              ),
-                            ]
-                          },
-                        },
-                      ]),
-                    }),
-                    _vm._v(" "),
-                    _c("b-table-column", {
-                      attrs: {
-                        field: "is_delivered",
-                        label: "Delivered",
-                        centered: "",
-                        sortable: "",
-                      },
-                      scopedSlots: _vm._u([
-                        {
-                          key: "default",
-                          fn: function (props) {
-                            return [
-                              props.row.is_delivered
-                                ? _c("span", [_vm._v("Yes")])
-                                : _c("span", [_vm._v("No")]),
-                            ]
-                          },
-                        },
-                      ]),
-                    }),
-                    _vm._v(" "),
-                    _c("b-table-column", {
-                      attrs: { field: "qty", label: "Qty", centered: "" },
-                      scopedSlots: _vm._u([
-                        {
-                          key: "default",
-                          fn: function (props) {
-                            return [
-                              _vm._v(
-                                "\n                                " +
-                                  _vm._s(props.row.qty) +
-                                  "\n                            "
-                              ),
-                            ]
-                          },
-                        },
-                      ]),
-                    }),
-                    _vm._v(" "),
-                    _c("b-table-column", {
-                      attrs: { field: "price", label: "Price", centered: "" },
-                      scopedSlots: _vm._u([
-                        {
-                          key: "default",
-                          fn: function (props) {
-                            return [
-                              _vm._v(
-                                "\n                                " +
-                                  _vm._s(
-                                    _vm._f("formatPrice")(props.row.price)
-                                  ) +
-                                  "\n                            "
-                              ),
-                            ]
-                          },
-                        },
-                      ]),
-                    }),
-                    _vm._v(" "),
-                    _c("b-table-column", {
-                      attrs: { field: "date_order", label: "Date Order" },
-                      scopedSlots: _vm._u([
-                        {
-                          key: "default",
-                          fn: function (props) {
-                            return [
-                              _vm._v(
-                                "\n                                " +
-                                  _vm._s(props.row.date_order) +
-                                  "\n                            "
-                              ),
-                            ]
-                          },
-                        },
-                      ]),
-                    }),
-                    _vm._v(" "),
-                    _c("b-table-column", {
-                      attrs: { label: "Action" },
-                      scopedSlots: _vm._u([
-                        {
-                          key: "default",
-                          fn: function (props) {
-                            return [
-                              _c(
-                                "div",
-                                { staticClass: "is-flex" },
-                                [
-                                  _c(
-                                    "b-tooltip",
-                                    {
-                                      attrs: {
-                                        label: "Rate",
-                                        type: "is-warning",
-                                      },
-                                    },
-                                    [
-                                      _c("b-button", {
-                                        staticClass: "button is-info mr-1",
-                                        attrs: {
-                                          tag: "a",
-                                          "icon-right": "star",
-                                        },
-                                        on: {
-                                          click: function ($event) {
-                                            return _vm.rateProduct(
-                                              props.row.product_id
-                                            )
-                                          },
-                                        },
-                                      }),
-                                    ],
-                                    1
-                                  ),
-                                ],
-                                1
-                              ),
-                            ]
-                          },
-                        },
-                      ]),
-                    }),
-                  ],
-                  1
-                ),
-              ],
-              1
-            ),
           ]),
         ]),
       ]),
-    ]),
-  ])
+      _vm._v(" "),
+      _c(
+        "b-modal",
+        {
+          attrs: {
+            "has-modal-card": "",
+            "trap-focus": "",
+            width: 640,
+            "aria-role": "dialog",
+            "aria-label": "Modal",
+            "aria-modal": "",
+          },
+          model: {
+            value: _vm.modalRating,
+            callback: function ($$v) {
+              _vm.modalRating = $$v
+            },
+            expression: "modalRating",
+          },
+        },
+        [
+          _c(
+            "form",
+            {
+              on: {
+                submit: function ($event) {
+                  $event.preventDefault()
+                  return _vm.submitRating.apply(null, arguments)
+                },
+              },
+            },
+            [
+              _c("div", { staticClass: "modal-card" }, [
+                _c("header", { staticClass: "modal-card-head" }, [
+                  _c("p", { staticClass: "modal-card-title" }, [
+                    _vm._v("Rate Product"),
+                  ]),
+                  _vm._v(" "),
+                  _c("button", {
+                    staticClass: "delete",
+                    attrs: { type: "button" },
+                    on: {
+                      click: function ($event) {
+                        _vm.modalRating = false
+                      },
+                    },
+                  }),
+                ]),
+                _vm._v(" "),
+                _c("section", { staticClass: "modal-card-body" }, [
+                  _c("div", {}, [
+                    _c("div", { staticClass: "columns" }, [
+                      _c(
+                        "div",
+                        { staticClass: "column" },
+                        [
+                          _c(
+                            "b-field",
+                            {
+                              attrs: {
+                                label: "How's the product?",
+                                type: this.errors.rating ? "is-danger" : "",
+                                message: this.errors.rating
+                                  ? this.errors.rating[0]
+                                  : "",
+                              },
+                            },
+                            [
+                              _c("b-rate", {
+                                attrs: { icon: "emoticon-happy-outline" },
+                                model: {
+                                  value: _vm.fields.rating,
+                                  callback: function ($$v) {
+                                    _vm.$set(_vm.fields, "rating", $$v)
+                                  },
+                                  expression: "fields.rating",
+                                },
+                              }),
+                            ],
+                            1
+                          ),
+                        ],
+                        1
+                      ),
+                    ]),
+                  ]),
+                ]),
+                _vm._v(" "),
+                _c("footer", { staticClass: "modal-card-foot" }, [
+                  _c(
+                    "button",
+                    {
+                      class: _vm.btnClass,
+                      attrs: { label: "Save", type: "is-success" },
+                    },
+                    [_vm._v("Save Rating")]
+                  ),
+                ]),
+              ]),
+            ]
+          ),
+        ]
+      ),
+    ],
+    1
+  )
 }
 var staticRenderFns = []
 render._withStripped = true

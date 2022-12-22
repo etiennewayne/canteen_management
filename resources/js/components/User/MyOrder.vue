@@ -70,7 +70,54 @@
                 </div> <!-- col -->
             </div> <!-- cols -->
         </div>
-    </div>    
+
+
+         <!--modal create-->
+         <b-modal v-model="modalRating" has-modal-card
+                 trap-focus
+                 :width="640"
+                 aria-role="dialog"
+                 aria-label="Modal"
+                 aria-modal>
+
+            <form @submit.prevent="submitRating">
+                <div class="modal-card">
+                    <header class="modal-card-head">
+                        <p class="modal-card-title">Rate Product</p>
+                        <button
+                            type="button"
+                            class="delete"
+                            @click="modalRating = false"/>
+                    </header>
+
+                    <section class="modal-card-body">
+                        <div class="">
+                            <div class="columns">
+                                <div class="column">
+                                    <b-field label="How's the product?"
+                                             :type="this.errors.rating ? 'is-danger':''"
+                                             :message="this.errors.rating ? this.errors.rating[0] : ''">
+                                        <b-rate class="" icon="emoticon-happy-outline" v-model="fields.rating">
+                                        </b-rate>
+                                    </b-field>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </section>
+                    <footer class="modal-card-foot">
+                      
+                        <button
+                            :class="btnClass"
+                            label="Save"
+                            type="is-success">Save Rating</button>
+                    </footer>
+                </div>
+            </form><!--close form-->
+        </b-modal>
+        <!--close modal-->
+
+    </div> <!--root div-->    
 </template>
 
 <script>
@@ -88,7 +135,22 @@ export default{
 
             search: {
                 product: '',
-            }
+            },
+
+            fields: {
+                product_id: 0,
+            },
+            errors: {},
+            
+            modalRating: false,
+
+            btnClass: {
+                'is-success': true,
+                'button': true,
+                'is-loading':false,
+            },
+
+
         }
     },
     methods: {
@@ -142,6 +204,21 @@ export default{
         setPerPage(){
             this.loadAsyncData()
         },
+
+        rateProduct(dataId){
+            this.modalRating = true;
+            this.fields.product_id = dataId;
+        },
+
+        submitRating(){
+            axios.post('/submit-product-rating', this.fields).then(res=>{
+            
+            }).catch(err=>{
+            
+            })
+        }
+
+        
     },
 
     mounted(){
