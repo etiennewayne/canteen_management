@@ -17,7 +17,7 @@
                         v-model="search.product"
                         @keydown.native.enter="loadProducts"></b-input>
                     <p class="control">
-                        <button class="button is-success" @click="loadProducts">SEARCH</button>
+                        <button class="button is-primary" @click="loadProducts">SEARCH</button>
                     </p>
                 </b-field>
             </div>
@@ -42,6 +42,21 @@
                     </div>
                 </div>
             </div>
+                
+            <div class="pagination-container">
+                <b-pagination
+                    :total="total"
+                    :per-page="perPage"
+                    v-model="current"
+                    :icon-prev="prevIcon"
+                    :icon-next="nextIcon"
+                    aria-next-label="Next page"
+                    aria-previous-label="Previous page"
+                    aria-page-label="Page"
+                    aria-current-label="Current page"
+                    @change="onPageChange">
+                </b-pagination>
+            </div>
 
         </div>
 
@@ -61,8 +76,11 @@ export default {
             sortField: 'product_id',
             sortOrder: 'desc',
             page: 1,
-            perPage: 5,
+            perPage: 10,
             defaultSortDirection: 'asc',
+            prevIcon: 'chevron-left',
+            nextIcon: 'chevron-right',
+            current: 1,
 
 
             locale: undefined,
@@ -93,8 +111,13 @@ export default {
 
             axios.get(`/welcome-page-load-all-products?${params}`).then(res => {
                 this.products = res.data;
+                this.total = res.data.total
             })
-        }
+        },
+        onPageChange(page) {
+            this.page = page
+            this.loadProducts()
+        },
     },
 
     mounted() {
@@ -143,6 +166,7 @@ export default {
     }
     .products-container{
         display: flex;
+        justify-content: center;
         flex-wrap: wrap;
 
     }
@@ -181,6 +205,10 @@ export default {
         /*bottom: 0;*/
     }
 
+    .pagination-container{
+        margin: 0 50px;
+        
+    }
 
 
     @media only screen and (max-width: 1024px) {

@@ -9,12 +9,35 @@
                     </div>
 
                     <form @submit.prevent="submit">
+
+                        <div class="columns">
+                            <div class="column">
+                                <b-field label="Account Type" expanded
+                                         :type="this.errors.role ? 'is-danger':''"
+                                         :message="this.errors.role ? this.errors.role[0] : ''">
+                                    <b-select placeholder="Account Type" v-model="fields.role" icon="account" expanded>
+                                        <option value="STUDENT">STUDENT</option>
+                                        <option value="FACULTY">FACULTY</option>
+                                    </b-select>
+                                </b-field>
+                            </div>
+                        </div>
+                        <hr>
+
                         <div class="columns">
                             <div class="column">
                                 <b-field label="Username"
                                          :type="this.errors.username ? 'is-danger':''"
                                          :message="this.errors.username ? this.errors.username[0] : ''">
                                     <b-input type="text" v-model="fields.username" placeholder="Username" icon="account"></b-input>
+                                </b-field>
+                            </div>
+
+                            <div class="column" v-if="fields.role === 'STUDENT'">
+                                <b-field label="Student ID"
+                                         :type="this.errors.student_id ? 'is-danger':''"
+                                         :message="this.errors.student_id ? this.errors.student_id[0] : ''">
+                                    <b-input type="text" v-model="fields.student_id" placeholder="Student ID" icon="account"></b-input>
                                 </b-field>
                             </div>
                         </div>
@@ -94,18 +117,7 @@
                             </div>
                         </div>
 
-                        <div class="columns">
-                            <div class="column">
-                                <b-field label="Account Type" expanded
-                                         :type="this.errors.role ? 'is-danger':''"
-                                         :message="this.errors.role ? this.errors.role[0] : ''">
-                                    <b-select placeholder="Account Type" v-model="fields.role" icon="account" expanded>
-                                        <option value="CUSTOMER">CUSTOMER</option>
-                                        <option value="VENDOR">VENDOR</option>
-                                    </b-select>
-                                </b-field>
-                            </div>
-                        </div>
+
 
                         <div class="columns">
                             <div class="column">
@@ -161,7 +173,25 @@ export default {
     data(){
         return{
 
-            fields: {},
+            fields: {
+                username: '',
+                password: '',
+                student_id: '',
+                lname: '',
+                fname: '',
+                mname: '',
+                suffix: '',
+                sex: '',
+                contact_no: '',
+                email: '',
+
+                province: '',
+                city: '',
+                barangay: '',
+                street: '',
+                role: 'STUDENT'
+            },
+
             errors: {},
 
             provinces: [],
@@ -170,6 +200,29 @@ export default {
         }
     },
     methods: {
+
+        clearFields(){
+            this.field = {
+                username: '',
+                password: '',
+                student_id: '',
+                lname: '',
+                fname: '',
+                mname: '',
+                suffix: '',
+                sex: '',
+                contact_no: '',
+                email: '',
+
+                province: '',
+                city: '',
+                barangay: '',
+                street: '',
+                role: 'STUDENT'
+            };
+        },
+
+
         //ADDRESS
         loadProvince: function(){
             axios.get('/load-provinces').then(res=>{
@@ -189,6 +242,8 @@ export default {
         },
 
         submit(){
+            this.fields.student_id = this.fields.role === 'FACULTY' ? '': this.fields.student_id; 
+
             axios.post('/sign-up', this.fields).then(res=>{
                 if(res.data.status === 'saved'){
                     this.$buefy.dialog.alert({
@@ -210,6 +265,7 @@ export default {
 
     },
     mounted() {
+        this.clearFields();
         this.loadProvince();
     }
 }

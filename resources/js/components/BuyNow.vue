@@ -29,7 +29,7 @@
                             <b-field label-position="on-border" label="Delviery Type" class="mt-5" expanded>
                                 <b-select v-model="fields.delivery_type" placeholder="Select Delivery Type" expanded>
                                     <option value="PICK UP">PICK UP</option>
-                                    <option value="DELIVER">DELIVER</option>
+                                    <option v-if="role === 'FACULTY'" value="DELIVER">DELIVER</option>
                                 </b-select>
                             </b-field>
 
@@ -83,7 +83,7 @@ export default {
             role: '',
             rate: 4.8,
             fields: {
-                qty: 0,
+                qty: 1,
                 customer_id: 0,
                 owner_id: 0,
                 price: 0,
@@ -108,10 +108,10 @@ export default {
         },
 
         buyNow(){
+            this.role === 'CUSTOMER' ? this.fields.delivery_type = 'PICK UP' : '';
             this.fields.product_id = this.productId;
             this.fields.owner_id = this.product.store.user_id;
             this.fields.price = this.product.product_price;
-            
             
             axios.post('/buy-now-store', this.fields).then(res=>{
                 

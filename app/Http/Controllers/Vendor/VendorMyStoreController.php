@@ -22,7 +22,9 @@ class VendorMyStoreController extends Controller
     }
 
     public function getMyStores(Request $req){
-        return Store::all();
+        $user = Auth::user();
+        return Store::where('user_id', $user->user_id)
+            ->get();
     }
 
     public function show($id){

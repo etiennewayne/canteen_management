@@ -52,7 +52,7 @@ export default {
                 if(res.data.role === 'ADMINISTRATOR' || res.data.role === 'STAFF'){
                     window.location = '/admin-home';
                 }
-                if(res.data.role === 'CUSTOMER'){
+                if(res.data.role === 'STUDENT' || res.data.role === 'FACULTY'){
                     window.location = '/';
                 }
                 if(res.data.role === 'VENDOR'){

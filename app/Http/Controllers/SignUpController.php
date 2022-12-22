@@ -39,6 +39,7 @@ class SignUpController extends Controller
             //'qr_ref' => $qr_code,
             'username' => $req->username,
             'password' => Hash::make($req->password),
+            'student_id' => $req->role == 'STUDENT' ? $req->student_id : '',
             'email' => $req->email,
             'lname' => strtoupper($req->lname),
             'fname' => strtoupper($req->fname),

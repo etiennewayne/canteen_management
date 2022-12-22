@@ -49,7 +49,21 @@
                                 icon="delete"></b-icon>
                         </button>
                     </div>
-                </div>
+                </div><!--product-->
+
+                    <b-pagination
+                        :total="total"
+                        v-model="current"
+                        :per-page="perPage"
+                        :icon-prev="prevIcon"
+                        :icon-next="nextIcon"
+                        aria-next-label="Next page"
+                        aria-previous-label="Previous page"
+                        aria-page-label="Page"
+                        aria-current-label="Current page"
+                        @change="onPageChange">
+                    </b-pagination>
+
             </div>
         </div>
 
@@ -169,8 +183,11 @@ export default {
             page: 1,
             perPage: 5,
             defaultSortDirection: 'asc',
+            current: 1,
 
-
+            prevIcon: 'chevron-left',
+            nextIcon: 'chevron-right',
+            
             store: {},
             products: [],
             errors: {},
@@ -220,7 +237,21 @@ export default {
 
             axios.get(`/vendor/get-product-lists?${params}`).then(res=>{
                 this.products = res.data;
+                this.total = res.data.total
             })
+        },
+        onPageChange(page) {
+            this.page = page
+            this.loadData()
+        },
+        onSort(field, order) {
+            this.sortField = field
+            this.sortOrder = order
+            this.loadData()
+        },
+
+        setPerPage(){
+            this.loadData()
         },
 
         openModal(){

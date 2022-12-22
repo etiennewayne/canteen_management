@@ -31,6 +31,7 @@ class VendorProductController extends Controller
             ->where('store_id', $req->storeid)
             ->orderBy($sort[0], $sort[1])
             ->paginate($req->perpage);
+            
         return $data;
     }
 
