@@ -39,7 +39,6 @@ Route::get('/welcome-page-load-all-products', [App\Http\Controllers\WelcomePageA
 
 
 
-
 Auth::routes([
     'login' => 'false'
 ]);
@@ -49,8 +48,6 @@ Route::get('/load-user', function(){
         return Auth::user();
     }
 });
-
-
 
 
 Route::post('/login', [App\Http\Controllers\Auth\LoginController::class, 'login']);
@@ -74,7 +71,8 @@ Route::get('/load-cities', [App\Http\Controllers\AddressController::class, 'load
 Route::get('/load-barangays', [App\Http\Controllers\AddressController::class, 'loadBarangays']);
 
 
-/*     ADMINSITRATOR          */
+/*              ADMINSITRATOR          */
+
 Route::resource('/admin-home', App\Http\Controllers\Administrator\AdminHomeController::class);
 
 Route::resource('/users', App\Http\Controllers\Administrator\UserController::class);
@@ -83,7 +81,7 @@ Route::get('/get-user-offices', [App\Http\Controllers\Administrator\UserControll
 Route::post('/user-reset-password/{id}', [App\Http\Controllers\Administrator\UserController::class, 'resetPassword']);
 
 
-/*/////////////////     ADMINSITRATOR          */
+/*             ADMINSITRATOR          */
 
 
 Route::resource('/vendor/dashboard', App\Http\Controllers\Vendor\VendorDashboardController::class);
@@ -100,7 +98,7 @@ Route::get('/vendor/my-products/{id}', [App\Http\Controllers\Vendor\VendorProduc
 Route::delete('/vendor/my-products/{id}', [App\Http\Controllers\Vendor\VendorProductController::class, 'destroy']);
 
 
-/* ///////////////    ADMINSITRATOR          */
+/*           ADMINSITRATOR          */
 
 
 
@@ -110,24 +108,9 @@ Route::post('/buy-now-store', [App\Http\Controllers\BuyNowController::class, 'st
 
 
 
-
-
-
-
-
-
-
-
-
-/*     USER          */
+/*          USER          */
 Route::get('/my-order', [App\Http\Controllers\User\MyOrderController::class, 'index']);
-
-
-
-
-
-
-
+Route::get('/get-my-orders', [App\Http\Controllers\User\MyOrderController::class, 'getMyOrders']);
 
 
 

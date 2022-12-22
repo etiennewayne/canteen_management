@@ -26,14 +26,19 @@
                                 <b-numberinput min="0" v-model="fields.qty" controls-position="compact"></b-numberinput>
                             </b-field>
 
-                            <b-field label-position="on-border" label="Delviery Type" class="mt-5" expanded>
-                                <b-select v-model="fields.delivery_type" placeholder="Select Delivery Type" expanded>
+                            <b-field label-position="on-border" label="Delviery Type" class="mt-5" expanded
+                                :type="this.errors.delivery_type ? 'is-danger':''"
+                                :message="this.errors.delivery_type ? this.errors.delivery_type[0] : ''">
+                                <b-select v-model="fields.delivery_type" 
+                                    placeholder="Select Delivery Type" expanded>
                                     <option value="PICK UP">PICK UP</option>
                                     <option v-if="role === 'FACULTY'" value="DELIVER">DELIVER</option>
                                 </b-select>
                             </b-field>
 
-                            <b-field label="Office" v-if="fields.delivery_type == 'DELIVER'" label-position="on-border" expanded>
+                            <b-field label="Office" v-if="fields.delivery_type == 'DELIVER'" label-position="on-border" expanded
+                                    :type="this.errors.office ? 'is-danger':''"
+                                    :message="this.errors.office ? this.errors.office[0] : ''">
                                 <b-select v-model="fields.office" placeholder="Select Office" expanded>
                                     <option v-for="(office, index) in offices" :key="index" :value="office.office">{{ office.office  }}</option>
                                 </b-select>
@@ -90,12 +95,24 @@ export default {
                 delivery_type: '',
                 office: '',
             },
+            errors: {},
 
             offices: [],
         }
     },
 
     methods: {
+
+        clearFields(){
+            this.fields = {
+                qty: 1,
+                customer_id: 0,
+                owner_id: 0,
+                price: 0,
+                delivery_type: '',
+                office: '',
+            };
+        },
         loadProduct(){
             axios.get('/get-product-detail/' + this.productId).then(res=>{
                 this.product = res.data
@@ -108,14 +125,31 @@ export default {
         },
 
         buyNow(){
+
             this.role === 'CUSTOMER' ? this.fields.delivery_type = 'PICK UP' : '';
             this.fields.product_id = this.productId;
             this.fields.owner_id = this.product.store.user_id;
             this.fields.price = this.product.product_price;
             
             axios.post('/buy-now-store', this.fields).then(res=>{
-                
+                if(res.data.status === 'saved'){
+                    this.$buefy.dialog.alert({
+                        title: 'ORDER PLACED!',
+                        message: 'Your order was successfully placed.',
+                        type: 'is-success',
+                        onConfirm: () => {
+                            this.clearFields();
+                            window.location = '/my-order'
+                        }
+                    })
+                }
+            }).catch(err=>{
+                if(err.response.status === 422){
+                    this.errors = err.response.data.errors;
+                }
             })
+
+            this.errors = {};
         },
 
         loadOffices(){

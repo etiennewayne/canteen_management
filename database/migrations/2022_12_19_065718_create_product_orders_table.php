@@ -32,7 +32,8 @@ class CreateProductOrdersTable extends Migration
 
             $table->string('delivery_type')->default(0);
 
-            $table->date('date_purchase')->nullable();
+            $table->date('date_order')->nullable();
+            $table->tinyInteger('is_delivered')->default(0);
 
             $table->timestamps();
         });

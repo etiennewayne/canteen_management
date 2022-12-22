@@ -29,7 +29,7 @@ class BuyNowController extends Controller
 
 
     public function store(Request $req){
-       
+
         $req->validate([
             'qty' => ['min:1'],
             'delivery_type' => ['required'],
@@ -47,21 +47,21 @@ class BuyNowController extends Controller
             ]);
         }
             
-
-        return $req;
-
         $user =  Auth::user();
 
         $data = ProductOrder::create([
             'user_id' => $req->owner_id,
             'customer_id' => $user->user_id, //serve as customer id
-            'prpoduct_id' => $req->product_id,
-            'price' => $req->price,
+            'product_id' => $req->product_id,
+            'price' => ($req->price * $req->qty),
             'qty' => $req->qty,
             'delivery_type' => $req->delivery_type,
+            'date_order' =>date('Y-m-d'),
             'office' => $req->delivery_type == 'DELIVER' ? $req->office : ''
         ]);
 
-        return $req;
+        return response()->json([
+            'status' => 'saved'
+        ], 200);
     }
 }
