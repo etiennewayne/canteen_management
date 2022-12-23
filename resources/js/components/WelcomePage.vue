@@ -34,7 +34,9 @@
                         P{{ item.product_price | formatPrice }}
                     </div>
                     <div class="product-rating">
-                        <b-rate v-model="rate"></b-rate>
+                        <b-rate 
+                            disabled
+                            v-model="item.total_rates"></b-rate>
                     </div>
                     <div class="product-footer">
                         <b-button class="button is-primary is-outlined my-2" icon-right="cart-plus">Add to Cart</b-button>
@@ -112,6 +114,8 @@ export default {
             axios.get(`/welcome-page-load-all-products?${params}`).then(res => {
                 this.products = res.data;
                 this.total = res.data.total
+
+                console.log(res.data)
             })
         },
         onPageChange(page) {

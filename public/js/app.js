@@ -9290,6 +9290,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -9365,8 +9368,38 @@ __webpack_require__.r(__webpack_exports__);
       this.modalRating = true;
       this.fields.product_id = dataId;
     },
+    clearFields: function clearFields() {
+      this.fields = {
+        rating: 0,
+        product_id: 0
+      };
+    },
     submitRating: function submitRating() {
-      axios.post('/submit-product-rating', this.fields).then(function (res) {})["catch"](function (err) {});
+      var _this2 = this;
+
+      this.modalRating = false;
+      axios.post('/submit-product-rating', this.fields).then(function (res) {
+        if (res.data.status === 'submitted') {
+          _this2.$buefy.dialog.alert({
+            title: 'RATED!',
+            message: 'The product was rated successfully.',
+            type: 'is-success',
+            onConfirm: function onConfirm() {
+              _this2.clearFields();
+            }
+          });
+        }
+      })["catch"](function (err) {
+        if (err.response.data.status === 'exist') {
+          _this2.$buefy.dialog.alert({
+            title: 'RATED!',
+            type: 'is-danger',
+            message: 'Already rated this product.'
+          });
+
+          _this2.fields.rating = 0;
+        }
+      });
     }
   },
   mounted: function mounted() {
@@ -10539,6 +10572,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: ['propUser'],
   data: function data() {
@@ -10570,6 +10605,7 @@ __webpack_require__.r(__webpack_exports__);
       axios.get("/welcome-page-load-all-products?".concat(params)).then(function (res) {
         _this.products = res.data;
         _this.total = res.data.total;
+        console.log(res.data);
       });
     },
     onPageChange: function onPageChange(page) {
@@ -34677,6 +34713,28 @@ var render = function () {
                       }),
                       _vm._v(" "),
                       _c("b-table-column", {
+                        attrs: {
+                          field: "delivery_type",
+                          label: "Type",
+                          centered: "",
+                        },
+                        scopedSlots: _vm._u([
+                          {
+                            key: "default",
+                            fn: function (props) {
+                              return [
+                                _vm._v(
+                                  "\n                                " +
+                                    _vm._s(props.row.delivery_type) +
+                                    "\n                            "
+                                ),
+                              ]
+                            },
+                          },
+                        ]),
+                      }),
+                      _vm._v(" "),
+                      _c("b-table-column", {
                         attrs: { field: "qty", label: "Qty", centered: "" },
                         scopedSlots: _vm._u([
                           {
@@ -36491,12 +36549,13 @@ var render = function () {
               { staticClass: "product-rating" },
               [
                 _c("b-rate", {
+                  attrs: { disabled: "" },
                   model: {
-                    value: _vm.rate,
+                    value: item.total_rates,
                     callback: function ($$v) {
-                      _vm.rate = $$v
+                      _vm.$set(item, "total_rates", $$v)
                     },
-                    expression: "rate",
+                    expression: "item.total_rates",
                   },
                 }),
               ],

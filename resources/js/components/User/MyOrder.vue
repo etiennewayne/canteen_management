@@ -43,6 +43,9 @@
                                     <span v-else>No</span>
                                 </b-table-column>
 
+                                <b-table-column field="delivery_type" label="Type" centered v-slot="props">
+                                    {{ props.row.delivery_type }}
+                                </b-table-column>
                                 <b-table-column field="qty" label="Qty" centered v-slot="props">
                                     {{ props.row.qty }}
                                 </b-table-column>
@@ -210,11 +213,37 @@ export default{
             this.fields.product_id = dataId;
         },
 
+        clearFields(){
+            this.fields = {
+                rating: 0,
+                product_id : 0,
+            };
+        },
+
         submitRating(){
+            this.modalRating = false;
+
             axios.post('/submit-product-rating', this.fields).then(res=>{
-            
+                if(res.data.status === 'submitted'){
+                    this.$buefy.dialog.alert({
+                        title: 'RATED!',
+                        message: 'The product was rated successfully.',
+                        type: 'is-success',
+                        onConfirm: () => {
+                            this.clearFields();
+                        }
+                    })
+                }
             }).catch(err=>{
-            
+                if(err.response.data.status === 'exist'){
+                    this.$buefy.dialog.alert({
+                        title: 'RATED!',
+                        type: 'is-danger',
+                        message: 'Already rated this product.',
+                    });
+
+                    this.fields.rating = 0
+                }
             })
         }
 

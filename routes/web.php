@@ -111,7 +111,7 @@ Route::post('/buy-now-store', [App\Http\Controllers\BuyNowController::class, 'st
 /*          USER          */
 Route::get('/my-order', [App\Http\Controllers\User\MyOrderController::class, 'index']);
 Route::get('/get-my-orders', [App\Http\Controllers\User\MyOrderController::class, 'getMyOrders']);
-Route::get('/submit-product-rating', [App\Http\Controllers\ProductRatingController::class, 'store']);
+Route::post('/submit-product-rating', [App\Http\Controllers\ProductRatingController::class, 'store']);
 
 
 
