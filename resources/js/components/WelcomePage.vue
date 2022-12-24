@@ -7,9 +7,16 @@
             <div class="banner-img-container">
                 <img src="/img/banner-logo.jpg" class="banner-img"/>
             </div>
-        </div>
+        </div>  
+
+
+      
 
         <div class="product-section">
+            <div class="ml-5">
+                <b-icon icon="cart-outline"></b-icon>
+                <span class="cart-no">3</span>
+            </div>
             <div class="search-bar">
                 <b-field>
                     <b-input type="text" expanded 
@@ -211,7 +218,14 @@ export default {
 
     .pagination-container{
         margin: 0 50px;
-        
+    }
+
+    .cart-no{
+        background: red;
+        padding: 2px 5px;
+        color: white;
+        font-weight: bold;
+        border-radius: 20px;
     }
 
 

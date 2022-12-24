@@ -10574,6 +10574,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: ['propUser'],
   data: function data() {
@@ -29232,7 +29239,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.banner[data-v-a4d20914]{\n    margin: auto;\n    max-width: 1024px;\n    height: 400px;\n    display: flex;\n}\n.banner-text[data-v-a4d20914]{\n    font-weight: bold;\n    margin: auto;\n    font-size: 2.0em;\n}\n.banner-img-container[data-v-a4d20914]{\n    height: 500px;\n    width: 500px;\n    position:relative;\n    overflow:hidden;\n}\n.banner-img[data-v-a4d20914]{\n    position:absolute;\n    top:0;\n    bottom:0;\n    margin: auto;\n    width:100%;\n}\n.product-section[data-v-a4d20914]{\n    max-width: 1024px;\n    margin: 20px auto;\n}\n.search-bar[data-v-a4d20914]{\n    margin: 15px;\n}\n.products-container[data-v-a4d20914]{\n    display: flex;\n    justify-content: center;\n    flex-wrap: wrap;\n}\n.product-item[data-v-a4d20914]{\n    padding: 15px;\n    margin: 15px;\n    max-width: 185px;\n    border: 1px solid red;\n    position: relative;\n}\n.product-img-container[data-v-a4d20914]{\n    height: 150px;\n    width: 150px;\n    position:relative;\n    overflow:hidden;\n}\n.product-img[data-v-a4d20914]{\n    position:absolute;\n    top:0;\n    bottom:0;\n    margin: auto;\n    width:100%;\n}\n.product-title[data-v-a4d20914]{\n    font-weight: bold;\n}\n.product-rating[data-v-a4d20914]{\n    position: relative;\n}\n.product-footer[data-v-a4d20914]{\n    display: flex;\n    flex-direction: column;\n    /*position: absolute;*/\n    /*bottom: 0;*/\n}\n.pagination-container[data-v-a4d20914]{\n    margin: 0 50px;\n}\n@media only screen and (max-width: 1024px) {\n.banner-text[data-v-a4d20914]{\n        font-weight: bold;\n        margin: auto 0 auto 15px;\n        font-size: 2.0em;\n}\n}\n@media only screen and (max-width: 768px) {\n.banner[data-v-a4d20914]{\n        display: flex;\n        flex-direction: column;\n}\n.banner-text[data-v-a4d20914]{\n        margin: auto;\n}\n.banner-img-container[data-v-a4d20914]{\n        height: 500px;\n        width: 500px;\n        position:relative;\n        overflow:hidden;\n        margin: auto;\n}\n.banner-img[data-v-a4d20914]{\n        position:absolute;\n        top:0;\n        bottom:0;\n        margin: auto;\n        width:100%;\n}\n}\n@media only screen and (max-width: 480px) {\n.banner[data-v-a4d20914]{\n        display: flex;\n        flex-direction: column;\n}\n.banner-text[data-v-a4d20914]{\n        margin: auto;\n        text-align: center;\n}\n.banner-img-container[data-v-a4d20914]{\n        width: 500px;\n}\n.product-item[data-v-a4d20914]{\n        padding: 15px;\n        margin: 15px auto;\n}\n}\n\n\n\n\n\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.banner[data-v-a4d20914]{\n    margin: auto;\n    max-width: 1024px;\n    height: 400px;\n    display: flex;\n}\n.banner-text[data-v-a4d20914]{\n    font-weight: bold;\n    margin: auto;\n    font-size: 2.0em;\n}\n.banner-img-container[data-v-a4d20914]{\n    height: 500px;\n    width: 500px;\n    position:relative;\n    overflow:hidden;\n}\n.banner-img[data-v-a4d20914]{\n    position:absolute;\n    top:0;\n    bottom:0;\n    margin: auto;\n    width:100%;\n}\n.product-section[data-v-a4d20914]{\n    max-width: 1024px;\n    margin: 20px auto;\n}\n.search-bar[data-v-a4d20914]{\n    margin: 15px;\n}\n.products-container[data-v-a4d20914]{\n    display: flex;\n    justify-content: center;\n    flex-wrap: wrap;\n}\n.product-item[data-v-a4d20914]{\n    padding: 15px;\n    margin: 15px;\n    max-width: 185px;\n    border: 1px solid red;\n    position: relative;\n}\n.product-img-container[data-v-a4d20914]{\n    height: 150px;\n    width: 150px;\n    position:relative;\n    overflow:hidden;\n}\n.product-img[data-v-a4d20914]{\n    position:absolute;\n    top:0;\n    bottom:0;\n    margin: auto;\n    width:100%;\n}\n.product-title[data-v-a4d20914]{\n    font-weight: bold;\n}\n.product-rating[data-v-a4d20914]{\n    position: relative;\n}\n.product-footer[data-v-a4d20914]{\n    display: flex;\n    flex-direction: column;\n    /*position: absolute;*/\n    /*bottom: 0;*/\n}\n.pagination-container[data-v-a4d20914]{\n    margin: 0 50px;\n}\n.cart-no[data-v-a4d20914]{\n    background: red;\n    padding: 2px 5px;\n    color: white;\n    font-weight: bold;\n    border-radius: 20px;\n}\n@media only screen and (max-width: 1024px) {\n.banner-text[data-v-a4d20914]{\n        font-weight: bold;\n        margin: auto 0 auto 15px;\n        font-size: 2.0em;\n}\n}\n@media only screen and (max-width: 768px) {\n.banner[data-v-a4d20914]{\n        display: flex;\n        flex-direction: column;\n}\n.banner-text[data-v-a4d20914]{\n        margin: auto;\n}\n.banner-img-container[data-v-a4d20914]{\n        height: 500px;\n        width: 500px;\n        position:relative;\n        overflow:hidden;\n        margin: auto;\n}\n.banner-img[data-v-a4d20914]{\n        position:absolute;\n        top:0;\n        bottom:0;\n        margin: auto;\n        width:100%;\n}\n}\n@media only screen and (max-width: 480px) {\n.banner[data-v-a4d20914]{\n        display: flex;\n        flex-direction: column;\n}\n.banner-text[data-v-a4d20914]{\n        margin: auto;\n        text-align: center;\n}\n.banner-img-container[data-v-a4d20914]{\n        width: 500px;\n}\n.product-item[data-v-a4d20914]{\n        padding: 15px;\n        margin: 15px auto;\n}\n}\n\n\n\n\n\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -36466,6 +36473,17 @@ var render = function () {
     _vm._m(0),
     _vm._v(" "),
     _c("div", { staticClass: "product-section" }, [
+      _c(
+        "div",
+        { staticClass: "ml-5" },
+        [
+          _c("b-icon", { attrs: { icon: "cart-outline" } }),
+          _vm._v(" "),
+          _c("span", { staticClass: "cart-no" }, [_vm._v("3")]),
+        ],
+        1
+      ),
+      _vm._v(" "),
       _c(
         "div",
         { staticClass: "search-bar" },
