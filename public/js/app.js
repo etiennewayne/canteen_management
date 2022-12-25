@@ -9185,10 +9185,47 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  props: ['propRole'],
   data: function data() {
     return {
-      carts: []
+      carts: [],
+      errors: {},
+      fields: {},
+      role: ''
     };
   },
   methods: {
@@ -9198,9 +9235,40 @@ __webpack_require__.r(__webpack_exports__);
       axios.get('/get-cart-items').then(function (res) {
         _this.carts = res.data;
       });
+    },
+    confirmPlaceOrder: function confirmPlaceOrder(item) {
+      var _this2 = this;
+
+      console.log(item);
+      this.$buefy.dialog.confirm({
+        title: 'DELETE!',
+        type: 'is-danger',
+        message: 'Are you sure you want to place this order?',
+        cancelText: 'Cancel',
+        confirmText: 'Yes',
+        onConfirm: function onConfirm() {
+          return _this2.placeOrder(item);
+        }
+      });
+    },
+    placeOrder: function placeOrder(item) {
+      var _this3 = this;
+
+      this.fields = item;
+      axios.post('/place-cart-order', this.fields).then(function (res) {})["catch"](function (err) {
+        if (err.response.status === 422) {
+          _this3.errors = err.response.data.errors;
+        }
+      });
+    },
+    initData: function initData() {
+      this.role = this.propRole;
     }
   },
-  mounted: function mounted() {}
+  mounted: function mounted() {
+    this.initData();
+    this.loadCarts();
+  }
 });
 
 /***/ }),
@@ -10695,9 +10763,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: ['propUser'],
   data: function data() {
@@ -10720,10 +10785,11 @@ __webpack_require__.r(__webpack_exports__);
         product: ''
       },
       cartFields: {
-        qty: 0
+        qty: 1
       },
       modalAddToCart: false,
       cart: {},
+      countCart: 0,
       btnClass: {
         'is-info': true,
         'button': true,
@@ -10742,6 +10808,13 @@ __webpack_require__.r(__webpack_exports__);
         console.log(res.data);
       });
     },
+    loadCart: function loadCart() {
+      var _this2 = this;
+
+      axios.get('/get-count-cart-items').then(function (res) {
+        _this2.countCart = parseFloat(res.data);
+      })["catch"](function (err) {});
+    },
     onPageChange: function onPageChange(page) {
       this.page = page;
       this.loadProducts();
@@ -10749,10 +10822,34 @@ __webpack_require__.r(__webpack_exports__);
     openAddCart: function openAddCart(product) {
       this.cart = product;
       this.modalAddToCart = true;
+    },
+    addToCart: function addToCart() {
+      var _this3 = this;
+
+      this.cartFields.product_id = this.cart.product_id;
+      this.cartFields.price = this.cart.product_price;
+      axios.post('/my-cart', this.cartFields).then(function (res) {
+        if (res.data.status === 'saved') {
+          _this3.$buefy.dialog.alert({
+            type: 'is-success',
+            title: 'Added to Cart!',
+            message: 'Successfully added to cart.'
+          });
+
+          _this3.loadCart();
+        }
+
+        _this3.modalAddToCart = false;
+      })["catch"](function (err) {
+        if (err.response.status === 422) {
+          _this3.errors = err.response.data.errors;
+        }
+      });
     }
   },
   mounted: function mounted() {
     this.loadProducts();
+    this.loadCart();
   }
 });
 
@@ -29226,7 +29323,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.item-container[data-v-3c081e96]{\n    padding: 15p[x];\n    border: 1px solid #ffeeee;\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.item-container[data-v-3c081e96]{\n    padding: 15px;\n    border: 1px solid #ffeeee;\n    margin: 15px 5px;\n    padding: 15px;\n    display: flex;\n}\n.image-container[data-v-3c081e96]{\n    height: 150px;\n    width: 150px;\n    position:relative;\n    overflow:hidden;\n}\n.item-info[data-v-3c081e96]{\n    margin: 5px 15px;\n}\n.item-buttons[data-v-3c081e96]{\n    margin-left: auto;\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -34883,7 +34980,120 @@ var render = function () {
         { staticClass: "column is-8" },
         _vm._l(_vm.carts, function (item, index) {
           return _c("div", { key: index }, [
-            _c("div", { staticClass: "\\item-container" }),
+            _c("div", { staticClass: "item-container" }, [
+              _c("div", { staticClass: "image-container" }, [
+                _c("img", {
+                  attrs: {
+                    src: "/storage/products/" + item.product.product_img_path,
+                    alt: "",
+                  },
+                }),
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "item-info" }, [
+                _c(
+                  "div",
+                  { staticStyle: { display: "flex" } },
+                  [
+                    _c("strong", [_vm._v("Quantity:")]),
+                    _vm._v(" "),
+                    _c("b-numberinput", {
+                      staticClass: "ml-3",
+                      attrs: {
+                        size: "is-small",
+                        "controls-position": "compact",
+                        min: "1",
+                      },
+                      model: {
+                        value: item.qty,
+                        callback: function ($$v) {
+                          _vm.$set(item, "qty", $$v)
+                        },
+                        expression: "item.qty",
+                      },
+                    }),
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c("div", [
+                  _c("strong", [_vm._v("Product:")]),
+                  _vm._v(
+                    " \n                            " +
+                      _vm._s(item.product.product) +
+                      "\n                        "
+                  ),
+                ]),
+                _vm._v(" "),
+                _c("div", [
+                  _c("strong", [_vm._v("Price: ")]),
+                  _vm._v(
+                    " " +
+                      _vm._s(_vm._f("formatPrice")(item.price)) +
+                      "\n                        "
+                  ),
+                ]),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  [
+                    _c(
+                      "b-field",
+                      { attrs: { label: "Delivery Type: " } },
+                      [
+                        _c(
+                          "b-select",
+                          {
+                            attrs: {
+                              placeholder: "Delivery Type",
+                              required: "",
+                            },
+                            model: {
+                              value: item.delivery_type,
+                              callback: function ($$v) {
+                                _vm.$set(item, "delivery_type", $$v)
+                              },
+                              expression: "item.delivery_type",
+                            },
+                          },
+                          [
+                            _c("option", { attrs: { value: "PICK UP" } }, [
+                              _vm._v("PICK UP"),
+                            ]),
+                            _vm._v(" "),
+                            _c("option", { attrs: { value: "DELIVER" } }, [
+                              _vm._v("DELIVER"),
+                            ]),
+                          ]
+                        ),
+                      ],
+                      1
+                    ),
+                  ],
+                  1
+                ),
+              ]),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "item-buttons" },
+                [
+                  _c(
+                    "b-button",
+                    {
+                      staticClass: "button is-primary is-small",
+                      on: {
+                        click: function ($event) {
+                          return _vm.confirmPlaceOrder(item)
+                        },
+                      },
+                    },
+                    [_vm._v("Place Order")]
+                  ),
+                ],
+                1
+              ),
+            ]),
           ])
         }),
         0
@@ -36792,16 +37002,20 @@ var render = function () {
       _vm._v(" "),
       _c("div", { staticClass: "product-section" }, [
         _c("div", { staticClass: "ml-5" }, [
-          _c(
-            "a",
-            { attrs: { href: "/my-cart" } },
-            [
-              _c("b-icon", { attrs: { icon: "cart-outline" } }),
-              _vm._v(" "),
-              _c("span", { staticClass: "cart-no" }, [_vm._v("3")]),
-            ],
-            1
-          ),
+          _vm.countCart > 0
+            ? _c(
+                "a",
+                { attrs: { href: "/my-cart" } },
+                [
+                  _c("b-icon", { attrs: { icon: "cart-outline" } }),
+                  _vm._v(" "),
+                  _c("span", { staticClass: "cart-no" }, [
+                    _vm._v(_vm._s(this.countCart)),
+                  ]),
+                ],
+                1
+              )
+            : _vm._e(),
         ]),
         _vm._v(" "),
         _c(
@@ -36989,7 +37203,7 @@ var render = function () {
               on: {
                 submit: function ($event) {
                   $event.preventDefault()
-                  return _vm.modalAddToCart.apply(null, arguments)
+                  return _vm.addToCart.apply(null, arguments)
                 },
               },
             },
@@ -37075,6 +37289,11 @@ var render = function () {
                                 _c("strong", [_vm._v("Quantity: ")]),
                                 _vm._v(" "),
                                 _c("b-numberinput", {
+                                  attrs: {
+                                    size: "is-small",
+                                    min: "1",
+                                    "controls-position": "compact",
+                                  },
                                   model: {
                                     value: _vm.cartFields.qty,
                                     callback: function ($$v) {
@@ -37088,11 +37307,6 @@ var render = function () {
                             ),
                           ]),
                         ]),
-                        _vm._v(
-                          "\n                                \n\n\n                                " +
-                            _vm._s(this.cart) +
-                            "\n                            "
-                        ),
                       ]),
                     ]),
                   ]),

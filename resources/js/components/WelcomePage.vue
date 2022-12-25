@@ -14,9 +14,9 @@
 
         <div class="product-section">
             <div class="ml-5">
-                <a href="/my-cart">
+                <a href="/my-cart" v-if="countCart > 0">
                     <b-icon icon="cart-outline"></b-icon>
-                    <span class="cart-no">3</span>
+                    <span class="cart-no">{{  this.countCart }}</span>
                 </a>
                 
             </div>
@@ -81,7 +81,7 @@
                  aria-label="Modal"
                  aria-modal>
 
-            <form @submit.prevent="modalAddToCart">
+            <form @submit.prevent="addToCart">
                 <div class="modal-card">
                     <header class="modal-card-head">
                         <p class="modal-card-title">Add To Cart</p>
@@ -114,14 +114,11 @@
                                             </div>
                                             <div>
                                                 <strong>Quantity: </strong>
-                                                <b-numberinput v-model="cartFields.qty"></b-numberinput>
+                                                <b-numberinput v-model="cartFields.qty"
+                                                    size="is-small" min="1" controls-position="compact"></b-numberinput>
                                             </div>
                                         </div>
                                     </div>
-                                    
-
-
-                                    {{  this.cart }}
                                 </div>
                             </div>
                         </div>
@@ -173,11 +170,12 @@ export default {
             },
 
             cartFields: {
-                qty: 0
+                qty: 1
             },
            
             modalAddToCart: false,
             cart: {},
+            countCart: 0,
             btnClass: {
                 'is-info': true,
                 'button': true,
@@ -205,6 +203,15 @@ export default {
                 console.log(res.data)
             })
         },
+
+        loadCart(){
+            axios.get('/get-count-cart-items').then(res=>{
+                this.countCart = parseFloat(res.data)
+            }).catch(err=>{
+            
+            })
+        },
+
         onPageChange(page) {
             this.page = page
             this.loadProducts()
@@ -215,11 +222,32 @@ export default {
             this.modalAddToCart = true;
 
         },
+        addToCart(){
+            this.cartFields.product_id = this.cart.product_id;
+            this.cartFields.price = this.cart.product_price;
+
+            axios.post('/my-cart', this.cartFields).then(res=>{
+                if(res.data.status === 'saved'){
+                    this.$buefy.dialog.alert({
+                        type: 'is-success',
+                        title: 'Added to Cart!',
+                        message: 'Successfully added to cart.',
+                    });
+                    this.loadCart();
+                }
+
+                this.modalAddToCart = false;
+            }).catch(err=>{
+                if(err.response.status === 422){
+                    this.errors = err.response.data.errors;
+                }
+            })
+        }
     },
 
     mounted() {
         this.loadProducts();
-
+        this.loadCart();
     },
 
 

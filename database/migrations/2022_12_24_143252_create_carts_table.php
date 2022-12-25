@@ -28,7 +28,8 @@ class CreateCartsTable extends Migration
             $table->tinyInteger('price')->default(0);
 
             $table->date('date_added')->nullable();
-
+            $table->tinyInteger('is_place_order')->default(0);
+            
             $table->timestamps();
         });
     }
