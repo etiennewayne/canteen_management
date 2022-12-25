@@ -14,8 +14,11 @@
 
         <div class="product-section">
             <div class="ml-5">
-                <b-icon icon="cart-outline"></b-icon>
-                <span class="cart-no">3</span>
+                <a href="/my-cart">
+                    <b-icon icon="cart-outline"></b-icon>
+                    <span class="cart-no">3</span>
+                </a>
+                
             </div>
             <div class="search-bar">
                 <b-field>
@@ -46,7 +49,7 @@
                             v-model="item.total_rates"></b-rate>
                     </div>
                     <div class="product-footer">
-                        <b-button class="button is-primary is-outlined my-2" icon-right="cart-plus">Add to Cart</b-button>
+                        <b-button class="button is-primary is-outlined my-2" icon-right="cart-plus" @click="openAddCart(item)">Add to Cart</b-button>
                         <b-button class="button is-primary" tag="a" :href="`/buy-now/${item.product_id}`">Buy Now</b-button>
                     </div>
                 </div>
@@ -68,6 +71,72 @@
             </div>
 
         </div>
+
+
+        <!--modal add to cart-->
+        <b-modal v-model="modalAddToCart" has-modal-card
+                 trap-focus
+                 :width="640"
+                 aria-role="dialog"
+                 aria-label="Modal"
+                 aria-modal>
+
+            <form @submit.prevent="modalAddToCart">
+                <div class="modal-card">
+                    <header class="modal-card-head">
+                        <p class="modal-card-title">Add To Cart</p>
+                        <button
+                            type="button"
+                            class="delete"
+                            @click="modalAddToCart = false"/>
+                    </header>
+
+                    <section class="modal-card-body">
+                        <div class="">
+                            <div class="columns">
+                                <div class="column">
+                                    <div class="modal-item-container">
+                                        <div class="product-img-container">
+                                            <img class="product-img" :src="`/storage/products/${cart.product_img_path}`" />
+                                        </div>
+                                        <div class="modal-item-info ml-4">
+                                            <div>
+                                                <strong>Product: </strong> {{ cart.product }}
+                                            </div>
+                                            <div>
+                                                <strong>Price: </strong> {{  cart.product_price | formatPrice }}
+                                            </div>
+                                            <div>
+                                                <strong>Rate: </strong>
+                                                <b-rate 
+                                                disabled
+                                                v-model="cart.total_rates"></b-rate>
+                                            </div>
+                                            <div>
+                                                <strong>Quantity: </strong>
+                                                <b-numberinput v-model="cartFields.qty"></b-numberinput>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+
+
+                                    {{  this.cart }}
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    <footer class="modal-card-foot">
+                        <button
+                            :class="btnClass"
+                            label="Save">Add to Cart</button>
+                    </footer>
+                </div>
+            </form><!--close form-->
+        </b-modal>
+        <!--close modal-->
+
+
 
 
     </div> <!--root div-->
@@ -103,7 +172,18 @@ export default {
                 product: '',
             },
 
-
+            cartFields: {
+                qty: 0
+            },
+           
+            modalAddToCart: false,
+            cart: {},
+            btnClass: {
+                'is-info': true,
+                'button': true,
+                'is-loading':false,
+            },
+            
         }
 
     },
@@ -128,6 +208,12 @@ export default {
         onPageChange(page) {
             this.page = page
             this.loadProducts()
+        },
+
+        openAddCart(product){
+            this.cart = product
+            this.modalAddToCart = true;
+
         },
     },
 
@@ -218,6 +304,9 @@ export default {
 
     .pagination-container{
         margin: 0 50px;
+    }
+    .modal-item-container{
+        display: flex;
     }
 
     .cart-no{

@@ -21,6 +21,9 @@
             <b-navbar-item href="/my-order" v-if="currentLogin">
                 MY ORDER
             </b-navbar-item>
+            <b-navbar-item href="/my-cart" v-if="currentLogin">
+                MY CART
+            </b-navbar-item>
             <b-navbar-item tag="div">
                 <div v-if="!currentLogin" class="buttons">
                     <a class="button is-primary" href="/sign-up">

@@ -113,6 +113,10 @@ Route::get('/my-order', [App\Http\Controllers\User\MyOrderController::class, 'in
 Route::get('/get-my-orders', [App\Http\Controllers\User\MyOrderController::class, 'getMyOrders']);
 Route::post('/submit-product-rating', [App\Http\Controllers\ProductRatingController::class, 'store']);
 
+Route::get('/my-cart', [App\Http\Controllers\User\CartController::class, 'index']);
+Route::get('/get-cart-items', [App\Http\Controllers\User\CartController::class, 'getCartItems']);
+Route::post('/submit-product-rating', [App\Http\Controllers\User\CartController::class, 'store']);
+
 
 
 
