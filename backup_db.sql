@@ -42067,6 +42067,34 @@ insert  into `barangays`(`id`,`brgyCode`,`brgyRef`,`brgyDesc`,`regCode`,`provCod
 (42028,'168507008',NULL,'San Vicente (Pob.)','16','1685','168507',1,NULL,NULL),
 (42029,'168507009',NULL,'Santa Cruz (Pob.)','16','1685','168507',1,NULL,NULL);
 
+/*Table structure for table `carts` */
+
+DROP TABLE IF EXISTS `carts`;
+
+CREATE TABLE `carts` (
+  `cart_id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `user_id` bigint(20) unsigned NOT NULL,
+  `product_id` bigint(20) unsigned NOT NULL,
+  `qty` tinyint(4) NOT NULL DEFAULT 0,
+  `price` tinyint(4) NOT NULL DEFAULT 0,
+  `date_added` date DEFAULT NULL,
+  `is_place_order` tinyint(4) DEFAULT 0,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`cart_id`),
+  KEY `carts_product_id_foreign` (`product_id`),
+  CONSTRAINT `carts_product_id_foreign` FOREIGN KEY (`product_id`) REFERENCES `products` (`product_id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+/*Data for the table `carts` */
+
+insert  into `carts`(`cart_id`,`user_id`,`product_id`,`qty`,`price`,`date_added`,`is_place_order`,`created_at`,`updated_at`) values 
+(1,2,15,1,15,'2022-12-25',0,'2022-12-25 17:12:53','2022-12-25 17:12:53'),
+(2,2,22,1,20,'2022-12-25',0,'2022-12-25 18:00:48','2022-12-25 18:00:48'),
+(3,2,22,1,20,'2022-12-25',0,'2022-12-25 18:01:15','2022-12-25 18:01:15'),
+(4,2,20,1,5,'2022-12-25',0,'2022-12-25 18:32:41','2022-12-25 18:32:41'),
+(5,2,20,1,5,'2022-12-25',0,'2022-12-25 18:33:24','2022-12-25 18:33:24');
+
 /*Table structure for table `cities` */
 
 DROP TABLE IF EXISTS `cities`;
@@ -43762,7 +43790,7 @@ CREATE TABLE `migrations` (
   `migration` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `batch` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 /*Data for the table `migrations` */
 
@@ -43775,7 +43803,8 @@ insert  into `migrations`(`id`,`migration`,`batch`) values
 (34,'2022_11_10_204118_create_products_table',1),
 (35,'2022_12_19_063330_create_sales_table',2),
 (36,'2022_12_19_065718_create_product_orders_table',3),
-(37,'2022_12_19_071403_create_offices_table',4);
+(37,'2022_12_19_071403_create_offices_table',4),
+(38,'2022_12_22_162408_create_product_ratings_table',5);
 
 /*Table structure for table `offices` */
 
@@ -43845,7 +43874,8 @@ CREATE TABLE `product_orders` (
   `price` double NOT NULL DEFAULT 0,
   `delivery_type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0',
   `office` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `date_purchase` date DEFAULT NULL,
+  `date_order` date DEFAULT NULL,
+  `is_delivered` tinyint(4) DEFAULT 0,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`product_order_id`),
@@ -43855,9 +43885,57 @@ CREATE TABLE `product_orders` (
   CONSTRAINT `product_orders_customer_id_foreign` FOREIGN KEY (`customer_id`) REFERENCES `users` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `product_orders_product_id_foreign` FOREIGN KEY (`product_id`) REFERENCES `products` (`product_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `product_orders_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 /*Data for the table `product_orders` */
+
+insert  into `product_orders`(`product_order_id`,`user_id`,`customer_id`,`product_id`,`qty`,`price`,`delivery_type`,`office`,`date_order`,`is_delivered`,`created_at`,`updated_at`) values 
+(1,3,11,19,1,25,'DELIVER','PROPERTY CUSTODIAN',NULL,0,'2022-12-22 18:59:48','2022-12-22 18:59:48'),
+(2,3,11,19,1,25,'PICK UP','',NULL,0,'2022-12-22 18:59:53','2022-12-22 18:59:53'),
+(3,3,11,19,1,25,'PICK UP','',NULL,0,'2022-12-22 19:03:22','2022-12-22 19:03:22'),
+(4,3,11,19,1,25,'PICK UP','',NULL,0,'2022-12-22 19:03:49','2022-12-22 19:03:49'),
+(5,3,11,19,1,25,'DELIVER','PROPERTY CUSTODIAN',NULL,0,'2022-12-22 19:03:54','2022-12-22 19:03:54'),
+(6,3,11,19,1,25,'PICK UP','',NULL,0,'2022-12-22 19:04:05','2022-12-22 19:04:05'),
+(7,3,11,19,1,25,'DELIVER','HR OFFICE',NULL,0,'2022-12-22 19:04:10','2022-12-22 19:04:10'),
+(8,3,11,19,1,25,'PICK UP','',NULL,0,'2022-12-22 19:04:35','2022-12-22 19:04:35'),
+(9,3,11,19,1,25,'DELIVER','PROPERTY CUSTODIAN',NULL,0,'2022-12-22 19:04:44','2022-12-22 19:04:44'),
+(10,3,11,19,1,25,'PICK UP','',NULL,0,'2022-12-22 22:07:08','2022-12-22 22:07:08'),
+(11,3,11,20,1,5,'PICK UP','',NULL,0,'2022-12-22 22:07:44','2022-12-22 22:07:44'),
+(12,3,11,22,1,20,'PICK UP','','2022-12-22',0,'2022-12-22 22:28:01','2022-12-22 22:28:01'),
+(13,3,11,17,2,20,'DELIVER','VP ADMIN','2022-12-22',0,'2022-12-22 22:28:55','2022-12-22 22:28:55'),
+(14,3,11,15,1,15,'PICK UP','','2022-12-22',0,'2022-12-22 22:34:00','2022-12-22 22:34:00'),
+(15,3,11,20,5,25,'PICK UP','','2022-12-22',0,'2022-12-22 23:20:35','2022-12-22 23:20:35'),
+(16,3,11,15,1,15,'PICK UP','','2022-12-23',0,'2022-12-23 06:12:58','2022-12-23 06:12:58'),
+(17,3,2,22,1,20,'PICK UP','','2022-12-25',0,'2022-12-25 06:03:43','2022-12-25 06:03:43');
+
+/*Table structure for table `product_ratings` */
+
+DROP TABLE IF EXISTS `product_ratings`;
+
+CREATE TABLE `product_ratings` (
+  `product_rating_id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `user_id` bigint(20) unsigned NOT NULL,
+  `product_id` bigint(20) unsigned NOT NULL,
+  `rating` double NOT NULL DEFAULT 0,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`product_rating_id`),
+  KEY `product_ratings_user_id_foreign` (`user_id`),
+  KEY `product_ratings_product_id_foreign` (`product_id`),
+  CONSTRAINT `product_ratings_product_id_foreign` FOREIGN KEY (`product_id`) REFERENCES `products` (`product_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `product_ratings_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+/*Data for the table `product_ratings` */
+
+insert  into `product_ratings`(`product_rating_id`,`user_id`,`product_id`,`rating`,`created_at`,`updated_at`) values 
+(1,11,15,3,'2022-12-23 06:21:24','2022-12-23 06:21:24'),
+(2,11,15,3,'2022-12-23 06:22:18','2022-12-23 06:22:18'),
+(3,11,20,4,'2022-12-23 06:22:29','2022-12-23 06:22:29'),
+(4,11,17,4,'2022-12-23 06:22:34','2022-12-23 06:22:34'),
+(5,11,22,3,'2022-12-23 06:22:47','2022-12-23 06:22:47'),
+(6,11,19,4,'2022-12-23 06:33:09','2022-12-23 06:33:09'),
+(7,2,22,4,'2022-12-25 06:04:18','2022-12-25 06:04:18');
 
 /*Table structure for table `products` */
 
@@ -44023,7 +44101,7 @@ CREATE TABLE `sales` (
   `qty` double NOT NULL DEFAULT 0,
   `price` double NOT NULL DEFAULT 0,
   `delivery_type` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `date_purchase` date DEFAULT NULL,
+  `date_order` date DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`sales_id`),
