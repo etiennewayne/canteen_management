@@ -19,19 +19,21 @@ class VendorProductController extends Controller
         $this->middleware('vendor');
     }
 
+
+
     public function show($id){
         return Product::find($id);
     }
 
     public function getProducts(Request $req){
-
+        //return $req;
         $sort = explode('.', $req->sort_by);
 
         $data = Product::where('product', 'like', $req->product . '%')
             ->where('store_id', $req->storeid)
             ->orderBy($sort[0], $sort[1])
             ->paginate($req->perpage);
-            
+
         return $data;
     }
 
@@ -54,7 +56,7 @@ class VendorProductController extends Controller
         Product::create([
             'store_id' => $req->store_id,
             'product' => $req->product,
-            'qty' => $req->qty,
+            'qty' => 0,
             'is_inv' => $req->is_inv,
             'product_price' => $req->product_price,
             'product_img_path' => $imgPath[2] != null ? $imgPath[2]: '',
@@ -85,7 +87,6 @@ class VendorProductController extends Controller
 
         $data = Product::find($id);
         $data->product = $req->product;
-        $data->qty = $req->qty;
         $data->is_inv = $req->is_inv;
         $data->product_price = $req->product_price;
 

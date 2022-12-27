@@ -26,6 +26,16 @@
 
                     <b-menu-list label="Menu">
                         <b-menu-item icon="home" label="Home" tag="a" href="/vendor/dashboard"></b-menu-item>
+                        <b-menu-item icon="storefront-outline" label="My Stores" tag="a" href="/vendor/my-store"></b-menu-item>
+                        <b-menu-item icon="storefront-outline" label="My Orders" tag="a" href="/vendor/my-orders"></b-menu-item>
+
+                        <b-menu-item icon="sitemap-outline" label="Products" tag="a" href="/vendor/all-products"></b-menu-item>
+                        <b-menu-item icon="adjust" label="Adjustment List" tag="a" href="/vendor/product-adjustment-list"></b-menu-item>
+                        <b-menu-item icon="laptop" label="POS" tag="a" href="/vendor/pos"></b-menu-item>
+                        <b-menu-item icon="laptop" label="Sales Report" tag="a" href="/vendor/sales-report"></b-menu-item>
+
+                        <!--                        <b-menu-item icon="math-log" label="Product Logs" tag="a" href="/vendor/product-logs-list"></b-menu-item>-->
+
                     </b-menu-list>
 
 

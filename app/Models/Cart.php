@@ -17,12 +17,15 @@ class Cart extends Model
 
 
     public function product(){
-        return $this->hasOne(Product::class, 'product_id', 'product_id');
+        return $this->hasOne(Product::class, 'product_id', 'product_id')
+            ->with(['store']);
     }
 
     public function user(){
         return $this->hasOne(User::class, 'user_id', 'user_id');
     }
+
+
 
 
 }

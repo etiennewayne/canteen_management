@@ -12,9 +12,9 @@
                 <div class="menu-box">
                     <a href="/vendor/my-store">MY STORE</a>
                 </div>
-                <div class="menu-box">
+                <!-- <div class="menu-box">
                     <a href="/vendor/my-products">PRODUCTS</a>
-                </div>
+                </div> -->
             </div>
         </div>
 

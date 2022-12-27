@@ -10,11 +10,11 @@
                         </div>
                         <div class="item-info">
                             <div style="display: flex;">
-                                <strong>Quantity:</strong> 
+                                <strong>Quantity:</strong>
                                 <b-numberinput class="ml-3" size="is-small" controls-position="compact" min="1"  v-model="item.qty"></b-numberinput>
                             </div>
                             <div>
-                                <strong>Product:</strong> 
+                                <strong>Product:</strong>
                                 {{  item.product.product }}
                             </div>
                             <div>
@@ -22,14 +22,20 @@
                             </div>
                             <div>
                                 <b-field label="Delivery Type: ">
-                                    <b-select placeholder="Delivery Type" 
+                                    <b-select placeholder="Delivery Type"
                                         required v-model="item.delivery_type">
                                         <option value="PICK UP">PICK UP</option>
-                                        <option value="DELIVER">DELIVER</option>
+                                        <option v-if="role === 'FACULTY'" value="DELIVER">DELIVER</option>
                                     </b-select>
                                 </b-field>
                             </div>
-                            
+                            <div class="mt-4" v-if="item.delivery_type === 'DELIVER'">
+                                <b-select placeholder="Office"
+                                          required v-model="item.office">
+                                    <option v-for="(i, ix) in offices" :key="ix" :value="i.office">{{ i.office }}</option>
+                                </b-select>
+                            </div>
+
                         </div>
                         <div class="item-buttons">
                             <b-button class="button is-primary is-small" @click="confirmPlaceOrder(item)">Place Order</b-button>
@@ -41,14 +47,14 @@
         </div><!--cols-->
 
 
-        
+
     </div><!-- root div-->
 </template>
 
 <script>
 
 export default{
-    props: ['propRole'],
+    props: ['propRole', 'propOffices'],
 
     data(){
         return {
@@ -57,6 +63,7 @@ export default{
             errors: {},
             fields: {},
             role: '',
+            offices: [],
         }
     },
 
@@ -69,11 +76,11 @@ export default{
         },
 
         confirmPlaceOrder(item){
-            console.log(item)
+            //console.log(item)
 
             this.$buefy.dialog.confirm({
-                title: 'DELETE!',
-                type: 'is-danger',
+                title: 'Place Order?',
+                type: 'is-info',
                 message: 'Are you sure you want to place this order?',
                 cancelText: 'Cancel',
                 confirmText: 'Yes',
@@ -83,18 +90,34 @@ export default{
 
         placeOrder(item){
             this.fields = item;
+            this.fields.store_user_id = item.product.store.user_id;
 
             axios.post('/place-cart-order', this.fields).then(res=>{
-            
+                if(res.data.status === 'saved'){
+                    this.$buefy.dialog.alert({
+                        title: 'Saved!',
+                        type: 'is-success',
+                        message: 'Order successfully placed.',
+                    });
+                    this.loadCarts()
+                }
             }).catch(err=>{
                 if(err.response.status === 422){
                     this.errors = err.response.data.errors;
+                    if(this.errors.delivery_type){
+                        this.$buefy.dialog.alert({
+                            title: 'Error!',
+                            type: 'is-danger',
+                            message: this.errors.delivery_type[0],
+                        });
+                    }
                 }
             })
         },
 
         initData(){
             this.role = this.propRole
+            this.offices = JSON.parse(this.propOffices)
         }
 
     },
@@ -111,7 +134,6 @@ export default{
         padding: 15px;
         border: 1px solid #ffeeee;
         margin: 15px 5px;
-        padding: 15px;
         display: flex;
     }
 

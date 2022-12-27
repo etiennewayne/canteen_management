@@ -82,11 +82,25 @@ Route::post('/user-reset-password/{id}', [App\Http\Controllers\Administrator\Use
 /*             ADMINSITRATOR          */
 
 
+
+
+
+
+
+
+
+
+
+//VENDOR
 Route::resource('/vendor/dashboard', App\Http\Controllers\Vendor\VendorDashboardController::class);
 
 Route::resource('/vendor/my-store', App\Http\Controllers\Vendor\VendorMyStoreController::class);
 Route::get('/vendor/get-my-stores', [App\Http\Controllers\Vendor\VendorMyStoreController::class, 'getMyStores']);
 Route::get('/vendor/store-info/{id}', [App\Http\Controllers\Vendor\VendorStoreInfoController::class, 'index']);
+
+Route::resource('/vendor/my-orders', App\Http\Controllers\Vendor\VendorMyOrderController::class);
+Route::get('/vendor/get-vendor-my-orders', [App\Http\Controllers\Vendor\VendorMyOrderController::class, 'getVendorMyOrders']);
+
 
 Route::get('/vendor/my-products', [App\Http\Controllers\Vendor\VendorProductController::class, 'index']);
 Route::post('/vendor/my-products', [App\Http\Controllers\Vendor\VendorProductController::class, 'store']);
@@ -96,7 +110,31 @@ Route::get('/vendor/my-products/{id}', [App\Http\Controllers\Vendor\VendorProduc
 Route::delete('/vendor/my-products/{id}', [App\Http\Controllers\Vendor\VendorProductController::class, 'destroy']);
 
 
-/*           ADMINSITRATOR          */
+Route::resource('/vendor/all-products', App\Http\Controllers\Vendor\AllProductsController::class);
+Route::get('/vendor/get-all-products', [App\Http\Controllers\Vendor\AllProductsController::class, 'getAllProducts']);
+Route::get('/vendor/get-product-info/{id}', [App\Http\Controllers\Vendor\AllProductsController::class, 'show']);
+
+
+Route::post('/vendor/adjust-item/{id}', [App\Http\Controllers\Vendor\ProductAdjustmentController::class, 'adjustItem']);
+
+
+
+Route::get('/vendor/product-adjustment-list', [App\Http\Controllers\Vendor\ProductAdjustmentController::class, 'index']);
+Route::get('/vendor/get-adjustment-products', [App\Http\Controllers\Vendor\ProductAdjustmentController::class, 'getAdjustmentProducts']);
+
+Route::get('/vendor/product-logs-list', [App\Http\Controllers\ProductLogController::class, 'index']);
+
+Route::resource('/vendor/pos', App\Http\Controllers\POSController::class);
+
+Route::get('/vendor/sales-report', [App\Http\Controllers\Vendor\SalesReportController::class, 'index']);
+Route::get('/vendor/get-sales-report', [App\Http\Controllers\Vendor\SalesReportController::class, 'getSalesReport']);
+
+
+
+
+
+
+
 
 
 
@@ -120,11 +158,12 @@ Route::get('/get-cart-items', [App\Http\Controllers\User\CartController::class, 
 Route::get('/get-count-cart-items', function(){
     if(Auth::check()){
         $user = Auth::user();
-        return Cart::where('user_id', $user->user_id)->count();
+        return Cart::where('user_id', $user->user_id)
+            ->where('is_place_order', 0)->count();
     }else{
         return [];
     }
-   
+
 });
 
 

@@ -51,4 +51,23 @@
 }
 
 
+.report-title-text{
+    margin: 15px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 1.2em;
+}
 
+.table-report > table{
+    margin: auto;
+    font-size: 0.8em;
+}
+.table-report > table th{
+    border: 1px solid #d4d4d4;
+    padding: 15px;
+}
+
+.table-report > table tr td{
+    border: 1px solid #d4d4d4;
+    padding: 10px;
+}

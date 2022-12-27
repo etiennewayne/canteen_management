@@ -68,8 +68,6 @@
         </div>
 
 
-
-
         <!--modal create-->
         <b-modal v-model="isModalCreate" has-modal-card
             trap-focus
@@ -114,14 +112,6 @@
                                 </div>
                             </div>
                             <div class="columns">
-                                <div class="column">
-                                    <b-field label="Quantity">
-                                        <b-numberinput controls-alignment="left"
-                                            v-model="fields.qty" min="0"
-                                            placeholder="Quantity"
-                                            controls-position="compact"></b-numberinput>
-                                    </b-field>
-                                </div>
                                 <div class="column">
                                     <b-field label="Price">
                                         <b-numberinput controls-alignment="left"
@@ -187,7 +177,7 @@ export default {
 
             prevIcon: 'chevron-left',
             nextIcon: 'chevron-right',
-            
+
             store: {},
             products: [],
             errors: {},
@@ -220,7 +210,7 @@ export default {
     methods: {
         initData(){
             this.store = JSON.parse(this.propData);
-
+            console.log(this.store);
             this.loadData();
         },
 
@@ -265,7 +255,7 @@ export default {
             var formData = new FormData();
             formData.append('store_id', this.store.store_id);
             formData.append('product', this.fields.product ? this.fields.product : '');
-            formData.append('qty', this.fields.qty ? this.fields.qty : 0);
+            formData.append('qty', this.fields.qty);
             formData.append('is_inv', this.fields.is_inv);
             formData.append('product_price', this.fields.product_price);
 
@@ -418,4 +408,5 @@ export default {
     height: 200px;
     border: 1px solid green;
 }
+
 </style>
