@@ -24,7 +24,8 @@ class CartController extends Controller
     }
 
     public function getCountCartItems (){
-        return Cart::count();
+        $user = Auth::user();
+        return Cart::where('user_id', $user->user_id)->count();
     }
 
     public function getCartItems(){

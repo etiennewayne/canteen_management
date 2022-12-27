@@ -25,9 +25,9 @@ class WelcomePageAllProductsController extends Controller
                 DB::raw('(select count(*) from product_ratings where product_id = products.product_id) as total_raters'),
                 DB::raw('((select total_rating) / (select total_raters)) as total_rates'),
             );
-        return $data->orderBy($sort[0], $sort[1])
+        return $data->where('product', 'like', $req->product . '%')
+            ->orderBy($sort[0], $sort[1])
             ->paginate($req->perpage);
-        
-
+            
     }
 }

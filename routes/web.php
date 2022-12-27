@@ -7,10 +7,8 @@ use Illuminate\Support\Facades\Session;
 
 use App\Models\Appointment;
 use App\Models\User;
+use App\Models\Cart;
 use App\Models\DentistSchedule;
-
-
-
 
 /*
 |--------------------------------------------------------------------------
@@ -115,7 +113,21 @@ Route::post('/submit-product-rating', [App\Http\Controllers\ProductRatingControl
 
 Route::resource('/my-cart', App\Http\Controllers\User\CartController::class);
 Route::get('/get-cart-items', [App\Http\Controllers\User\CartController::class, 'getCartItems']);
-Route::get('/get-count-cart-items', [App\Http\Controllers\User\CartController::class, 'getCountCartItems']);
+
+//if login, count the cart
+//else
+//return empty array
+Route::get('/get-count-cart-items', function(){
+    if(Auth::check()){
+        $user = Auth::user();
+        return Cart::where('user_id', $user->user_id)->count();
+    }else{
+        return [];
+    }
+   
+});
+
+
 Route::post('/place-cart-order', [App\Http\Controllers\User\CartController::class, 'placeCartOrder']);
 
 
