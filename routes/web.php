@@ -51,6 +51,9 @@ Route::get('/load-user', function(){
 Route::post('/login', [App\Http\Controllers\Auth\LoginController::class, 'login']);
 Route::post('/logout', [App\Http\Controllers\Auth\LoginController::class, 'logout']);
 
+Route::get('/verify-account', [App\Http\Controllers\VerifyAccountController::class, 'index']);
+Route::post('/verify-account/{id}', [App\Http\Controllers\VerifyAccountController::class, 'verify']);
+
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
@@ -100,6 +103,8 @@ Route::get('/vendor/store-info/{id}', [App\Http\Controllers\Vendor\VendorStoreIn
 
 Route::resource('/vendor/my-orders', App\Http\Controllers\Vendor\VendorMyOrderController::class);
 Route::get('/vendor/get-vendor-my-orders', [App\Http\Controllers\Vendor\VendorMyOrderController::class, 'getVendorMyOrders']);
+Route::post('/vendor/store-order', [App\Http\Controllers\Vendor\VendorMyOrderController::class, 'storeOrder']);
+
 
 
 Route::get('/vendor/my-products', [App\Http\Controllers\Vendor\VendorProductController::class, 'index']);

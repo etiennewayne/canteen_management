@@ -26,7 +26,7 @@
                                 :default-sort-direction="defaultSortDirection"
                                 @sort="onSort">
 
-                                <b-table-column field="product_order_id" label="ID" sortable v-slot="props">
+                                <b-table-column field="product_order_id" label="Order Id" sortable v-slot="props">
                                     {{ props.row.product_order_id }}
                                 </b-table-column>
 
@@ -63,10 +63,10 @@
                                     <b-tooltip label="Rate" type="is-warning">
                                         <b-button class="button is-info mr-1" tag="a" icon-right="star" @click="rateProduct(props.row.product_id)"></b-button>
                                     </b-tooltip>
-                                   
+
                                 </div>
                             </b-table-column>
-                               
+
                             </b-table>
                         </div><!-- box-body -->
                     </div> <!-- box-->
@@ -105,11 +105,11 @@
                                     </b-field>
                                 </div>
                             </div>
-                            
+
                         </div>
                     </section>
                     <footer class="modal-card-foot">
-                      
+
                         <button
                             :class="btnClass"
                             label="Save"
@@ -120,7 +120,7 @@
         </b-modal>
         <!--close modal-->
 
-    </div> <!--root div-->    
+    </div> <!--root div-->
 </template>
 
 <script>
@@ -144,7 +144,7 @@ export default{
                 product_id: 0,
             },
             errors: {},
-            
+
             modalRating: false,
 
             btnClass: {
@@ -247,7 +247,7 @@ export default{
             })
         }
 
-        
+
     },
 
     mounted(){

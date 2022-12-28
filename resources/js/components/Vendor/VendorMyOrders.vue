@@ -5,22 +5,30 @@
                 <div class="column is-8">
                     <div class="box">
                         <div class="box-header">
-                            My Order History
+                            My Store Order
                         </div>
 
                         <div class="columns mt-5">
-                            <div class="column is-8">
+                            <div class="column">
                                 <b-field label="Store" label-position="on-border">
-                                    <b-select v-model="store">
-                                        <option v-for="(item, index) in stores" :key="index" :value="item.store">{{ item.store }}</option>
+                                    <b-select v-model="search.storeid">
+                                        <option v-for="(item, index) in stores" :key="index" :value="item.store_id">{{ item.store }}</option>
                                     </b-select>
-                                    <p class="controls">
-                                        <button class="button is-info" @click="loadAsyncData">
-                                            <b-icon icon="magnify"></b-icon>
-                                        </button>
-                                    </p>
                                 </b-field>
                             </div>
+                            <div class="column">
+                                <b-field label="Order Id" label-position="on-border">
+                                    <b-input type="text" v-model="search.product_order_id" @keyup.native.enter="loadAsyncData" placeholder="Order Id">
+                                    </b-input>
+                                </b-field>
+                            </div>
+                        </div>
+
+                        <div class="buttons">
+                            <button class="button is-info" @click="loadAsyncData">
+                                <b-icon icon="magnify"></b-icon>
+                                &nbsp; Search
+                            </button>
                         </div>
 
                         <div class="box-body">
@@ -41,16 +49,12 @@
                                 :default-sort-direction="defaultSortDirection"
                                 @sort="onSort">
 
-                                <b-table-column field="product_order_id" label="ID" sortable v-slot="props">
+                                <b-table-column field="product_order_id" label="Order Id" sortable v-slot="props">
                                     {{ props.row.product_order_id }}
                                 </b-table-column>
 
-                                <b-table-column field="store" label="Store" sortable v-slot="props">
-                                    {{ props.row.product.store.store }}
-                                </b-table-column>
-
                                 <b-table-column field="username" label="Product" sortable v-slot="props">
-                                    {{ props.row.product.product }}
+                                    {{ props.row.product }}
                                 </b-table-column>
 
                                 <b-table-column field="is_delivered" label="Delivered" centered sortable v-slot="props">
@@ -62,10 +66,10 @@
                                     {{ props.row.delivery_type }}
                                 </b-table-column>
                                 <b-table-column field="qty" label="Qty" centered v-slot="props">
-                                    {{ props.row.qty }}
+                                    {{ props.row.purchase_qty }}
                                 </b-table-column>
 
-                                <b-table-column field="price" label="Price" centered v-slot="props">
+                                <b-table-column field="price" label="Total Price" centered v-slot="props">
                                     {{ props.row.price | formatPrice }}
                                 </b-table-column>
 
@@ -75,8 +79,8 @@
 
                                 <b-table-column label="Action" v-slot="props">
                                     <div class="is-flex">
-                                        <b-tooltip label="Rate" type="is-warning">
-                                            <b-button class="button is-info mr-1" tag="a" icon-right="star" @click="rateProduct(props.row.product_id)"></b-button>
+                                        <b-tooltip label="Mini POS" type="is-warning">
+                                            <b-button class="button is-info mr-1 is-small" tag="a" icon-right="desktop-classic" @click="openModalMiniPOS(props.row)"></b-button>
                                         </b-tooltip>
 
                                     </div>
@@ -91,47 +95,81 @@
 
 
         <!--modal create-->
-        <b-modal v-model="modalRating" has-modal-card
-                 trap-focus
-                 :width="640"
-                 aria-role="dialog"
-                 aria-label="Modal"
-                 aria-modal>
+        <b-modal v-model="modalMiniPOS" has-modal-card
+             trap-focus
+             :width="640"
+             aria-role="dialog"
+             aria-label="Modal"
+             aria-modal>
 
-            <form @submit.prevent="submitRating">
-                <div class="modal-card">
-                    <header class="modal-card-head">
-                        <p class="modal-card-title">Rate Product</p>
-                        <button
-                            type="button"
-                            class="delete"
-                            @click="modalRating = false"/>
-                    </header>
 
-                    <section class="modal-card-body">
-                        <div class="">
-                            <div class="columns">
-                                <div class="column">
-                                    <b-field label="How's the product?"
-                                             :type="this.errors.rating ? 'is-danger':''"
-                                             :message="this.errors.rating ? this.errors.rating[0] : ''">
-                                        <b-rate class="" icon="emoticon-happy-outline" v-model="fields.rating">
-                                        </b-rate>
-                                    </b-field>
-                                </div>
+            <div class="modal-card">
+                <header class="modal-card-head">
+                    <p class="modal-card-title">Mini POS</p>
+                    <button
+                        type="button"
+                        class="delete"
+                        @click="modalMiniPOS = false"/>
+                </header>
+
+                <section class="modal-card-body">
+                    <div class="">
+
+                        <div class="columns">
+                            <div class="column">
+                                <b-field label="Customer Name">
+                                    <b-input type="text" placeholder="Customer Name" v-model="fields.customer_name"/>
+                                </b-field>
                             </div>
-
                         </div>
-                    </section>
-                    <footer class="modal-card-foot">
 
-                        <button
-                            :class="btnClass"
-                            label="Save"
-                            type="is-success">Save Rating</button>
-                    </footer>
-                </div>
-            </form><!--close form-->
+                        <div class="columns">
+                            <div class="column">
+                                <b-field label="Quantity">
+                                    <b-input type="text" placeholder="Quantity" readonly v-model="fields.purchase_qty"/>
+                                </b-field>
+                            </div>
+                            <div class="column">
+                                <b-field label="Price">
+                                    <b-input type="text" placeholder="Price" readonly v-model="fields.price"/>
+                                </b-field>
+                            </div>
+                        </div>
+
+                        <div class="columns">
+                            <div class="column">
+                                <b-field label="Tendered Cash"
+                                         :type="this.errors.tendered_cash ? 'is-danger':''"
+                                         :message="this.errors.tendered_cash ? this.errors.tendered_cash[0] : ''">
+                                    <b-numberinput placeholder="Tendered Cash" :controls="false"
+                                                   @keyup.native.enter="calculateChange"
+                                                   v-model="fields.tendered_cash"></b-numberinput>
+                                </b-field>
+                            </div>
+                        </div>
+
+                        <div class="columns">
+                            <div class="column">
+                                <b-field label="Change"
+                                         :type="this.errors.change ? 'is-danger':''"
+                                         :message="this.errors.change ? this.errors.change[0] : ''">
+                                    <b-numberinput placeholder="Change"
+                                                   :editable="false"
+                                                   :controls="false" v-model="change"></b-numberinput>
+                                </b-field>
+                            </div>
+                        </div>
+
+                    </div>
+                </section>
+                <footer class="modal-card-foot">
+                    <b-button
+                        :class="btnClass"
+                        label="Submit"
+                        @click="submitSale"></b-button>
+                </footer>
+            </div>
+
         </b-modal>
         <!--close modal-->
 
@@ -154,14 +192,21 @@ export default{
 
             search: {
                 product: '',
+                storeid: 0,
+                product_order_id: '',
             },
 
             fields: {
-                product_id: 0,
+                tendered_cash: 0,
+                change : 0,
             },
+
+            totalAmount: 0,
+            change: 0,
+
             errors: {},
 
-            modalRating: false,
+            modalMiniPOS: false,
 
             btnClass: {
                 'is-success': true,
@@ -181,6 +226,8 @@ export default{
             const params = [
                 `sort_by=${this.sortField}.${this.sortOrder}`,
                 `product=${this.search.product}`,
+                `storeid=${this.search.storeid}`,
+                `product_order_id=${this.search.product_order_id}`,
                 `perpage=${this.perPage}`,
                 `page=${this.page}`
             ].join('&')
@@ -225,42 +272,49 @@ export default{
             this.loadAsyncData()
         },
 
-        rateProduct(dataId){
-            this.modalRating = true;
-            this.fields.product_id = dataId;
+        openModalMiniPOS(row){
+            this.clearFields()
+            this.modalMiniPOS = true;
+            this.totalAmount = row.price
+            this.fields.product_id = row.product_id;
+            this.fields.product = row.product;
+            this.fields.order_type = row.delivery_type
+            this.fields.purchase_qty = row.purchase_qty
+            this.fields.product_order_id = row.product_order_id;
+            this.fields.price = row.price;
+            console.log(row)
+
         },
 
         clearFields(){
             this.fields = {
-                rating: 0,
-                product_id : 0,
+                tendered_cash: 0,
+                change : 0,
             };
         },
 
-        submitRating(){
-            this.modalRating = false;
+        calculateChange(){
+            this.change = this.fields.tendered_cash  - this.totalAmount
+        },
 
-            axios.post('/submit-product-rating', this.fields).then(res=>{
-                if(res.data.status === 'submitted'){
+        submitSale(){
+
+            this.modalMiniPOS = false;
+            this.fields.change = this.change;
+
+            axios.post('/vendor/store-order', this.fields).then(res=>{
+                if(res.data.status === 'saved'){
                     this.$buefy.dialog.alert({
                         title: 'RATED!',
                         message: 'The product was rated successfully.',
                         type: 'is-success',
                         onConfirm: () => {
                             this.clearFields();
+                            this.loadAsyncData()
                         }
                     })
                 }
             }).catch(err=>{
-                if(err.response.data.status === 'exist'){
-                    this.$buefy.dialog.alert({
-                        title: 'RATED!',
-                        type: 'is-danger',
-                        message: 'Already rated this product.',
-                    });
-
-                    this.fields.rating = 0
-                }
             })
         },
 

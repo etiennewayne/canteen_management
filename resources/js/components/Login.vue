@@ -9,7 +9,7 @@
                             Sign In
                         </div>
                     </div>
-                 
+
 
                     <div class="box-body">
                         <b-field label="Username" label-position="on-border"
@@ -20,7 +20,7 @@
 
                         <b-field label="Password" label-position="on-border">
                             <b-input type="password" v-model="fields.password" password-reveal placeholder="Password" />
-                        </b-field> 
+                        </b-field>
                     </div>
 
                     <button class="box-button is-primary">Login</button>
@@ -49,6 +49,11 @@ export default {
         submit: function(){
             axios.post('/login', this.fields).then(res=>{
                 console.log(res.data)
+                if(res.data.is_approve === 0){
+                    window.location = '/verify-account'
+                    return;
+                }
+
                 if(res.data.role === 'ADMINISTRATOR' || res.data.role === 'STAFF'){
                     window.location = '/admin-home';
                 }
@@ -72,5 +77,5 @@ export default {
 
 
 <style scoped src="../../css/login.css">
-    
+
 </style>

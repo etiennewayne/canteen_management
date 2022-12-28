@@ -36,16 +36,15 @@
                             <div class="column">
                                 <b-field label="Store" label-position="on-border">
                                     <b-select v-model="search.store" @input="loadAsyncData">
-                                        <option value="">--NONE--</option>
                                         <option v-for="(item, index) in stores" :key="index" :value="item.store">{{  item.store }}</option>
                                     </b-select>
                                 </b-field>
                             </div>
                         </div>
-                        
-                        <div class="buttons mt-3">
-                            <b-button icon-left="plus" class="is-primary">NEW</b-button>
-                        </div>
+
+<!--                        <div class="buttons mt-3">-->
+<!--                            <b-button icon-left="plus" class="is-primary">NEW</b-button>-->
+<!--                        </div>-->
 
                         <b-table
                             :data="data"
@@ -99,7 +98,7 @@
                                     <!-- <b-tooltip label="Delete" type="is-danger">
                                         <b-button class="button is-small mr-1" icon-right="delete" @click="confirmDelete(props.row.product_id)"></b-button>
                                     </b-tooltip> -->
-                                   
+
                                 </div>
                             </b-table-column>
                         </b-table>
@@ -152,7 +151,7 @@
                                     <b-field label="Adjustment Type" label-position="on-border" expanded
                                         :type="this.errors.adjustment_type ? 'is-danger':''"
                                         :message="this.errors.adjustment_type ? this.errors.adjustment_type[0] : ''">
-                                        <b-select type="text" v-model="fields.adjustment_type" placeholder="Adjustment Type" 
+                                        <b-select type="text" v-model="fields.adjustment_type" placeholder="Adjustment Type"
                                             expanded required>
                                             <option value="ADD">ADD</option>
                                             <option value="SUBSTRACT">SUBSTRACT</option>
@@ -179,7 +178,7 @@
                         </div>
                     </section>
                     <footer class="modal-card-foot">
-                       
+
                         <button
                             :class="btnClass"
                             label="Save"
@@ -299,7 +298,7 @@ export default{
         },
 
         adjustItem: function(){
-           
+
             axios.post('/vendor/adjust-item/' + this.fields.product_id, this.fields).then(res=>{
                 if(res.data.status === 'adjusted'){
                     this.$buefy.dialog.alert({
@@ -319,7 +318,7 @@ export default{
                     this.errors = err.response.data.errors;
                 }
             });
-        
+
         },
 
 
@@ -359,7 +358,7 @@ export default{
 
             //nested axios for getting the address 1 by 1 or request by request
             axios.get('/vendor/get-product-info/'+data_id).then(res=>{
-               
+
             });
         },
 

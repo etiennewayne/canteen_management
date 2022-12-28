@@ -77,6 +77,11 @@
                                 {{ props.row.email }}
                             </b-table-column>
 
+                            <b-table-column field="email" label="Verify" v-slot="props">
+                                <span v-if="props.row.is_approve === 1">Yes</span>
+                                <span v-else>No</span>
+                            </b-table-column>
+
                             <b-table-column field="role" label="Role" v-slot="props">
                                 {{ props.row.role }}
                             </b-table-column>
@@ -91,6 +96,9 @@
                                     </b-tooltip>
                                     <b-tooltip label="Reset Password" type="is-info">
                                         <b-button class="button is-small mr-1" icon-right="lock" @click="openModalResetPassword(props.row.user_id)"></b-button>
+                                    </b-tooltip>
+                                    <b-tooltip v-if="props.row.is_approve === 0" label="Approved" type="is-info">
+                                        <b-button class="button is-small mr-1" icon-right="thumb-up" @click="verifyAccount(props.row.user_id)"></b-button>
                                     </b-tooltip>
                                 </div>
                             </b-table-column>
@@ -643,6 +651,23 @@ export default{
                 this.errors = err.response.data.errors;
             })
         },
+
+        verifyAccount(userId){
+
+            this.$buefy.dialog.confirm({
+                title: 'Verify?',
+                type: 'is-info',
+                message: 'Are you sure you want verify this account?',
+                cancelText: 'Cancel',
+                confirmText: 'Verify',
+                onConfirm: () => {
+                    axios.post('/verify-account/' + userId)
+
+                    this.loadAsyncData()
+                }
+            });
+        }
+
 
 
     },

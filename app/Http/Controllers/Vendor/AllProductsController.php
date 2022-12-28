@@ -37,7 +37,7 @@ class AllProductsController extends Controller
         $data = Product::with(['store'])
             ->where('product', 'like', $req->product . '%')
             ->whereHas('store', function($q) use ($req){
-                $q->where('store', 'like', $req->store . '%');
+                $q->where('store',  $req->store);
             })
             ->orderBy($sort[0], $sort[1])
             ->paginate($req->perpage);

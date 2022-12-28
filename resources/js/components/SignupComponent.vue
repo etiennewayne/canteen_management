@@ -18,6 +18,7 @@
                                     <b-select placeholder="Account Type" v-model="fields.role" icon="account" expanded>
                                         <option value="STUDENT">STUDENT</option>
                                         <option value="FACULTY">FACULTY</option>
+                                        <option value="VENDOR">VENDOR</option>
                                     </b-select>
                                 </b-field>
                             </div>
@@ -242,7 +243,7 @@ export default {
         },
 
         submit(){
-            this.fields.student_id = this.fields.role === 'FACULTY' ? '': this.fields.student_id; 
+            this.fields.student_id = this.fields.role === 'FACULTY' ? '': this.fields.student_id;
 
             axios.post('/sign-up', this.fields).then(res=>{
                 if(res.data.status === 'saved'){
