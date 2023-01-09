@@ -13,8 +13,8 @@
                         <div class="columns">
                             <div class="column">
                                 <b-field label="Account Type" expanded
-                                         :type="this.errors.role ? 'is-danger':''"
-                                         :message="this.errors.role ? this.errors.role[0] : ''">
+                                    :type="this.errors.role ? 'is-danger':''"
+                                    :message="this.errors.role ? this.errors.role[0] : ''">
                                     <b-select placeholder="Account Type" v-model="fields.role" icon="account" expanded>
                                         <option value="STUDENT">STUDENT</option>
                                         <option value="FACULTY">FACULTY</option>
@@ -23,6 +23,20 @@
                                 </b-field>
                             </div>
                         </div>
+
+                        <!-- <div class="columns">
+                            <div class="column">
+                                <b-upload v-model="file" class="file-label">
+                                    <span class="file-cta">
+                                        <b-icon class="file-icon" icon="upload"></b-icon>
+                                        <span class="file-label">Click to upload</span>
+                                    </span>
+                                    <span class="file-name" v-if="file">
+                                        {{ file.name }}
+                                    </span>
+                                </b-upload>
+                            </div>
+                        </div> -->
                         <hr>
 
                         <div class="columns">
@@ -192,6 +206,8 @@ export default {
                 street: '',
                 role: 'STUDENT'
             },
+
+
 
             errors: {},
 

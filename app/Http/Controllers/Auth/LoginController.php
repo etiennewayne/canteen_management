@@ -56,9 +56,12 @@ class LoginController extends Controller
             $request->session()->regenerate();
             $user = Auth::user();
 
-            $store = Store::where('user_id', $user->user_id)->first();
-            $store->is_online = 1;
-            $store->save();
+
+            if($user->role === 'VENDOR'){
+                $store = Store::where('user_id', $user->user_id)->first();
+                $store->is_online = 1;
+                $store->save();
+            }
 
             return $user;
             // return redirect()->intended('dashboard');
@@ -73,10 +76,14 @@ class LoginController extends Controller
     public function logout(Request $req){
 
         $user = Auth::user();
-        $store = Store::where('user_id', $user->user_id)->first();
-        $store->is_online = 0;
-        $store->save();
 
+        if($user->role === 'VENDOR'){
+            $store = Store::where('user_id', $user->user_id)->first();
+            $store->is_online = 0;
+            $store->save();
+        }
+
+        
 
         Auth::logout();
         $req->session()->invalidate();

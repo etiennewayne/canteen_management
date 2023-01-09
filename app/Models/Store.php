@@ -13,7 +13,7 @@ class Store extends Model
     protected $primaryKey = 'store_id';
 
 
-    protected $fillable = ['user_id', 'store', 'owner', 'contact_no'];
+    protected $fillable = ['user_id', 'store', 'owner', 'contact_no', 'is_online'];
 
     public function owner_info(){
         return $this->hasOne(User::class, 'user_id', 'user_id');
