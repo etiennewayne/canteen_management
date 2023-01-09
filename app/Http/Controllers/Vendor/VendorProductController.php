@@ -6,7 +6,9 @@ use App\Http\Controllers\Controller;
 use App\Models\Product;
 
 
+use App\Models\Store;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 
@@ -19,18 +21,20 @@ class VendorProductController extends Controller
         $this->middleware('vendor');
     }
 
-
-
     public function show($id){
         return Product::find($id);
     }
 
     public function getProducts(Request $req){
         //return $req;
+        $user = Auth::user();
+
+        $store = Store::where('user_id', $user->user_id)
+                ->first();
         $sort = explode('.', $req->sort_by);
 
-        $data = Product::where('product', 'like', $req->product . '%')
-            ->where('store_id', $req->storeid)
+        $data = Product::where('product', 'like', '%' . $req->product . '%')
+            ->where('store_id', $store->store_id)
             ->orderBy($sort[0], $sort[1])
             ->paginate($req->perpage);
 

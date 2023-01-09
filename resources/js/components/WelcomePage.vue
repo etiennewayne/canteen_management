@@ -1,16 +1,16 @@
 <template>
     <div>
-        <div class="banner">
+        <!-- <div class="banner">
             <div class="banner-text">
                 FOOD ORDERING MANAGEMENT SYSTEM
             </div>
             <div class="banner-img-container">
                 <img src="/img/banner-logo.jpg" class="banner-img"/>
             </div>
-        </div>  
+        </div>   -->
 
 
-      
+
 
         <div class="product-section">
             <div class="ml-5">
@@ -18,11 +18,11 @@
                     <b-icon icon="cart-outline"></b-icon>
                     <span class="cart-no">{{  this.countCart }}</span>
                 </a>
-                
             </div>
+
             <div class="search-bar">
                 <b-field>
-                    <b-input type="text" expanded 
+                    <b-input type="text" expanded
                         placeholder="Search Food here..."
                         v-model="search.product"
                         @keydown.native.enter="loadProducts"></b-input>
@@ -40,21 +40,45 @@
                     <div class="product-title">
                         {{ item.product }}
                     </div>
+                    <div class="product-title">
+                        {{ item.store }}
+                    </div>
+                    <div>
+                        <strong>Quantity: </strong> {{  item.qty }}
+                    </div>
                     <div class="product-price">
                         P{{ item.product_price | formatPrice }}
                     </div>
+<!--                    <div>-->
+<!--                        <b-field>-->
+<!--                            <b-numberinput min="0" controls-position="compact" v-model="item.purchase_qty"></b-numberinput>-->
+<!--                        </b-field>-->
+<!--                    </div>-->
                     <div class="product-rating">
-                        <b-rate 
+                        <b-rate
                             disabled
+                            show-score
                             v-model="item.total_rates"></b-rate>
                     </div>
                     <div class="product-footer">
-                        <b-button class="button is-primary is-outlined my-2" icon-right="cart-plus" @click="openAddCart(item)">Add to Cart</b-button>
-                        <b-button class="button is-primary" tag="a" :href="`/buy-now/${item.product_id}`">Buy Now</b-button>
+                        <div v-if="propIsAuth == 1">
+                            <b-button class="button is-primary is-fullwidth is-outlined my-2"
+                                icon-right="cart-plus"
+                                @click="openAddCart(item)"
+                            >
+                                    Add to Cart
+                            </b-button>
+                            <b-button
+                                class="button is-primary is-fullwidth"
+                                tag="a" :href="`/buy-now/${item.product_id}`"
+                            >
+                                Buy Now
+                            </b-button>
+                        </div>
                     </div>
                 </div>
             </div>
-                
+
             <div class="pagination-container">
                 <b-pagination
                     :total="total"
@@ -108,7 +132,7 @@
                                             </div>
                                             <div>
                                                 <strong>Rate: </strong>
-                                                <b-rate 
+                                                <b-rate
                                                 disabled
                                                 v-model="cart.total_rates"></b-rate>
                                             </div>
@@ -142,7 +166,7 @@
 <script>
 
 export default {
-    props: ['propUser'],
+    props: ['propIsAuth'],
     data(){
         return{
 
@@ -172,7 +196,7 @@ export default {
             cartFields: {
                 qty: 1
             },
-           
+
             modalAddToCart: false,
             cart: {},
             countCart: 0,
@@ -181,7 +205,7 @@ export default {
                 'button': true,
                 'is-loading':false,
             },
-            
+
         }
 
     },
@@ -208,7 +232,7 @@ export default {
             axios.get('/get-count-cart-items').then(res=>{
                 this.countCart = parseFloat(res.data)
             }).catch(err=>{
-            
+
             })
         },
 
@@ -254,151 +278,5 @@ export default {
 }
 </script>
 
-<style scoped>
-
-    .banner{
-        margin: auto;
-        max-width: 1024px;
-        height: 400px;
-        display: flex;
-    }
-    .banner-text{
-        font-weight: bold;
-        margin: auto;
-        font-size: 2.0em;
-    }
-    .banner-img-container{
-        height: 500px;
-        width: 500px;
-        position:relative;
-        overflow:hidden;
-    }
-    .banner-img{
-        position:absolute;
-        top:0;
-        bottom:0;
-        margin: auto;
-        width:100%;
-    }
-
-
-    .product-section{
-        max-width: 1024px;
-        margin: 20px auto;
-    }
-    .search-bar{
-        margin: 15px;
-    }
-    .products-container{
-        display: flex;
-        justify-content: center;
-        flex-wrap: wrap;
-
-    }
-
-    .product-item{
-        padding: 15px;
-        margin: 15px;
-        max-width: 185px;
-        border: 1px solid red;
-        position: relative;
-    }
-
-    .product-img-container{
-        height: 150px;
-        width: 150px;
-        position:relative;
-        overflow:hidden;
-    }
-    .product-img{
-        position:absolute;
-        top:0;
-        bottom:0;
-        margin: auto;
-        width:100%;
-    }
-    .product-title{
-        font-weight: bold;
-    }
-    .product-rating{
-        position: relative;
-    }
-    .product-footer{
-        display: flex;
-        flex-direction: column;
-        /*position: absolute;*/
-        /*bottom: 0;*/
-    }
-
-    .pagination-container{
-        margin: 0 50px;
-    }
-    .modal-item-container{
-        display: flex;
-    }
-
-    .cart-no{
-        background: red;
-        padding: 2px 5px;
-        color: white;
-        font-weight: bold;
-        border-radius: 20px;
-    }
-
-
-    @media only screen and (max-width: 1024px) {
-        .banner-text{
-            font-weight: bold;
-            margin: auto 0 auto 15px;
-            font-size: 2.0em;
-        }
-    }
-
-    @media only screen and (max-width: 768px) {
-        .banner{
-            display: flex;
-            flex-direction: column;
-        }
-        .banner-text{
-            margin: auto;
-        }
-        .banner-img-container{
-            height: 500px;
-            width: 500px;
-            position:relative;
-            overflow:hidden;
-            margin: auto;
-        }
-        .banner-img{
-            position:absolute;
-            top:0;
-            bottom:0;
-            margin: auto;
-            width:100%;
-        }
-    }
-
-    @media only screen and (max-width: 480px) {
-        .banner{
-            display: flex;
-            flex-direction: column;
-        }
-        .banner-text{
-            margin: auto;
-            text-align: center;
-        }
-        .banner-img-container{
-            width: 500px;
-        }
-
-        .product-item{
-            padding: 15px;
-            margin: 15px auto;
-        }
-    }
-
-
-
-
-
+<style scoped src="../../css/welcome.css">
 </style>

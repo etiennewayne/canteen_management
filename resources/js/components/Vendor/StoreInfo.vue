@@ -88,18 +88,18 @@
 
                     <section class="modal-card-body">
                         <div class="">
-                            <div class="columns">
-                                <div class="column">
-                                    <b-field>
-                                        <b-checkbox v-model="fields.is_inv"
-                                            true-value="1"
-                                            false-value="0">
-                                            Inventoriable
-                                        </b-checkbox>
-                                    </b-field>
+<!--                            <div class="columns">-->
+<!--                                <div class="column">-->
+<!--                                    <b-field>-->
+<!--                                        <b-checkbox v-model="fields.is_inv"-->
+<!--                                            true-value="1"-->
+<!--                                            false-value="0">-->
+<!--                                            Inventoriable-->
+<!--                                        </b-checkbox>-->
+<!--                                    </b-field>-->
 
-                                </div>
-                            </div>
+<!--                                </div>-->
+<!--                            </div>-->
                             <div class="columns">
                                 <div class="column">
                                     <b-field label="Product" label-position="on-border"
@@ -162,7 +162,7 @@
 
 <script>
 export default {
-    props: ['propData'],
+    //props: ['propData'],
     data(){
         return{
 
@@ -209,8 +209,8 @@ export default {
 
     methods: {
         initData(){
-            this.store = JSON.parse(this.propData);
-            console.log(this.store);
+            //this.store = JSON.parse(this.propData);
+            //console.log(this.store);
             this.loadData();
         },
 
@@ -220,7 +220,6 @@ export default {
             const params = [
                 `sort_by=${this.sortField}.${this.sortOrder}`,
                 `product=${this.search.product}`,
-                `storeid=${this.store.store_id}`,
                 `perpage=${this.perPage}`,
                 `page=${this.page}`
             ].join('&')

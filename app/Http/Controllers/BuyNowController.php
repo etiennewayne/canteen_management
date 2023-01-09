@@ -46,8 +46,33 @@ class BuyNowController extends Controller
                 'qty.min' => 'Quantity must have atleast 1.'
             ]);
         }
-            
+
+        $prod = Product::find($req->product_id);
+        $cur_qty = $prod->qty;
+
+
+        if($cur_qty < $req->qty){
+            return response()->json([
+                'errors' => [
+                    'stock_over' => ['Remaining quantity is not enough for the quantity of the order.']
+                ]
+            ], 422);
+        }
+
+        if($cur_qty <= 0){
+            return response()->json([
+                'errors' => [
+                    'stock_out' => ['Out of stock.']
+                ]
+            ], 422);
+        }
+
+
         $user =  Auth::user();
+        $time = date('H:i:s');
+
+        $addtime = $prod->time_consume.' minute';
+
 
         $data = ProductOrder::create([
             'user_id' => $req->owner_id,
@@ -57,8 +82,14 @@ class BuyNowController extends Controller
             'qty' => $req->qty,
             'delivery_type' => $req->delivery_type,
             'date_order' =>date('Y-m-d'),
-            'office' => $req->delivery_type == 'DELIVER' ? $req->office : ''
+            'office' => $req->delivery_type == 'DELIVER' ? $req->office : '',
+            'est_delivery' => date("H:i:s", strtotime($time . ' + ' . $addtime))
         ]);
+
+
+        $prod->qty = $prod->qty - $req->qty;
+        $prod->save();
+
 
         return response()->json([
             'status' => 'saved'

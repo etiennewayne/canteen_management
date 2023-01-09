@@ -29,7 +29,7 @@
                             <b-field label-position="on-border" label="Delviery Type" class="mt-5" expanded
                                 :type="this.errors.delivery_type ? 'is-danger':''"
                                 :message="this.errors.delivery_type ? this.errors.delivery_type[0] : ''">
-                                <b-select v-model="fields.delivery_type" 
+                                <b-select v-model="fields.delivery_type"
                                     placeholder="Select Delivery Type" expanded>
                                     <option value="PICK UP">PICK UP</option>
                                     <option v-if="role === 'FACULTY'" value="DELIVER">DELIVER</option>
@@ -130,7 +130,7 @@ export default {
             this.fields.product_id = this.productId;
             this.fields.owner_id = this.product.store.user_id;
             this.fields.price = this.product.product_price;
-            
+
             axios.post('/buy-now-store', this.fields).then(res=>{
                 if(res.data.status === 'saved'){
                     this.$buefy.dialog.alert({
@@ -146,6 +146,23 @@ export default {
             }).catch(err=>{
                 if(err.response.status === 422){
                     this.errors = err.response.data.errors;
+
+                    if(this.errors.stock_out){
+                        this.$buefy.dialog.alert({
+                            title: 'Out of Stock!',
+                            message: this.errors.stock_out[0],
+                            type: 'is-danger'
+                        })
+                    }
+                    if(this.errors.stock_over){
+                        this.$buefy.dialog.alert({
+                            title: 'Out of Stock!',
+                            message: this.errors.stock_over[0],
+                            type: 'is-danger'
+                        })
+                    }
+
+                    //console.log(err.response.data.status)
                 }
             })
 
@@ -156,7 +173,7 @@ export default {
             axios.get('/get-offices').then(res=>{
                 this.offices = res.data
             })
-           
+
         }
     },
 

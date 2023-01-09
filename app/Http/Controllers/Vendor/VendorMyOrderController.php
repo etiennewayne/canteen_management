@@ -54,7 +54,8 @@ class VendorMyOrderController extends Controller
 
 
     public function storeOrder(Request $req){
-
+        //mini POS
+        //return $req;
 
         if(!$req->tendered_cash > 0 || $req->change < 0){
             return response()->json([
@@ -64,55 +65,62 @@ class VendorMyOrderController extends Controller
             ], 422);
         }
 
+
+        $prod = Product::find($req->product_id);
+        $cur_qty = $prod->qty;
+//
+//        if($cur_qty < $req->purchase_qty){
+//            return response()->json([
+//                'errors' => [
+//                    'stock_over' => ['Remaining quantity is not enough for the quantity of the order.']
+//                ]
+//            ], 422);
+//        }
+//
+//        if($cur_qty <= 0){
+//            return response()->json([
+//                'errors' => [
+//                    'stock_out' => ['Out of stock.']
+//                ]
+//            ], 422);
+//        }
+
+
         $user = Auth::user();
+        $sales = SalesOrder::create([
+            'customer_name' => $req->customer_name,
+            'order_type' => $req->order_type,
+            'date_order' => date('Y-m-d'),
+            'tendered_cash' => $req->tendered_cash,
+            'change' => $req->change,
+        ]);
+
+        SalesOrderDetail::create([
+            'sales_order_id' => $sales->sales_order_id,
+            'product_id' => $req->product_id,
+            'qty' => $req->purchase_qty,
+            'price' => $req->price,
+        ]);
+
+
+        $prodOrder = ProductOrder::find($req->product_order_id);
+        $prodOrder->is_delivered = 1;
+        $prodOrder->save();
+
+        //logs every movement of the product
+        ProductLog::create([
+            'user_id' => $user->user_id,
+            'product_id' => $req->product_id,
+            'current_qty' => $cur_qty,
+            'qty' => $req->purchase_qty,
+            'remarks' => $req->purchase_qty . ' ' . $req->product . ' sold. Transaction from Mini POS. Order method is: ' . $req->order_type .'.'
+        ]);
+        return response()->json([
+            'status' => 'saved'
+        ], 200);
+
         //return $req;
-        try{
-            DB::transaction(function () use($req, $user)  {
-                $sales = SalesOrder::create([
-                    'customer_name' => $req->customer_name,
-                    'order_type' => $req->order_type,
-                    'date_order' => date('Y-m-d'),
-                    'tendered_cash' => $req->tendered_cash,
-                    'change' => $req->change,
-                ]);
 
-                SalesOrderDetail::create([
-                    'sales_order_id' => $sales->sales_order_id,
-                    'product_id' => $req->product_id,
-                    'qty' => $req->purchase_qty,
-                    'price' => $req->price,
-                ]);
-
-
-                $prod = Product::find($req->product_id);
-                $cur_qty = $prod->qty;
-                $prod->qty = $prod->qty - $req->purchase_qty;
-                $prod->save();
-
-                $prodOrder = ProductOrder::find($req->product_order_id);
-                $prodOrder->is_delivered = 1;
-                $prodOrder->save();
-
-                //logs every movement of the product
-                ProductLog::create([
-                    'user_id' => $user->user_id,
-                    'product_id' => $req->product_id,
-                    'current_qty' => $cur_qty,
-                    'qty' => $req->purchase_qty,
-                    'remarks' => $req->purchase_qty . ' ' . $req->product . ' sold. Transaction from Mini POS. Order method is: ' . $req->order_type .'.'
-                ]);
-
-            });
-
-            return response()->json([
-                'status' => 'saved'
-            ], 200);
-
-        } catch(\Exception $e){
-            return response()->json([
-                'error' => $e->getMessage()
-            ], 500);
-        }
     }
 
 }

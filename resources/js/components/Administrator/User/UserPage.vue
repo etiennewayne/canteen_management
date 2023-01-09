@@ -239,10 +239,10 @@
                                              :type="this.errors.role ? 'is-danger':''"
                                              :message="this.errors.role ? this.errors.role[0] : ''">
                                         <b-select v-model="fields.role" expanded>
-                                            <option value="ADMIN">ADMINISTRATOR</option>
-                                            <option value="DENTIST">DENTIST</option>
-                                            <option value="STAFF">STAFF</option>
-                                            <option value="USER">USER</option>
+                                            <option value="ADMINISTRATOR">ADMINISTRATOR</option>
+                                            <option value="VENDOR">VENDOR</option>
+                                            <option value="FACULTY">FACULTY</option>
+                                            <option value="STUDENT">STUDENT</option>
 
                                         </b-select>
                                     </b-field>

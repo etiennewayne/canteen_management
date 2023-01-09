@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 //use App\Providers\RouteServiceProvider;
 //use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use App\Models\Store;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -53,8 +54,13 @@ class LoginController extends Controller
 
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
+            $user = Auth::user();
 
-            return Auth::user();
+            $store = Store::where('user_id', $user->user_id)->first();
+            $store->is_online = 1;
+            $store->save();
+
+            return $user;
             // return redirect()->intended('dashboard');
         }
         return response()->json([
@@ -65,6 +71,13 @@ class LoginController extends Controller
     }
 
     public function logout(Request $req){
+
+        $user = Auth::user();
+        $store = Store::where('user_id', $user->user_id)->first();
+        $store->is_online = 0;
+        $store->save();
+
+
         Auth::logout();
         $req->session()->invalidate();
         $req->session()->regenerateToken();

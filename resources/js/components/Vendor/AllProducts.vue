@@ -80,15 +80,15 @@
                                 {{ props.row.qty }}
                             </b-table-column>
 
-                            <b-table-column field="is_inv" label="Inventoriable" centered v-slot="props">
-                                <span v-if="props.row.is_inv == 1">Yes</span>
-                                <span v-else>No</span>
-                            </b-table-column>
+<!--                            <b-table-column field="is_inv" label="Inventoriable" centered v-slot="props">-->
+<!--                                <span v-if="props.row.is_inv == 1">Yes</span>-->
+<!--                                <span v-else>No</span>-->
+<!--                            </b-table-column>-->
 
-                            <b-table-column field="is_available" label="Available" centered v-slot="props">
-                                <span v-if="props.row.is_available == 1">Yes</span>
-                                <span v-else>No</span>
-                            </b-table-column>
+<!--                            <b-table-column field="is_available" label="Available" centered v-slot="props">-->
+<!--                                <span v-if="props.row.is_available == 1">Yes</span>-->
+<!--                                <span v-else>No</span>-->
+<!--                            </b-table-column>-->
 
                             <b-table-column label="Action" v-slot="props">
                                 <div class="is-flex">

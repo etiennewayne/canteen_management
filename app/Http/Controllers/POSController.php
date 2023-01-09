@@ -48,52 +48,65 @@ class POSController extends Controller
         }
 
 
+
         $user = Auth::user();
         //return $req;
-        try{
-            DB::transaction(function () use($req, $user)  {
-                $sales = SalesOrder::create([
-                    'customer_name' => $req->customer_name,
-                    'order_type' => 'WALK IN',
-                    'date_order' => date('Y-m-d'),
-                    'tendered_cash' => $req->tendered_cash,
-                    'change' => $req->change,
-                ]);
 
-                foreach($req->purchases as $p){
-                    SalesOrderDetail::create([
-                        'sales_order_id' => $sales->sales_order_id,
-                        'product_id' => $p['product_id'],
-                        'qty' => $p['qty'],
-                        'price' => ($p['qty'] * $p['price']),
-                    ]);
+        $sales = SalesOrder::create([
+            'customer_name' => $req->customer_name,
+            'order_type' => 'WALK IN',
+            'date_order' => date('Y-m-d'),
+            'tendered_cash' => $req->tendered_cash,
+            'change' => $req->change,
+        ]);
 
-                    $prod = Product::find($p['product_id']);
-                    $cur_qty = $prod->qty;
-                    $prod->qty = $prod->qty - $p['qty'];
-                    $prod->save();
+        foreach($req->purchases as $p){
 
-                    //logs every movement of the product
-                    ProductLog::create([
-                        'user_id' => $user->user_id,
-                        'product_id' => $p['product_id'],
-                        'current_qty' => $cur_qty,
-                        'qty' => $p['qty'],
-                        'remarks' => $p['qty'] . ' ' . $p['product'] . ' sold. Transaction from POS.'
-                    ]);
-                }
-            });
+            $prod = Product::find($p['product_id']);
+            $cur_qty = $prod->qty;
 
-            return response()->json([
-                'status' => 'saved'
-            ], 200);
 
-        } catch(\Exception $e){
-            return response()->json([
-                'error' => $e->getMessage()
-            ], 500);
+            if($cur_qty < $p['qty']){
+                return response()->json([
+                    'errors' => [
+                        'stock_over' => ['Remaining quantity is not enough for the quantity of the order.']
+                    ]
+                ], 422);
+            }
+
+            if($cur_qty <= 0){
+                return response()->json([
+                    'errors' => [
+                        'stock_out' => ['Out of stock.']
+                    ]
+                ], 422);
+            }
+
+
+            SalesOrderDetail::create([
+                'sales_order_id' => $sales->sales_order_id,
+                'product_id' => $p['product_id'],
+                'qty' => $p['qty'],
+                'price' => ($p['qty'] * $p['price']),
+            ]);
+
+
+            $prod->qty = $prod->qty - $p['qty'];
+            $prod->save();
+
+            //logs every movement of the product
+            ProductLog::create([
+                'user_id' => $user->user_id,
+                'product_id' => $p['product_id'],
+                'current_qty' => $cur_qty,
+                'qty' => $p['qty'],
+                'remarks' => $p['qty'] . ' ' . $p['product'] . ' sold. Transaction from POS.'
+            ]);
         }
 
+        return response()->json([
+            'status' => 'saved'
+        ], 200);
 
     }
 }

@@ -1,6 +1,12 @@
 @extends('layouts.user')
 
 @section('content')
-    <welcome-page></welcome-page>
+
+    @auth
+        <welcome-page prop-is-auth=1></welcome-page>
+    @else
+        <welcome-page prop-is-auth=0></welcome-page>
+    @endauth
+    
 
 @endsection

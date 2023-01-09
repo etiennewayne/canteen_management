@@ -46,6 +46,11 @@
                                 <b-table-column field="delivery_type" label="Type" centered v-slot="props">
                                     {{ props.row.delivery_type }}
                                 </b-table-column>
+
+                                <b-table-column field="est_delivery" label="Est Delivery" centered v-slot="props">
+                                    <span v-if="props.row.est_delivery">{{ props.row.est_delivery | formatTime}}</span>
+                                </b-table-column>
+
                                 <b-table-column field="qty" label="Qty" centered v-slot="props">
                                     {{ props.row.qty }}
                                 </b-table-column>
@@ -63,7 +68,6 @@
                                     <b-tooltip label="Rate" type="is-warning">
                                         <b-button class="button is-info mr-1" tag="a" icon-right="star" @click="rateProduct(props.row.product_id)"></b-button>
                                     </b-tooltip>
-
                                 </div>
                             </b-table-column>
 

@@ -30,15 +30,15 @@
 
                             <b-menu-item label="User" icon="account" tag="a" href="/users"></b-menu-item>
 
-                            <b-menu-item icon="poll">
-                                <template #label="props">
-                                    Report
-                                    <b-icon class="is-pulled-right" :icon="props.expanded ? 'menu-down' : 'menu-up'"></b-icon>
-                                </template>
-                                <b-menu-item icon="text-box-outline" label="Inventory" tag="a" href="/report/inventory"></b-menu-item>
+<!--                            <b-menu-item icon="poll">-->
+<!--                                <template #label="props">-->
+<!--                                    Report-->
+<!--                                    <b-icon class="is-pulled-right" :icon="props.expanded ? 'menu-down' : 'menu-up'"></b-icon>-->
+<!--                                </template>-->
+<!--                                <b-menu-item icon="text-box-outline" label="Inventory" tag="a" href="/report/inventory"></b-menu-item>-->
 
-<!--                                <b-menu-item icon="cash-multiple" label="Payments" disabled></b-menu-item>-->
-                            </b-menu-item>
+<!--&lt;!&ndash;                                <b-menu-item icon="cash-multiple" label="Payments" disabled></b-menu-item>&ndash;&gt;-->
+<!--                            </b-menu-item>-->
 
                         </b-menu-list>
 

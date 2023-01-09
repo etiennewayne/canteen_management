@@ -1,13 +1,55 @@
 <template>
     <div>
-        <div class="mynav">
-            <div class="mynav-brand">{{userRole}}</div>
-            <div class="burger-button" @click="open = true">
-                <div class="burger-div"></div>
-                <div class="burger-div"></div>
-                <div class="burger-div"></div>
-            </div>
-        </div>
+        <b-navbar fixed-top>
+            <template #brand>
+                <b-navbar-item>
+                    <img
+                        src="/img/logo.png"
+                        alt=""
+                    >
+                </b-navbar-item>
+            </template>
+            <template #start>
+                <b-navbar-item href="/vendor/dashboard">
+                    Home
+                </b-navbar-item>
+                <b-navbar-item href="/vendor/my-store">
+                    My Stores
+                </b-navbar-item>
+                <b-navbar-item href="/vendor/my-orders">
+                    My Orders
+                </b-navbar-item>
+                <b-navbar-item href="/vendor/pos">
+                    Point of Sale
+                </b-navbar-item>
+                <b-navbar-item href="/vendor/all-products">
+                    Products
+                </b-navbar-item>
+
+
+                <b-navbar-dropdown label="Reports">
+                    <b-navbar-item href="/vendor/sales-report">
+                        Sales Report
+                    </b-navbar-item>
+                    <b-navbar-item href="/vendor/product-adjustment-list">
+                        Adjustment List
+                    </b-navbar-item>
+                </b-navbar-dropdown>
+            </template>
+
+            <template #end>
+                <b-navbar-item tag="div">
+                    <div class="buttons">
+
+                        <b-button
+                            @click="logout"
+                            class="button is-light">
+                            Logout
+                        </b-button>
+                    </div>
+                </b-navbar-item>
+            </template>
+        </b-navbar>
 
         <b-sidebar
             :mobile="mobile"

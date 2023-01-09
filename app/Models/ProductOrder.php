@@ -18,7 +18,8 @@ class ProductOrder extends Model
         'price', 
         'delivery_type', 
         'date_order', 
-        'office'
+        'office',
+        'est_delivery'
     ];
 
     public function customer(){

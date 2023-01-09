@@ -139,10 +139,6 @@ Route::get('/vendor/get-sales-report', [App\Http\Controllers\Vendor\SalesReportC
 
 
 
-
-
-
-
 Route::get('/buy-now/{product_id}', [App\Http\Controllers\BuyNowController::class, 'index']);
 Route::post('/buy-now-store', [App\Http\Controllers\BuyNowController::class, 'store']);
 
@@ -156,6 +152,10 @@ Route::post('/submit-product-rating', [App\Http\Controllers\ProductRatingControl
 
 Route::resource('/my-cart', App\Http\Controllers\User\CartController::class);
 Route::get('/get-cart-items', [App\Http\Controllers\User\CartController::class, 'getCartItems']);
+
+Route::post('/remove-cart-items/{id}', [App\Http\Controllers\User\CartController::class, 'removeFromCart']);
+
+
 
 //if login, count the cart
 //else

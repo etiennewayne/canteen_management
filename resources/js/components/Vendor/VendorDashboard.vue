@@ -5,17 +5,23 @@
                 MENU
             </div>
 
-            <div class="menu">
-                <div class="menu-box">
-                    <a href="/vendor/dashboard">HOME</a>
-                </div>
-                <div class="menu-box">
-                    <a href="/vendor/my-store">MY STORE</a>
-                </div>
-                <!-- <div class="menu-box">
-                    <a href="/vendor/my-products">PRODUCTS</a>
-                </div> -->
+<!--            <div class="menu">-->
+<!--                <div class="menu-box">-->
+<!--                    <a href="/vendor/dashboard">HOME</a>-->
+<!--                </div>-->
+<!--                <div class="menu-box">-->
+<!--                    <a href="/vendor/my-store">MY STORE</a>-->
+<!--                </div>-->
+
+<!--                &lt;!&ndash; <div class="menu-box">-->
+<!--                    <a href="/vendor/my-products">PRODUCTS</a>-->
+<!--                </div> &ndash;&gt;-->
+<!--            </div>-->
+
+            <div>
+                <store-info></store-info>
             </div>
+
         </div>
 
     </div>

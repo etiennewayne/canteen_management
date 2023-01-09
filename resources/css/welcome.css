@@ -1,0 +1,141 @@
+.banner{
+    margin: auto;
+    max-width: 1024px;
+    height: 400px;
+    display: flex;
+}
+.banner-text{
+    font-weight: bold;
+    margin: auto;
+    font-size: 2.0em;
+}
+.banner-img-container{
+    height: 500px;
+    width: 500px;
+    position:relative;
+    overflow:hidden;
+}
+.banner-img{
+    position:absolute;
+    top:0;
+    bottom:0;
+    margin: auto;
+    width:100%;
+}
+
+
+.product-section{
+    max-width: 940px;
+    margin: 20px auto;
+}
+.search-bar{
+    margin: 15px;
+}
+.products-container{
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    overflow: auto;
+    height: 600px;
+}
+
+.product-item{
+    padding: 15px;
+    margin: 15px;
+    max-width: 185px;
+    border: 1px solid red;
+    position: relative;
+}
+
+.product-img-container{
+    height: 150px;
+    width: 150px;
+    position:relative;
+    overflow:hidden;
+}
+.product-img{
+    position:absolute;
+    top:0;
+    bottom:0;
+    margin: auto;
+    width:100%;
+}
+.product-title{
+    font-weight: bold;
+}
+.product-rating{
+    position: relative;
+}
+.product-footer{
+    display: flex;
+    flex-direction: column;
+    /*position: absolute;*/
+    /*bottom: 0;*/
+}
+
+.pagination-container{
+    margin: 0 50px;
+}
+.modal-item-container{
+    display: flex;
+}
+
+.cart-no{
+    background: red;
+    padding: 2px 5px;
+    color: white;
+    font-weight: bold;
+    border-radius: 20px;
+}
+
+
+@media only screen and (max-width: 1024px) {
+    .banner-text{
+        font-weight: bold;
+        margin: auto 0 auto 15px;
+        font-size: 2.0em;
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .banner{
+        display: flex;
+        flex-direction: column;
+    }
+    .banner-text{
+        margin: auto;
+    }
+    .banner-img-container{
+        height: 500px;
+        width: 500px;
+        position:relative;
+        overflow:hidden;
+        margin: auto;
+    }
+    .banner-img{
+        position:absolute;
+        top:0;
+        bottom:0;
+        margin: auto;
+        width:100%;
+    }
+}
+
+@media only screen and (max-width: 480px) {
+    .banner{
+        display: flex;
+        flex-direction: column;
+    }
+    .banner-text{
+        margin: auto;
+        text-align: center;
+    }
+    .banner-img-container{
+        width: 500px;
+    }
+
+    .product-item{
+        padding: 15px;
+        margin: 15px auto;
+    }
+}

@@ -144,6 +144,7 @@ export default{
                 if(err.response.status === 422){
                     this.errors = err.response.data.errors;
                     console.log(this.errors);
+
                     if(this.errors.product){
                         this.$buefy.dialog.alert({
                             title: 'Error!',
@@ -159,6 +160,20 @@ export default{
                         })
                     }
 
+                    if(this.errors.stock_out){
+                        this.$buefy.dialog.alert({
+                            title: 'Out of Stock!',
+                            message: this.errors.stock_out[0],
+                            type: 'is-danger'
+                        })
+                    }
+                    if(this.errors.stock_over){
+                        this.$buefy.dialog.alert({
+                            title: 'Out of Stock!',
+                            message: this.errors.stock_over[0],
+                            type: 'is-danger'
+                        })
+                    }
                 }
             })
         },
