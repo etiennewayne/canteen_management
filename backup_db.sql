@@ -42084,18 +42084,21 @@ CREATE TABLE `carts` (
   PRIMARY KEY (`cart_id`),
   KEY `carts_product_id_foreign` (`product_id`),
   CONSTRAINT `carts_product_id_foreign` FOREIGN KEY (`product_id`) REFERENCES `products` (`product_id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=47 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 /*Data for the table `carts` */
 
 insert  into `carts`(`cart_id`,`user_id`,`product_id`,`qty`,`price`,`date_added`,`is_place_order`,`created_at`,`updated_at`) values 
-(1,2,15,1,15,'2022-12-25',1,'2022-12-25 17:12:53','2022-12-28 01:49:28'),
-(2,2,22,1,20,'2022-12-25',1,'2022-12-25 18:00:48','2022-12-28 01:52:33'),
-(3,2,22,1,20,'2022-12-25',1,'2022-12-25 18:01:15','2022-12-28 01:53:04'),
-(4,2,20,1,5,'2022-12-25',0,'2022-12-25 18:32:41','2022-12-25 18:32:41'),
-(5,2,20,1,5,'2022-12-25',0,'2022-12-25 18:33:24','2022-12-25 18:33:24'),
-(6,2,22,1,20,'2022-12-27',0,'2022-12-27 08:48:13','2022-12-27 08:48:13'),
-(7,15,16,3,10,'2022-12-28',1,'2022-12-28 09:09:40','2022-12-28 09:10:00');
+(37,2,22,1,20,'2023-01-09',1,'2023-01-09 07:27:32','2023-01-09 07:58:07'),
+(38,2,19,1,25,'2023-01-09',1,'2023-01-09 07:59:47','2023-01-09 08:12:07'),
+(39,2,20,1,5,'2023-01-09',1,'2023-01-09 07:59:50','2023-01-09 08:01:02'),
+(40,2,21,2,7,'2023-01-09',1,'2023-01-09 07:59:54','2023-01-09 08:01:02'),
+(41,2,22,1,20,'2023-01-09',1,'2023-01-09 08:59:50','2023-01-09 09:01:40'),
+(42,2,21,1,7,'2023-01-09',1,'2023-01-09 09:00:15','2023-01-09 09:01:40'),
+(43,2,14,1,25,'2023-01-09',1,'2023-01-09 09:38:47','2023-01-09 09:54:22'),
+(44,2,14,1,25,'2023-01-09',1,'2023-01-09 09:54:51','2023-01-09 10:12:55'),
+(45,2,14,4,25,'2023-01-09',1,'2023-01-09 10:13:16','2023-01-09 10:15:22'),
+(46,2,14,1,25,'2023-01-09',1,'2023-01-09 10:16:29','2023-01-09 10:18:32');
 
 /*Table structure for table `cities` */
 
@@ -43792,7 +43795,7 @@ CREATE TABLE `migrations` (
   `migration` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `batch` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 /*Data for the table `migrations` */
 
@@ -43806,7 +43809,8 @@ insert  into `migrations`(`id`,`migration`,`batch`) values
 (35,'2022_12_19_063330_create_sales_table',2),
 (36,'2022_12_19_065718_create_product_orders_table',3),
 (37,'2022_12_19_071403_create_offices_table',4),
-(38,'2022_12_22_162408_create_product_ratings_table',5);
+(38,'2022_12_22_162408_create_product_ratings_table',5),
+(40,'0000_00_00_000000_create_websockets_statistics_entries_table',6);
 
 /*Table structure for table `offices` */
 
@@ -43905,18 +43909,38 @@ CREATE TABLE `product_logs` (
   PRIMARY KEY (`product_log_id`),
   KEY `product_id` (`product_id`),
   CONSTRAINT `product_logs_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `products` (`product_id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=67 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `product_logs` */
 
 insert  into `product_logs`(`product_log_id`,`user_id`,`product_id`,`current_qty`,`qty`,`remarks`,`created_at`,`updated_at`) values 
-(24,3,19,0,10,'Adjustment of product Burger Buy 1 take 1. Add quantity of 10. Adjusted by vilma','2022-12-28 09:14:49','2022-12-28 09:14:49'),
-(25,3,19,10,2,'2 Burger Buy 1 take 1 sold. Transaction from POS.','2022-12-28 09:16:20','2022-12-28 09:16:20'),
-(26,3,18,0,1,'1 Fried Rice with hotdog sold. Transaction from POS.','2022-12-28 09:17:56','2022-12-28 09:17:56'),
-(27,3,18,0,1,'Adjustment of product Fried Rice with hotdog. Add quantity of 1. Adjusted by vilma','2022-12-28 09:19:26','2022-12-28 09:19:26'),
-(28,3,16,0,3,'3 Fried Egg sold. Transaction from Mini POS. Order method is: DELIVER.','2022-12-28 10:09:16','2022-12-28 10:09:16'),
-(29,3,15,0,1,'1 Monggo sold. Transaction from Mini POS. Order method is: DELIVER.','2022-12-28 10:10:00','2022-12-28 10:10:00'),
-(30,3,15,-1,2,'2 Monggo sold. Transaction from Mini POS. Order method is: PICK UP.','2022-12-28 10:14:17','2022-12-28 10:14:17');
+(40,2,22,45,3,'','2023-01-08 17:53:19','2023-01-08 17:53:19'),
+(41,2,21,45,2,'','2023-01-08 17:53:19','2023-01-08 17:53:19'),
+(42,2,20,46,1,'','2023-01-08 17:53:19','2023-01-08 17:53:19'),
+(43,2,21,43,2,'','2023-01-08 17:58:56','2023-01-08 17:58:56'),
+(44,2,20,45,1,'','2023-01-08 17:58:56','2023-01-08 17:58:56'),
+(45,2,22,42,3,'','2023-01-08 17:58:56','2023-01-08 17:58:56'),
+(46,2,20,44,1,'','2023-01-09 07:24:20','2023-01-09 07:24:20'),
+(47,2,19,49,1,'','2023-01-09 07:24:20','2023-01-09 07:24:20'),
+(48,2,21,41,1,'','2023-01-09 07:25:22','2023-01-09 07:25:22'),
+(49,2,22,39,1,'','2023-01-09 07:58:07','2023-01-09 07:58:07'),
+(50,2,20,43,1,'','2023-01-09 08:01:02','2023-01-09 08:01:02'),
+(51,2,21,40,2,'','2023-01-09 08:01:02','2023-01-09 08:01:02'),
+(52,2,19,48,1,'','2023-01-09 08:12:07','2023-01-09 08:12:07'),
+(53,2,22,38,1,'','2023-01-09 09:01:40','2023-01-09 09:01:40'),
+(54,2,21,38,1,'','2023-01-09 09:01:40','2023-01-09 09:01:40'),
+(55,2,14,0,1,'','2023-01-09 09:54:22','2023-01-09 09:54:22'),
+(56,2,14,1,5,'','2023-01-09 10:12:55','2023-01-09 10:12:55'),
+(57,2,14,3,4,'','2023-01-09 10:15:22','2023-01-09 10:15:22'),
+(58,2,14,3,1,'','2023-01-09 10:18:32','2023-01-09 10:18:32'),
+(59,3,5,50,3,'3 Kamote fries sold. Transaction from POS.','2023-01-09 10:46:40','2023-01-09 10:46:40'),
+(60,3,16,50,1,'1 Fried Egg sold. Transaction from POS.','2023-01-09 10:46:40','2023-01-09 10:46:40'),
+(61,3,13,50,1,'1 Guso sold. Transaction from POS.','2023-01-09 10:46:40','2023-01-09 10:46:40'),
+(62,3,14,7,2,'2 Fried Bangus sold. Transaction from POS.','2023-01-09 10:59:05','2023-01-09 10:59:05'),
+(63,3,14,5,6,'6 Fried Bangus sold. Transaction from POS.','2023-01-09 10:59:19','2023-01-09 10:59:19'),
+(64,3,14,5,6,'6 Fried Bangus sold. Transaction from POS.','2023-01-09 11:00:05','2023-01-09 11:00:05'),
+(65,3,14,5,5,'5 Fried Bangus sold. Transaction from POS.','2023-01-09 11:05:04','2023-01-09 11:05:04'),
+(66,3,14,0,3,'3 Fried Bangus sold. Transaction from Mini POS. Order method is: PICK UP.','2023-01-09 11:09:25','2023-01-09 11:09:25');
 
 /*Table structure for table `product_orders` */
 
@@ -43933,6 +43957,7 @@ CREATE TABLE `product_orders` (
   `office` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `date_order` date DEFAULT NULL,
   `is_delivered` tinyint(4) DEFAULT 0,
+  `est_delivery` time DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`product_order_id`),
@@ -43942,18 +43967,24 @@ CREATE TABLE `product_orders` (
   CONSTRAINT `product_orders_customer_id_foreign` FOREIGN KEY (`customer_id`) REFERENCES `users` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `product_orders_product_id_foreign` FOREIGN KEY (`product_id`) REFERENCES `products` (`product_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `product_orders_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=65 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 /*Data for the table `product_orders` */
 
-insert  into `product_orders`(`product_order_id`,`user_id`,`customer_id`,`product_id`,`qty`,`price`,`delivery_type`,`office`,`date_order`,`is_delivered`,`created_at`,`updated_at`) values 
-(18,2,2,15,2,30,'PICK UP','','2022-12-28',0,'2022-12-28 01:19:58','2022-12-28 01:19:58'),
-(19,3,2,15,2,30,'PICK UP','','2022-12-28',1,'2022-12-28 01:27:28','2022-12-28 10:14:17'),
-(20,3,2,15,1,15,'PICK UP','','2022-12-28',0,'2022-12-28 01:30:42','2022-12-28 01:30:42'),
-(22,3,2,15,1,15,'DELIVER','IBFS','2022-12-28',1,'2022-12-28 01:49:28','2022-12-28 10:10:00'),
-(23,3,2,22,3,60,'PICK UP','','2022-12-28',0,'2022-12-28 01:52:33','2022-12-28 01:52:33'),
-(24,3,2,22,2,40,'PICK UP','','2022-12-28',0,'2022-12-28 01:53:04','2022-12-28 01:53:04'),
-(25,3,15,16,3,30,'DELIVER','HR OFFICE','2022-12-28',1,'2022-12-28 09:10:00','2022-12-28 10:09:16');
+insert  into `product_orders`(`product_order_id`,`user_id`,`customer_id`,`product_id`,`qty`,`price`,`delivery_type`,`office`,`date_order`,`is_delivered`,`est_delivery`,`created_at`,`updated_at`) values 
+(52,7,2,19,1,25,'PICK UP','','2023-01-09',0,'08:22:05','2023-01-09 08:12:07','2023-01-09 08:12:07'),
+(53,7,2,22,1,20,'PICK UP','','2023-01-09',0,NULL,'2023-01-09 08:59:28','2023-01-09 08:59:28'),
+(54,7,2,22,1,20,'PICK UP','','2023-01-09',0,'09:11:38','2023-01-09 09:01:40','2023-01-09 09:01:40'),
+(55,7,2,21,1,7,'PICK UP','','2023-01-09',0,'09:11:38','2023-01-09 09:01:40','2023-01-09 09:01:40'),
+(56,7,2,22,1,20,'PICK UP','','2023-01-09',0,NULL,'2023-01-09 09:01:59','2023-01-09 09:01:59'),
+(57,3,2,14,1,25,'PICK UP','','2023-01-09',0,NULL,'2023-01-09 09:07:34','2023-01-09 09:07:34'),
+(58,3,2,14,1,25,'PICK UP','','2023-01-09',0,NULL,'2023-01-09 09:38:19','2023-01-09 09:38:19'),
+(59,3,2,14,1,25,'PICK UP','','2023-01-09',0,'10:04:20','2023-01-09 09:54:22','2023-01-09 09:54:22'),
+(60,3,2,14,5,125,'PICK UP','','2023-01-09',0,'10:22:53','2023-01-09 10:12:55','2023-01-09 10:12:55'),
+(61,3,2,14,4,100,'PICK UP','','2023-01-09',0,'10:25:00','2023-01-09 10:15:22','2023-01-09 10:15:22'),
+(62,3,2,14,1,25,'PICK UP','','2023-01-09',0,'10:28:31','2023-01-09 10:18:32','2023-01-09 10:18:32'),
+(63,3,2,14,1,25,'PICK UP','','2023-01-09',0,NULL,'2023-01-09 10:18:46','2023-01-09 10:18:46'),
+(64,3,2,14,3,75,'PICK UP','','2023-01-09',1,'10:49:16','2023-01-09 10:39:16','2023-01-09 11:09:03');
 
 /*Table structure for table `product_ratings` */
 
@@ -43971,7 +44002,7 @@ CREATE TABLE `product_ratings` (
   KEY `product_ratings_product_id_foreign` (`product_id`),
   CONSTRAINT `product_ratings_product_id_foreign` FOREIGN KEY (`product_id`) REFERENCES `products` (`product_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `product_ratings_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 /*Data for the table `product_ratings` */
 
@@ -43982,7 +44013,8 @@ insert  into `product_ratings`(`product_rating_id`,`user_id`,`product_id`,`ratin
 (4,11,17,4,'2022-12-23 06:22:34','2022-12-23 06:22:34'),
 (5,11,22,3,'2022-12-23 06:22:47','2022-12-23 06:22:47'),
 (6,11,19,4,'2022-12-23 06:33:09','2022-12-23 06:33:09'),
-(7,2,22,4,'2022-12-25 06:04:18','2022-12-25 06:04:18');
+(7,2,22,4,'2022-12-25 06:04:18','2022-12-25 06:04:18'),
+(8,2,21,5,'2023-01-09 09:03:40','2023-01-09 09:03:40');
 
 /*Table structure for table `products` */
 
@@ -43998,6 +44030,7 @@ CREATE TABLE `products` (
   `product_price` double NOT NULL DEFAULT 0,
   `product_img_path` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `critical_level` double DEFAULT 0,
+  `time_consume` int(11) DEFAULT 0,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`product_id`),
@@ -44007,29 +44040,29 @@ CREATE TABLE `products` (
 
 /*Data for the table `products` */
 
-insert  into `products`(`product_id`,`store_id`,`product`,`qty`,`is_inv`,`is_available`,`product_price`,`product_img_path`,`critical_level`,`created_at`,`updated_at`) values 
-(1,1,'humba',0,0,1,40,'SvXZC5Ka72r3h7ynFLC4xYSkUtkuIjRuIuEjZDzp.jpg',0,'2022-11-11 13:01:58','2022-11-11 13:06:45'),
-(2,1,'Tinula',0,0,1,30,'iI7pAemohMH54ZzE54UC3rsuERbADprdTB19jwdq.jpg',0,'2022-11-11 13:02:16','2022-11-11 13:06:39'),
-(3,1,'Shomai (4pcs) with pakapin ang tindera ug asta ang tinadahan',0,0,1,20,'vl1nraBfvy5wDebt1gFjlaMCasfOgM3yhAVg2bOi.jpg',0,'2022-11-11 13:02:32','2022-11-11 13:07:46'),
-(4,1,'Kwek2',0,1,1,15,'NH80w1Bz3nuabTaQnHFdaSpFHId8eOtyRT43WTs7.jpg',0,'2022-12-22 09:36:12','2022-12-22 09:36:12'),
-(5,1,'Kamote fries',0,1,1,20,'Q9bOjVIxf2kYzZ0E43gglHk5g6x2doLFY8vedbHM.jpg',0,'2022-12-22 09:40:35','2022-12-22 09:40:35'),
-(6,1,'Pop corn',0,1,1,5,'QEHFe3Exx9fSYZiDBFPy5wEFLoSgE4rJOuI2Omct.jpg',0,'2022-12-22 09:43:06','2022-12-22 09:43:06'),
-(7,1,'Pineapple Juice',0,1,1,10,'OlwgMn5Iu9quJHN2i9Ot2iYoTQx9nbdkGIoHn7iS.jpg',0,'2022-12-22 10:33:00','2022-12-22 10:33:00'),
-(8,1,'Chocolate Juice',0,1,1,10,'g1Tl1PH51EaguZurcD0G6eBKvQGbNx7VAe0dG9no.jpg',0,'2022-12-22 10:41:55','2022-12-22 10:41:55'),
-(9,1,'Ice cream',0,1,1,20,'KlUXxX15YK7mYSMrcXAZSrG6MlLaEoJ5MpM9BWo7.jpg',0,'2022-12-22 10:46:13','2022-12-22 10:46:13'),
-(10,1,'Siopao',0,1,1,20,'IqMIM7OC9JALFpDrM6xgFaI4kDJD3fT4rav7r8tY.jpg',0,'2022-12-22 10:47:50','2022-12-22 10:47:50'),
-(11,1,'Lemon Juice with yakult',0,1,1,60,'gRs3tyqRaFurs32EdY4yQdZ8eNZjf7zZusZNseXi.jpg',0,'2022-12-22 10:50:59','2022-12-22 10:51:18'),
-(12,1,'Fried Chicken',0,1,1,25,'tddcs10y0ATM1EgsUS5Th40evHfWbwqbG2XwHRSs.jpg',0,'2022-12-22 10:56:19','2022-12-22 10:56:19'),
-(13,1,'Guso',0,1,1,10,'3uXwWAGyvq8ABCupiGf4pIAdwyhDorfhUfIL6G6h.jpg',0,'2022-12-22 10:59:11','2022-12-22 10:59:11'),
-(14,1,'Fried Bangus',0,1,1,25,'jANyIOJvNV4VFnpWYWGwvmGVmfeOtVlMM6EqY0hT.jpg',0,'2022-12-22 11:06:48','2022-12-22 11:06:48'),
-(15,1,'Monggo',-3,1,1,15,'tv3s6nv7tAddYxUCqB5yLWS88GIPKBhZvFCXpNkk.jpg',0,'2022-12-22 11:11:00','2022-12-28 10:14:17'),
-(16,1,'Fried Egg',-3,1,1,10,'qGsoky3OIAmIFXrxzPzWTvI0mP6TfriCTXSWds36.jpg',0,'2022-12-22 11:28:44','2022-12-28 10:09:16'),
-(17,1,'Rice with Fried Egg',0,1,1,20,'a2rY612TykVtnohgeAAxIqRXkArnTSf3IIhYJw46.jpg',0,'2022-12-22 11:32:10','2022-12-28 00:39:33'),
-(18,1,'Fried Rice with hotdog',0,1,1,20,'vLSdxBEO4YhMfZb2FDrKkRr1VEKP3Yejt0KO7Q1w.jpg',0,'2022-12-22 11:34:41','2022-12-28 09:19:26'),
-(19,1,'Burger Buy 1 take 1',8,1,1,25,'e70tp0MRXSpgnT5NchGScxdDEvEJcUyWJ5ABglXD.jpg',0,'2022-12-22 11:36:59','2022-12-28 09:16:20'),
-(20,2,'Banana cue',0,1,1,5,'2yvXW6sM4llWB3VNqNaiIrCOHt9FidPHlyLWbPyL.jpg',0,'2022-12-22 14:51:16','2022-12-22 14:51:16'),
-(21,2,'Kamote Cue',0,1,1,7,'ogW4NobTtEzUj6muVHALv1hKy4nEsGzgmHPeXUsO.jpg',0,'2022-12-22 14:52:31','2022-12-27 18:28:10'),
-(22,2,'Soft drinks (200ml)',0,1,1,20,'Bq3xxih7ztIvmC4Bs7UYNVDWTXq0z2ItJYkwjQm0.jpg',0,'2022-12-22 14:54:22','2022-12-28 01:53:04');
+insert  into `products`(`product_id`,`store_id`,`product`,`qty`,`is_inv`,`is_available`,`product_price`,`product_img_path`,`critical_level`,`time_consume`,`created_at`,`updated_at`) values 
+(1,1,'humba',50,0,1,40,'SvXZC5Ka72r3h7ynFLC4xYSkUtkuIjRuIuEjZDzp.jpg',0,10,'2022-11-11 13:01:58','2022-11-11 13:06:45'),
+(2,1,'Tinula',50,0,1,30,'iI7pAemohMH54ZzE54UC3rsuERbADprdTB19jwdq.jpg',0,10,'2022-11-11 13:02:16','2022-11-11 13:06:39'),
+(3,1,'Shomai (4pcs) with pakapin ang tindera ug asta ang tinadahan',50,0,1,20,'vl1nraBfvy5wDebt1gFjlaMCasfOgM3yhAVg2bOi.jpg',0,15,'2022-11-11 13:02:32','2022-11-11 13:07:46'),
+(4,1,'Kwek2',50,1,1,15,'NH80w1Bz3nuabTaQnHFdaSpFHId8eOtyRT43WTs7.jpg',0,10,'2022-12-22 09:36:12','2022-12-22 09:36:12'),
+(5,1,'Kamote fries',47,1,1,20,'Q9bOjVIxf2kYzZ0E43gglHk5g6x2doLFY8vedbHM.jpg',0,15,'2022-12-22 09:40:35','2023-01-09 10:46:40'),
+(6,1,'Pop corn',50,1,1,5,'QEHFe3Exx9fSYZiDBFPy5wEFLoSgE4rJOuI2Omct.jpg',0,15,'2022-12-22 09:43:06','2022-12-22 09:43:06'),
+(7,1,'Pineapple Juice',50,1,1,10,'OlwgMn5Iu9quJHN2i9Ot2iYoTQx9nbdkGIoHn7iS.jpg',0,10,'2022-12-22 10:33:00','2022-12-22 10:33:00'),
+(8,1,'Chocolate Juice',50,1,1,10,'g1Tl1PH51EaguZurcD0G6eBKvQGbNx7VAe0dG9no.jpg',0,10,'2022-12-22 10:41:55','2022-12-22 10:41:55'),
+(9,1,'Ice cream',50,1,1,20,'KlUXxX15YK7mYSMrcXAZSrG6MlLaEoJ5MpM9BWo7.jpg',0,10,'2022-12-22 10:46:13','2022-12-22 10:46:13'),
+(10,1,'Siopao',50,1,1,20,'IqMIM7OC9JALFpDrM6xgFaI4kDJD3fT4rav7r8tY.jpg',0,15,'2022-12-22 10:47:50','2022-12-22 10:47:50'),
+(11,1,'Lemon Juice with yakult',50,1,1,60,'gRs3tyqRaFurs32EdY4yQdZ8eNZjf7zZusZNseXi.jpg',0,15,'2022-12-22 10:50:59','2022-12-22 10:51:18'),
+(12,1,'Fried Chicken',50,1,1,25,'tddcs10y0ATM1EgsUS5Th40evHfWbwqbG2XwHRSs.jpg',0,15,'2022-12-22 10:56:19','2022-12-22 10:56:19'),
+(13,1,'Guso',49,1,1,10,'3uXwWAGyvq8ABCupiGf4pIAdwyhDorfhUfIL6G6h.jpg',0,10,'2022-12-22 10:59:11','2023-01-09 10:46:40'),
+(14,1,'Fried Bangus',0,1,1,25,'jANyIOJvNV4VFnpWYWGwvmGVmfeOtVlMM6EqY0hT.jpg',0,10,'2022-12-22 11:06:48','2023-01-09 11:05:04'),
+(15,1,'Monggo',50,1,1,15,'tv3s6nv7tAddYxUCqB5yLWS88GIPKBhZvFCXpNkk.jpg',0,10,'2022-12-22 11:11:00','2022-12-28 10:14:17'),
+(16,1,'Fried Egg',49,1,1,10,'qGsoky3OIAmIFXrxzPzWTvI0mP6TfriCTXSWds36.jpg',0,10,'2022-12-22 11:28:44','2023-01-09 10:46:40'),
+(17,5,'Rice with Fried Egg',50,1,1,20,'a2rY612TykVtnohgeAAxIqRXkArnTSf3IIhYJw46.jpg',0,15,'2022-12-22 11:32:10','2022-12-28 00:39:33'),
+(18,5,'Fried Rice with hotdog',50,1,1,20,'vLSdxBEO4YhMfZb2FDrKkRr1VEKP3Yejt0KO7Q1w.jpg',0,15,'2022-12-22 11:34:41','2022-12-28 09:19:26'),
+(19,5,'Burger Buy 1 take 1',47,1,1,25,'e70tp0MRXSpgnT5NchGScxdDEvEJcUyWJ5ABglXD.jpg',0,10,'2022-12-22 11:36:59','2023-01-09 08:12:07'),
+(20,5,'Banana cue',42,1,1,5,'2yvXW6sM4llWB3VNqNaiIrCOHt9FidPHlyLWbPyL.jpg',0,10,'2022-12-22 14:51:16','2023-01-09 08:01:02'),
+(21,5,'Kamote Cue',37,1,1,7,'ogW4NobTtEzUj6muVHALv1hKy4nEsGzgmHPeXUsO.jpg',0,10,'2022-12-22 14:52:31','2023-01-09 09:01:40'),
+(22,5,'Soft drinks (200ml)',37,1,1,20,'Bq3xxih7ztIvmC4Bs7UYNVDWTXq0z2ItJYkwjQm0.jpg',0,10,'2022-12-22 14:54:22','2023-01-09 09:01:40');
 
 /*Table structure for table `provinces` */
 
@@ -44154,7 +44187,7 @@ CREATE TABLE `sales_order_details` (
   KEY `sales_order_id` (`sales_order_id`),
   CONSTRAINT `sales_order_details_ibfk_1` FOREIGN KEY (`sales_order_id`) REFERENCES `sales_orders` (`sales_order_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `sales_product_id_foreign` FOREIGN KEY (`product_id`) REFERENCES `products` (`product_id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 /*Data for the table `sales_order_details` */
 
@@ -44173,7 +44206,16 @@ insert  into `sales_order_details`(`sales_order_detail_id`,`sales_order_id`,`pro
 (23,17,18,1,20,'2022-12-28 09:17:56','2022-12-28 09:17:56'),
 (24,19,16,3,30,'2022-12-28 10:09:16','2022-12-28 10:09:16'),
 (25,20,15,1,15,'2022-12-28 10:10:00','2022-12-28 10:10:00'),
-(26,21,15,2,30,'2022-12-28 10:14:17','2022-12-28 10:14:17');
+(26,21,15,2,30,'2022-12-28 10:14:17','2022-12-28 10:14:17'),
+(27,22,5,3,60,'2023-01-09 10:46:40','2023-01-09 10:46:40'),
+(28,22,16,1,10,'2023-01-09 10:46:40','2023-01-09 10:46:40'),
+(29,22,13,1,10,'2023-01-09 10:46:40','2023-01-09 10:46:40'),
+(30,23,14,2,50,'2023-01-09 10:59:05','2023-01-09 10:59:05'),
+(31,24,14,6,150,'2023-01-09 10:59:19','2023-01-09 10:59:19'),
+(32,25,14,6,150,'2023-01-09 11:00:05','2023-01-09 11:00:05'),
+(33,28,14,5,125,'2023-01-09 11:05:04','2023-01-09 11:05:04'),
+(34,31,14,3,75,'2023-01-09 11:09:03','2023-01-09 11:09:03'),
+(35,32,14,3,75,'2023-01-09 11:09:25','2023-01-09 11:09:25');
 
 /*Table structure for table `sales_orders` */
 
@@ -44189,7 +44231,7 @@ CREATE TABLE `sales_orders` (
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`sales_order_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8mb4;
 
 /*Data for the table `sales_orders` */
 
@@ -44206,7 +44248,18 @@ insert  into `sales_orders`(`sales_order_id`,`customer_name`,`order_type`,`date_
 (17,NULL,'WALK IN','2022-12-28',20,0,'2022-12-28 09:17:56','2022-12-28 09:17:56'),
 (19,'sample','DELIVER','2022-12-28',100,70,'2022-12-28 10:09:16','2022-12-28 10:09:16'),
 (20,'pucot','DELIVER','2022-12-28',50,35,'2022-12-28 10:10:00','2022-12-28 10:10:00'),
-(21,'vilmaasssssaaszzzt','PICK UP','2022-12-28',50,20,'2022-12-28 10:14:17','2022-12-28 10:14:17');
+(21,'vilmaasssssaaszzzt','PICK UP','2022-12-28',50,20,'2022-12-28 10:14:17','2022-12-28 10:14:17'),
+(22,NULL,'WALK IN','2023-01-09',100,20,'2023-01-09 10:46:40','2023-01-09 10:46:40'),
+(23,NULL,'WALK IN','2023-01-09',100,50,'2023-01-09 10:59:05','2023-01-09 10:59:05'),
+(24,NULL,'WALK IN','2023-01-09',200,50,'2023-01-09 10:59:19','2023-01-09 10:59:19'),
+(25,NULL,'WALK IN','2023-01-09',200,50,'2023-01-09 11:00:05','2023-01-09 11:00:05'),
+(26,NULL,'WALK IN','2023-01-09',200,50,'2023-01-09 11:03:53','2023-01-09 11:03:53'),
+(27,NULL,'WALK IN','2023-01-09',200,50,'2023-01-09 11:04:54','2023-01-09 11:04:54'),
+(28,NULL,'WALK IN','2023-01-09',200,75,'2023-01-09 11:05:04','2023-01-09 11:05:04'),
+(29,NULL,'WALK IN','2023-01-09',30,5,'2023-01-09 11:05:13','2023-01-09 11:05:13'),
+(30,NULL,'WALK IN','2023-01-09',30,5,'2023-01-09 11:05:19','2023-01-09 11:05:19'),
+(31,NULL,'PICK UP','2023-01-09',200,125,'2023-01-09 11:09:03','2023-01-09 11:09:03'),
+(32,NULL,'PICK UP','2023-01-09',200,125,'2023-01-09 11:09:25','2023-01-09 11:09:25');
 
 /*Table structure for table `stores` */
 
@@ -44218,6 +44271,7 @@ CREATE TABLE `stores` (
   `user_id` bigint(20) unsigned NOT NULL,
   `owner` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `contact_no` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `is_online` tinyint(4) DEFAULT 0,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`store_id`),
@@ -44227,12 +44281,11 @@ CREATE TABLE `stores` (
 
 /*Data for the table `stores` */
 
-insert  into `stores`(`store_id`,`store`,`user_id`,`owner`,`contact_no`,`created_at`,`updated_at`) values 
-(1,'VILMA 1 STORE',3,'VILMA SANTOS','1234567890',NULL,'2022-12-08 18:21:08'),
-(2,'VILMA 2 STORE',3,'VILMA SERINO','1231564654','2022-12-08 18:21:20','2022-12-08 18:21:20'),
-(3,'RANDY 1 STORE',5,'RANDY','12345678912','2022-12-22 09:20:50','2022-12-22 09:20:50'),
-(4,'ASTA 1 STORE',6,'ASTA','123456789','2022-12-22 09:23:59','2022-12-22 09:23:59'),
-(5,'NOEL 1 STORE',7,'NOEL','123456789','2022-12-22 09:27:39','2022-12-22 09:27:39');
+insert  into `stores`(`store_id`,`store`,`user_id`,`owner`,`contact_no`,`is_online`,`created_at`,`updated_at`) values 
+(1,'VILMA 1 STORE',3,'VILMA SANTOS','1234567890',1,NULL,'2023-01-09 11:54:32'),
+(3,'RANDY 1 STORE',5,'RANDY','12345678912',0,'2022-12-22 09:20:50','2022-12-22 09:20:50'),
+(4,'ASTA 1 STORE',6,'ASTA','123456789',0,'2022-12-22 09:23:59','2022-12-22 09:23:59'),
+(5,'NOEL 1 STORE',7,'NOEL','123456789',0,'2022-12-22 09:27:39','2022-12-22 09:27:39');
 
 /*Table structure for table `users` */
 
@@ -44280,6 +44333,23 @@ insert  into `users`(`user_id`,`username`,`student_id`,`lname`,`fname`,`mname`,`
 (13,'serino01','','SERINO','SERINO','','','FEMALE','1042','104215','104215007','','serino01@gmail.com',NULL,'VENDOR',1,NULL,'$2y$10$.D9OWeekF/qPw869bxOm/u4dniTav7vUSDzSbm6qzhVg3D4PeL3Gm',NULL,'2022-12-28 08:56:52','2022-12-28 08:59:06'),
 (14,'mm','191191','MM','MM','MM','','MALE','1042','104215','104215016','','mm@gmail.com','09971794574','STUDENT',1,NULL,'$2y$10$ryU4z47mynyVfv4lxbubou/zKycLPfmaCNGYh1I02EGC1lEN52BPS',NULL,'2022-12-28 09:04:30','2022-12-28 09:05:08'),
 (15,'cc','','CC','CC','CC','','MALE','1042','104215','104215045','','cc@gmail.com',NULL,'FACULTY',1,NULL,'$2y$10$Jb4.jjLjQFAn51XgOFw.H.0mpjMuVw56R/.u/H9LSbe/uDbCjlHc.',NULL,'2022-12-28 09:07:07','2022-12-28 09:07:46');
+
+/*Table structure for table `websockets_statistics_entries` */
+
+DROP TABLE IF EXISTS `websockets_statistics_entries`;
+
+CREATE TABLE `websockets_statistics_entries` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `app_id` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `peak_connection_count` int(11) NOT NULL,
+  `websocket_message_count` int(11) NOT NULL,
+  `api_message_count` int(11) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+/*Data for the table `websockets_statistics_entries` */
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
