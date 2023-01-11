@@ -59,8 +59,11 @@ class LoginController extends Controller
 
             if($user->role === 'VENDOR'){
                 $store = Store::where('user_id', $user->user_id)->first();
-                $store->is_online = 1;
-                $store->save();
+                if($store){
+                    $store->is_online = 1;
+                    $store->save();
+                }
+               
             }
 
             return $user;
@@ -79,8 +82,11 @@ class LoginController extends Controller
 
         if($user->role === 'VENDOR'){
             $store = Store::where('user_id', $user->user_id)->first();
-            $store->is_online = 0;
-            $store->save();
+            if($store){
+                $store->is_online = 0;
+                $store->save();
+            }
+          
         }
 
         
