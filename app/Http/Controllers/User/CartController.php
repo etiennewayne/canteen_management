@@ -183,6 +183,24 @@ class CartController extends Controller
 
     }
 
+    public function removeFromCarts(Request $req){
+        $delete = 0;
+
+        foreach($req->all() as $item){
+            if($item['is_place_order'] > 0){
+                Cart::destroy($item['cart_id']);
+                $delete = 1;
+            }
+        }
+        
+        if($delete > 0){
+            return response()->json([
+                'status' => 'deleted'
+            ], 200);
+        }
+        
+    }
+
     public function removeFromCart($id){
         Cart::destroy($id);
 

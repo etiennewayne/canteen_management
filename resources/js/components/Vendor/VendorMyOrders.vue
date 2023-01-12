@@ -305,8 +305,8 @@ export default{
             axios.post('/vendor/store-order', this.fields).then(res=>{
                 if(res.data.status === 'saved'){
                     this.$buefy.dialog.alert({
-                        title: 'RATED!',
-                        message: 'The product was rated successfully.',
+                        title: 'Saved!',
+                        message: 'The product delivered successfully.',
                         type: 'is-success',
                         onConfirm: () => {
                             this.clearFields();

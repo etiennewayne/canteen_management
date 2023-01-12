@@ -2,9 +2,14 @@
     <div>
         <div class="columns is-centered">
             <div class="column is-8">
+                <div class="buttons mt-5 is-right">
+                    <b-button class="button is-primary" @click="selectAll">{{btnSelect}}</b-button>
+                    <b-button class="button is-danger" icon-left="close" @click="deletePerCheck">Delete</b-button>
+
+                </div>
 
                 <div v-for="(item, index) in carts" :key="index">
-                    <div class="item-container">
+                    <div class="item-container" v-if="item.product_img_path">
                         <div class="image-container">
                             <img :src="`/storage/products/${item.product_img_path}`" alt="">
                         </div>
@@ -168,14 +173,49 @@ export default{
 
             modalCheckOut: false,
 
+            toogle: 0,
+            btnSelect: 'Select All'
+
         }
     },
 
     methods: {
+        clearFields(){
+            this.carts = [];
+        },
+
 
         loadCarts(){
             axios.get('/get-cart-items').then(res=>{
-                this.carts = res.data
+                //this.clearFields()
+                this.carts = [];
+                res.data.forEach(el =>{
+                    this.carts.push({
+                        cart_id: el.cart_id,
+                        contact_no: el.contact_no,
+                        critical_level: el.critical_level,
+                        is_available: el.is_available,
+                        is_inv: el.is_inv,
+                        is_place_order: 0,
+                        owner: el.owner,
+                        owner_id: el.owner_id,
+                        product: el.product,
+                        product_id: el.product_id,
+                        product_img_path: el.product_img_path,
+                        product_price: el.product_price,
+                        product_qty: el.product_qty,
+                        qty: el.qty,
+                        store: el.store,
+                        store_id: el.store_id,
+                        time_consume: el.time_consume,
+                        user_id: el.user_id,
+                        delivery_type: this.role === 'STUDENT' ? 'PICK UP' : '',
+                    });
+                })
+
+                console.log(this.carts.length);
+                //this.carts = res.data
+                
             })
         },
 
@@ -203,6 +243,7 @@ export default{
 
             if(this.fields.carts.length < 1){
                 alert('Please select item in cart.');
+                return;
             }
 
             axios.post('/place-cart-order', this.fields).then(res=>{
@@ -278,8 +319,8 @@ export default{
         checkOut(){
             //check out
             this.fields.carts = [];
-
-            console.log(this.carts)
+            
+            console.log(this.carts.length)
 
             this.carts.forEach(item=>{
                 if(item.is_place_order || item.is_place_order > 0){
@@ -315,6 +356,37 @@ export default{
             }
 
             this.modalCheckOut = true;
+        },
+
+        selectAll(){
+           
+            if(this.toogle == 0){
+                this.carts.forEach(el=>{
+                    el.is_place_order = 1
+                });
+                this.toogle = 1;
+                this.btnSelect = 'Unselect All'
+            }else{
+                this.carts.forEach(el=>{
+                    el.is_place_order = 0
+                });
+                this.toogle = 0;
+                this.btnSelect = 'Select All'
+            }
+            
+        },
+
+        deletePerCheck(){
+            axios.post('/remove-carts-item', this.carts).then(res=>{
+                if(res.data.status == 'deleted')
+                    this.$buefy.dialog.alert({
+                        title: 'Removed!',
+                        type: 'is-success',
+                        message: 'Product removed.',
+                        confirmText: 'Ok',
+                    });
+                this.loadCarts()
+            })
         }
 
     },

@@ -8574,6 +8574,10 @@ __webpack_require__.r(__webpack_exports__);
       this.productId = parseFloat(this.propProductId);
       this.product = JSON.parse(this.propProduct);
       this.role = this.propRole;
+
+      if (this.role === 'STUDENT') {
+        this.fields.delivery_type = 'PICK UP';
+      }
     },
     buyNow: function buyNow() {
       var _this2 = this;
@@ -9521,6 +9525,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: ['propRole', 'propOffices'],
   data: function data() {
@@ -9534,15 +9543,45 @@ __webpack_require__.r(__webpack_exports__);
       },
       role: '',
       offices: [],
-      modalCheckOut: false
+      modalCheckOut: false,
+      toogle: 0,
+      btnSelect: 'Select All'
     };
   },
   methods: {
+    clearFields: function clearFields() {
+      this.carts = [];
+    },
     loadCarts: function loadCarts() {
       var _this = this;
 
       axios.get('/get-cart-items').then(function (res) {
-        _this.carts = res.data;
+        //this.clearFields()
+        _this.carts = [];
+        res.data.forEach(function (el) {
+          _this.carts.push({
+            cart_id: el.cart_id,
+            contact_no: el.contact_no,
+            critical_level: el.critical_level,
+            is_available: el.is_available,
+            is_inv: el.is_inv,
+            is_place_order: 0,
+            owner: el.owner,
+            owner_id: el.owner_id,
+            product: el.product,
+            product_id: el.product_id,
+            product_img_path: el.product_img_path,
+            product_price: el.product_price,
+            product_qty: el.product_qty,
+            qty: el.qty,
+            store: el.store,
+            store_id: el.store_id,
+            time_consume: el.time_consume,
+            user_id: el.user_id,
+            delivery_type: _this.role === 'STUDENT' ? 'PICK UP' : ''
+          });
+        });
+        console.log(_this.carts.length); //this.carts = res.data
       });
     },
     confirmPlaceOrder: function confirmPlaceOrder(item) {
@@ -9570,6 +9609,7 @@ __webpack_require__.r(__webpack_exports__);
 
       if (this.fields.carts.length < 1) {
         alert('Please select item in cart.');
+        return;
       }
 
       axios.post('/place-cart-order', this.fields).then(function (res) {
@@ -9645,7 +9685,7 @@ __webpack_require__.r(__webpack_exports__);
 
       //check out
       this.fields.carts = [];
-      console.log(this.carts);
+      console.log(this.carts.length);
       this.carts.forEach(function (item) {
         if (item.is_place_order || item.is_place_order > 0) {
           var delivery = new Date(new Date().getTime() + item.time_consume * 60000);
@@ -9678,6 +9718,35 @@ __webpack_require__.r(__webpack_exports__);
       }
 
       this.modalCheckOut = true;
+    },
+    selectAll: function selectAll() {
+      if (this.toogle == 0) {
+        this.carts.forEach(function (el) {
+          el.is_place_order = 1;
+        });
+        this.toogle = 1;
+        this.btnSelect = 'Unselect All';
+      } else {
+        this.carts.forEach(function (el) {
+          el.is_place_order = 0;
+        });
+        this.toogle = 0;
+        this.btnSelect = 'Select All';
+      }
+    },
+    deletePerCheck: function deletePerCheck() {
+      var _this7 = this;
+
+      axios.post('/remove-carts-item', this.carts).then(function (res) {
+        if (res.data.status == 'deleted') _this7.$buefy.dialog.alert({
+          title: 'Removed!',
+          type: 'is-success',
+          message: 'Product removed.',
+          confirmText: 'Ok'
+        });
+
+        _this7.loadCarts();
+      });
     }
   },
   mounted: function mounted() {
@@ -11451,8 +11520,8 @@ __webpack_require__.r(__webpack_exports__);
       axios.post('/vendor/store-order', this.fields).then(function (res) {
         if (res.data.status === 'saved') {
           _this2.$buefy.dialog.alert({
-            title: 'RATED!',
-            message: 'The product was rated successfully.',
+            title: 'Saved!',
+            message: 'The product delivered successfully.',
             type: 'is-success',
             onConfirm: function onConfirm() {
               _this2.clearFields();
@@ -36314,7 +36383,7 @@ var render = function () {
                         attrs: {
                           type: "is-primary",
                           outlined: "",
-                          label: "Buy Now",
+                          label: "Check Out",
                         },
                         on: { click: _vm.buyNow },
                       }),
@@ -37708,181 +37777,219 @@ var render = function () {
           "div",
           { staticClass: "column is-8" },
           [
+            _c(
+              "div",
+              { staticClass: "buttons mt-5 is-right" },
+              [
+                _c(
+                  "b-button",
+                  {
+                    staticClass: "button is-primary",
+                    on: { click: _vm.selectAll },
+                  },
+                  [_vm._v(_vm._s(_vm.btnSelect))]
+                ),
+                _vm._v(" "),
+                _c(
+                  "b-button",
+                  {
+                    staticClass: "button is-danger",
+                    attrs: { "icon-left": "close" },
+                    on: { click: _vm.deletePerCheck },
+                  },
+                  [_vm._v("Delete")]
+                ),
+              ],
+              1
+            ),
+            _vm._v(" "),
             _vm._l(_vm.carts, function (item, index) {
               return _c("div", { key: index }, [
-                _c("div", { staticClass: "item-container" }, [
-                  _c("div", { staticClass: "image-container" }, [
-                    _c("img", {
-                      attrs: {
-                        src: "/storage/products/" + item.product_img_path,
-                        alt: "",
-                      },
-                    }),
-                  ]),
-                  _vm._v(" "),
-                  _c("div", { staticClass: "item-info" }, [
-                    _c(
-                      "div",
-                      { staticStyle: { display: "flex" } },
-                      [
-                        _c("strong", [_vm._v("Quantity:")]),
-                        _vm._v(" "),
-                        _c("b-numberinput", {
-                          staticClass: "ml-3",
+                item.product_img_path
+                  ? _c("div", { staticClass: "item-container" }, [
+                      _c("div", { staticClass: "image-container" }, [
+                        _c("img", {
                           attrs: {
-                            size: "is-small",
-                            "controls-position": "compact",
-                            min: "1",
-                          },
-                          model: {
-                            value: item.qty,
-                            callback: function ($$v) {
-                              _vm.$set(item, "qty", $$v)
-                            },
-                            expression: "item.qty",
+                            src: "/storage/products/" + item.product_img_path,
+                            alt: "",
                           },
                         }),
-                      ],
-                      1
-                    ),
-                    _vm._v(" "),
-                    _c("div", [
-                      _c("strong", [_vm._v("Product:")]),
-                      _vm._v(
-                        "\n                            " +
-                          _vm._s(item.product) +
-                          "\n                        "
-                      ),
-                    ]),
-                    _vm._v(" "),
-                    _c("div", [
-                      _c("strong", [_vm._v("Price: ")]),
-                      _vm._v(
-                        " " +
-                          _vm._s(_vm._f("formatPrice")(item.product_price)) +
-                          "\n                        "
-                      ),
-                    ]),
-                    _vm._v(" "),
-                    _c("div", [
-                      _c("strong", [_vm._v("Product Qty: ")]),
-                      _vm._v(
-                        " " +
-                          _vm._s(item.product_qty) +
-                          "\n                        "
-                      ),
-                    ]),
-                    _vm._v(" "),
-                    _c(
-                      "div",
-                      [
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "item-info" }, [
                         _c(
-                          "b-field",
-                          { attrs: { label: "Delivery Type: " } },
+                          "div",
+                          { staticStyle: { display: "flex" } },
+                          [
+                            _c("strong", [_vm._v("Quantity:")]),
+                            _vm._v(" "),
+                            _c("b-numberinput", {
+                              staticClass: "ml-3",
+                              attrs: {
+                                size: "is-small",
+                                "controls-position": "compact",
+                                min: "1",
+                              },
+                              model: {
+                                value: item.qty,
+                                callback: function ($$v) {
+                                  _vm.$set(item, "qty", $$v)
+                                },
+                                expression: "item.qty",
+                              },
+                            }),
+                          ],
+                          1
+                        ),
+                        _vm._v(" "),
+                        _c("div", [
+                          _c("strong", [_vm._v("Product:")]),
+                          _vm._v(
+                            "\n                            " +
+                              _vm._s(item.product) +
+                              "\n                        "
+                          ),
+                        ]),
+                        _vm._v(" "),
+                        _c("div", [
+                          _c("strong", [_vm._v("Price: ")]),
+                          _vm._v(
+                            " " +
+                              _vm._s(
+                                _vm._f("formatPrice")(item.product_price)
+                              ) +
+                              "\n                        "
+                          ),
+                        ]),
+                        _vm._v(" "),
+                        _c("div", [
+                          _c("strong", [_vm._v("Product Qty: ")]),
+                          _vm._v(
+                            " " +
+                              _vm._s(item.product_qty) +
+                              "\n                        "
+                          ),
+                        ]),
+                        _vm._v(" "),
+                        _c(
+                          "div",
                           [
                             _c(
-                              "b-select",
-                              {
-                                attrs: { placeholder: "Delivery Type" },
-                                model: {
-                                  value: item.delivery_type,
-                                  callback: function ($$v) {
-                                    _vm.$set(item, "delivery_type", $$v)
-                                  },
-                                  expression: "item.delivery_type",
-                                },
-                              },
+                              "b-field",
+                              { attrs: { label: "Delivery Type: " } },
                               [
-                                _c("option", { attrs: { value: "PICK UP" } }, [
-                                  _vm._v("PICK UP"),
-                                ]),
-                                _vm._v(" "),
-                                _vm.role === "FACULTY"
-                                  ? _c(
+                                _c(
+                                  "b-select",
+                                  {
+                                    attrs: { placeholder: "Delivery Type" },
+                                    model: {
+                                      value: item.delivery_type,
+                                      callback: function ($$v) {
+                                        _vm.$set(item, "delivery_type", $$v)
+                                      },
+                                      expression: "item.delivery_type",
+                                    },
+                                  },
+                                  [
+                                    _c(
                                       "option",
-                                      { attrs: { value: "DELIVER" } },
-                                      [_vm._v("DELIVER")]
-                                    )
-                                  : _vm._e(),
-                              ]
+                                      { attrs: { value: "PICK UP" } },
+                                      [_vm._v("PICK UP")]
+                                    ),
+                                    _vm._v(" "),
+                                    _vm.role === "FACULTY"
+                                      ? _c(
+                                          "option",
+                                          { attrs: { value: "DELIVER" } },
+                                          [_vm._v("DELIVER")]
+                                        )
+                                      : _vm._e(),
+                                  ]
+                                ),
+                              ],
+                              1
                             ),
                           ],
                           1
                         ),
-                      ],
-                      1
-                    ),
-                    _vm._v(" "),
-                    item.delivery_type === "DELIVER"
-                      ? _c(
-                          "div",
-                          { staticClass: "mt-4" },
-                          [
-                            _c(
-                              "b-select",
-                              {
-                                attrs: { placeholder: "Office", required: "" },
-                                model: {
-                                  value: item.office,
-                                  callback: function ($$v) {
-                                    _vm.$set(item, "office", $$v)
+                        _vm._v(" "),
+                        item.delivery_type === "DELIVER"
+                          ? _c(
+                              "div",
+                              { staticClass: "mt-4" },
+                              [
+                                _c(
+                                  "b-select",
+                                  {
+                                    attrs: {
+                                      placeholder: "Office",
+                                      required: "",
+                                    },
+                                    model: {
+                                      value: item.office,
+                                      callback: function ($$v) {
+                                        _vm.$set(item, "office", $$v)
+                                      },
+                                      expression: "item.office",
+                                    },
                                   },
-                                  expression: "item.office",
-                                },
-                              },
-                              _vm._l(_vm.offices, function (i, ix) {
-                                return _c(
-                                  "option",
-                                  { key: ix, domProps: { value: i.office } },
-                                  [
-                                    _vm._v(
-                                      "\n                                    " +
-                                        _vm._s(i.office) +
-                                        "\n                                "
-                                    ),
-                                  ]
-                                )
-                              }),
-                              0
-                            ),
-                          ],
-                          1
-                        )
-                      : _vm._e(),
-                  ]),
-                  _vm._v(" "),
-                  _c(
-                    "div",
-                    { staticClass: "item-buttons" },
-                    [
-                      _c(
-                        "b-checkbox",
-                        {
-                          attrs: { "true-value": 1, "false-value": 0 },
-                          model: {
-                            value: item.is_place_order,
-                            callback: function ($$v) {
-                              _vm.$set(item, "is_place_order", $$v)
-                            },
-                            expression: "item.is_place_order",
-                          },
-                        },
-                        [_vm._v("Check to order")]
-                      ),
+                                  _vm._l(_vm.offices, function (i, ix) {
+                                    return _c(
+                                      "option",
+                                      {
+                                        key: ix,
+                                        domProps: { value: i.office },
+                                      },
+                                      [
+                                        _vm._v(
+                                          "\n                                    " +
+                                            _vm._s(i.office) +
+                                            "\n                                "
+                                        ),
+                                      ]
+                                    )
+                                  }),
+                                  0
+                                ),
+                              ],
+                              1
+                            )
+                          : _vm._e(),
+                      ]),
                       _vm._v(" "),
-                      _c("b-button", {
-                        staticClass: "button is-danger is-small",
-                        attrs: { "icon-right": "delete" },
-                        on: {
-                          click: function ($event) {
-                            return _vm.confirmRemoveCart(item)
-                          },
-                        },
-                      }),
-                    ],
-                    1
-                  ),
-                ]),
+                      _c(
+                        "div",
+                        { staticClass: "item-buttons" },
+                        [
+                          _c(
+                            "b-checkbox",
+                            {
+                              attrs: { "true-value": 1, "false-value": 0 },
+                              model: {
+                                value: item.is_place_order,
+                                callback: function ($$v) {
+                                  _vm.$set(item, "is_place_order", $$v)
+                                },
+                                expression: "item.is_place_order",
+                              },
+                            },
+                            [_vm._v("Check to order")]
+                          ),
+                          _vm._v(" "),
+                          _c("b-button", {
+                            staticClass: "button is-danger is-small",
+                            attrs: { "icon-right": "delete" },
+                            on: {
+                              click: function ($event) {
+                                return _vm.confirmRemoveCart(item)
+                              },
+                            },
+                          }),
+                        ],
+                        1
+                      ),
+                    ])
+                  : _vm._e(),
               ])
             }),
             _vm._v(" "),

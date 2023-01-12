@@ -36,7 +36,7 @@ class WelcomePageAllProductsController extends Controller
                 $q->orWhere('stores.store', 'like', $req->product. '%')
                 ->orWhere('products.product', 'like', $req->product . '%');
             })
-            ->orderBy($sort[0], $sort[1])
+            ->orderBy('total_rates', 'desc')
             ->paginate($req->perpage);
             
     }

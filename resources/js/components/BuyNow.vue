@@ -46,7 +46,7 @@
 
                             <div class="prod-button">
                                 <div class="buttons">
-                                    <b-button type="is-primary" @click="buyNow" outlined label="Buy Now"></b-button>
+                                    <b-button type="is-primary" @click="buyNow" outlined label="Check Out"></b-button>
                                 </div>
                             </div>
                         </div>
@@ -122,6 +122,10 @@ export default {
             this.productId = parseFloat(this.propProductId)
             this.product = JSON.parse(this.propProduct)
             this.role = this.propRole;
+
+            if(this.role === 'STUDENT'){
+                this.fields.delivery_type = 'PICK UP';
+            }
         },
 
         buyNow(){

@@ -154,6 +154,7 @@ Route::resource('/my-cart', App\Http\Controllers\User\CartController::class);
 Route::get('/get-cart-items', [App\Http\Controllers\User\CartController::class, 'getCartItems']);
 
 Route::post('/remove-cart-items/{id}', [App\Http\Controllers\User\CartController::class, 'removeFromCart']);
+Route::post('/remove-carts-item', [App\Http\Controllers\User\CartController::class, 'removeFromCarts']);
 
 
 
