@@ -32,6 +32,11 @@ class AllProductsController extends Controller
     }
 
     public function getAllProducts(Request $req){
+
+        $user = Auth::user();
+        $store = Store::where('user_id', $user->user_id)->first();
+
+
         $sort = explode('.', $req->sort_by);
 
         $data = Product::with(['store'])
@@ -47,8 +52,8 @@ class AllProductsController extends Controller
             }])
             ->selectRaw('(select(total_rating) / (select count(*) from product_ratings where product_id = products.product_id)) as product_total_rating')
             ->where('product', 'like', $req->product . '%')
-            ->whereHas('store', function($q) use ($req){
-                $q->where('store',  $req->store);
+            ->whereHas('store', function($q) use ($store){
+                $q->where('store_id',  $store->store_id);
             })
             //->toSql();
             ->orderBy($sort[0], $sort[1])

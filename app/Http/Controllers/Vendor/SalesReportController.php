@@ -26,6 +26,12 @@ class SalesReportController extends Controller
     }
 
     public function getSalesReport(Request $req){
+        $user = Auth::user();
+
+        $store = Store::where('user_id', $user->user_id)->first();
+        //return $store;
+
+
         $from = date("Y-m-d", strtotime($req->from)); //convert to date format UNIX
         $to = date("Y-m-d", strtotime($req->to)); //convert to date format UNIX
 
@@ -38,7 +44,7 @@ class SalesReportController extends Controller
                 'b.product_id',  'b.qty', 'b.price', 'c.product', 'c.product_price',
                 'd.store_id', 'd.store')
             ->whereBetween('a.date_order', [$from, $to])
-            ->where('d.store',  $req->store)
+            ->where('d.store_id',  $store->store_id)
             ->orderBy('a.sales_order_id', 'desc')
             ->get();
         return $data;

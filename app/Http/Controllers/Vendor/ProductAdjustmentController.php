@@ -32,6 +32,10 @@ class ProductAdjustmentController extends Controller
     }
 
     public function getAdjustmentProducts(Request $req){
+
+        $user = Auth::user();
+        $store = Store::where('user_id', $user->user_id)->first();
+
         $from = date("Y-m-d", strtotime($req->from)); //convert to date format UNIX
         $to = date("Y-m-d", strtotime($req->to)); //convert to date format UNIX
 
@@ -52,7 +56,7 @@ class ProductAdjustmentController extends Controller
                 'c.product', 'c.product_price', 'c.qty',
                 'd.store')
             ->whereBetween('a.date_adjusted', [$from, $to])
-            ->where('d.store',  $req->store)
+            ->where('d.store_id',  $store->store_id)
             ->orderBy('a.product_adjustment_id', 'desc')
             ->get();
         return $data;

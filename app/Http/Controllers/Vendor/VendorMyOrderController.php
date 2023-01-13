@@ -35,11 +35,14 @@ class VendorMyOrderController extends Controller
     {
         $sort = explode('.', $req->sort_by);
 
+        $user = Auth::user();
+        $store = Store::where('user_id', $user->user_id)->first();
+
         $data = DB::table('product_orders as a')
             ->join('products as b', 'a.product_id', 'b.product_id')
             ->join('stores as c', 'b.store_id', 'c.store_id')
             ->select('a.*', 'b.*', 'c.*', 'a.qty as purchase_qty')
-            ->where('b.store_id', $req->storeid)
+            ->where('b.store_id', $store->store_id)
             ->where('a.product_order_id', 'like',  $req->product_order_id . '%')
             ->orderBy($sort[0], $sort[1])
             ->paginate($req->perpage);

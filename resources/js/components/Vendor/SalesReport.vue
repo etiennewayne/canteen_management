@@ -7,21 +7,26 @@
                         <b-field label="Date Filter" label-position="on-border">
                             <b-datepicker v-model="from"></b-datepicker>
                             <b-datepicker v-model="to"></b-datepicker>
-                        </b-field>
-                    </div>
-                </div>
-                <div class="columns is-centered">
-                    <div class="column is-8">
-                        <b-field label="Store" label-position="on-border">
-                            <b-select v-model="store">
-                                <option v-for="(item, index) in stores" :key="index" :value="item.store">{{ item.store }}</option>
-                            </b-select>
                             <p class="controls">
                                 <button class="button is-info" @click="loadAsyncData">
                                     <b-icon icon="magnify"></b-icon>
                                 </button>
                             </p>
                         </b-field>
+                    </div>
+                </div>
+                <div class="columns is-centered">
+                    <div class="column is-8">
+                        <!-- <b-field label="Store" label-position="on-border">
+                            <b-select v-model="store">
+                                <option v-for="(item, index) in stores" :key="index" :value="item.store">{{ item.store }}</option>
+                            </b-select>
+                            <p class="controls">
+                                
+                            </p>
+                        </b-field> -->
+
+                       
                     </div>
                 </div>
             </div>
@@ -102,7 +107,6 @@ export default{
 
             const params = [
                 `from=${nfrom}`,
-                `store=${this.store}`,
                 `to=${nto}`,
             ].join('&')
 

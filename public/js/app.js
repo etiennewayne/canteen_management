@@ -10681,6 +10681,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 var now = new Date();
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: ['propStores'],
@@ -10701,7 +10702,7 @@ var now = new Date();
       var nto = new Date(this.to);
       nfrom = nfrom.getFullYear() + '-' + (nfrom.getMonth() + 1) + '-' + nfrom.getDate();
       nto = nto.getFullYear() + '-' + (nto.getMonth() + 1) + '-' + nto.getDate();
-      var params = ["from=".concat(nfrom), "store=".concat(this.store), "to=".concat(nto)].join('&');
+      var params = ["from=".concat(nfrom), "to=".concat(nto)].join('&');
       axios.get("/vendor/get-adjustment-products?".concat(params)).then(function (res) {
         _this.data = res.data;
       });
@@ -10806,6 +10807,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 var now = new Date();
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: ['propStores'],
@@ -10826,7 +10832,7 @@ var now = new Date();
       var nto = new Date(this.to);
       nfrom = nfrom.getFullYear() + '-' + (nfrom.getMonth() + 1) + '-' + nfrom.getDate();
       nto = nto.getFullYear() + '-' + (nto.getMonth() + 1) + '-' + nto.getDate();
-      var params = ["from=".concat(nfrom), "store=".concat(this.store), "to=".concat(nto)].join('&');
+      var params = ["from=".concat(nfrom), "to=".concat(nto)].join('&');
       axios.get("/vendor/get-sales-report?".concat(params)).then(function (res) {
         _this.data = res.data;
       });
@@ -11559,9 +11565,10 @@ __webpack_require__.r(__webpack_exports__);
       })["catch"](function (err) {});
     },
     initData: function initData() {
-      this.stores = JSON.parse(this.propStores);
+      this.stores = JSON.parse(this.propStores); //this.search.storeid = this.stores[0].store_id
     }
   },
+  created: function created() {},
   mounted: function mounted() {
     this.loadAsyncData();
     this.initData();
@@ -38777,49 +38784,6 @@ var render = function () {
                   ),
                 ]),
                 _vm._v(" "),
-                _c("div", { staticClass: "columns" }, [
-                  _c(
-                    "div",
-                    { staticClass: "column" },
-                    [
-                      _c(
-                        "b-field",
-                        {
-                          attrs: {
-                            label: "Store",
-                            "label-position": "on-border",
-                          },
-                        },
-                        [
-                          _c(
-                            "b-select",
-                            {
-                              on: { input: _vm.loadAsyncData },
-                              model: {
-                                value: _vm.search.store,
-                                callback: function ($$v) {
-                                  _vm.$set(_vm.search, "store", $$v)
-                                },
-                                expression: "search.store",
-                              },
-                            },
-                            _vm._l(_vm.stores, function (item, index) {
-                              return _c(
-                                "option",
-                                { key: index, domProps: { value: item.store } },
-                                [_vm._v(_vm._s(item.store))]
-                              )
-                            }),
-                            0
-                          ),
-                        ],
-                        1
-                      ),
-                    ],
-                    1
-                  ),
-                ]),
-                _vm._v(" "),
                 _c(
                   "b-table",
                   {
@@ -39630,43 +39594,6 @@ var render = function () {
                       expression: "to",
                     },
                   }),
-                ],
-                1
-              ),
-            ],
-            1
-          ),
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "columns is-centered" }, [
-          _c(
-            "div",
-            { staticClass: "column is-8" },
-            [
-              _c(
-                "b-field",
-                { attrs: { label: "Store", "label-position": "on-border" } },
-                [
-                  _c(
-                    "b-select",
-                    {
-                      model: {
-                        value: _vm.store,
-                        callback: function ($$v) {
-                          _vm.store = $$v
-                        },
-                        expression: "store",
-                      },
-                    },
-                    _vm._l(_vm.stores, function (item, index) {
-                      return _c(
-                        "option",
-                        { key: index, domProps: { value: item.store } },
-                        [_vm._v(_vm._s(item.store))]
-                      )
-                    }),
-                    0
-                  ),
                   _vm._v(" "),
                   _c("p", { staticClass: "controls" }, [
                     _c(
@@ -39686,6 +39613,8 @@ var render = function () {
             1
           ),
         ]),
+        _vm._v(" "),
+        _vm._m(0),
       ]),
       _vm._v(" "),
       _c("div", { staticClass: "data-print" }, [
@@ -39713,7 +39642,7 @@ var render = function () {
           _c(
             "table",
             [
-              _vm._m(0),
+              _vm._m(1),
               _vm._v(" "),
               _vm._l(_vm.data, function (item, index) {
                 return _c("tr", { key: index }, [
@@ -39741,6 +39670,14 @@ var render = function () {
   ])
 }
 var staticRenderFns = [
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "columns is-centered" }, [
+      _c("div", { staticClass: "column is-8" }),
+    ])
+  },
   function () {
     var _vm = this
     var _h = _vm.$createElement
@@ -39820,43 +39757,6 @@ var render = function () {
                       expression: "to",
                     },
                   }),
-                ],
-                1
-              ),
-            ],
-            1
-          ),
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "columns is-centered" }, [
-          _c(
-            "div",
-            { staticClass: "column is-8" },
-            [
-              _c(
-                "b-field",
-                { attrs: { label: "Store", "label-position": "on-border" } },
-                [
-                  _c(
-                    "b-select",
-                    {
-                      model: {
-                        value: _vm.store,
-                        callback: function ($$v) {
-                          _vm.store = $$v
-                        },
-                        expression: "store",
-                      },
-                    },
-                    _vm._l(_vm.stores, function (item, index) {
-                      return _c(
-                        "option",
-                        { key: index, domProps: { value: item.store } },
-                        [_vm._v(_vm._s(item.store))]
-                      )
-                    }),
-                    0
-                  ),
                   _vm._v(" "),
                   _c("p", { staticClass: "controls" }, [
                     _c(
@@ -39876,6 +39776,8 @@ var render = function () {
             1
           ),
         ]),
+        _vm._v(" "),
+        _vm._m(0),
       ]),
       _vm._v(" "),
       _c("div", { staticClass: "data-print" }, [
@@ -39903,7 +39805,7 @@ var render = function () {
           _c(
             "table",
             [
-              _vm._m(0),
+              _vm._m(1),
               _vm._v(" "),
               _vm._l(_vm.data, function (item, index) {
                 return _c("tr", { key: index }, [
@@ -39942,6 +39844,14 @@ var render = function () {
   ])
 }
 var staticRenderFns = [
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "columns is-centered" }, [
+      _c("div", { staticClass: "column is-8" }),
+    ])
+  },
   function () {
     var _vm = this
     var _h = _vm.$createElement
@@ -40460,50 +40370,7 @@ var render = function () {
               _c("div", { staticClass: "columns mt-5" }, [
                 _c(
                   "div",
-                  { staticClass: "column" },
-                  [
-                    _c(
-                      "b-field",
-                      {
-                        attrs: {
-                          label: "Store",
-                          "label-position": "on-border",
-                        },
-                      },
-                      [
-                        _c(
-                          "b-select",
-                          {
-                            model: {
-                              value: _vm.search.storeid,
-                              callback: function ($$v) {
-                                _vm.$set(_vm.search, "storeid", $$v)
-                              },
-                              expression: "search.storeid",
-                            },
-                          },
-                          _vm._l(_vm.stores, function (item, index) {
-                            return _c(
-                              "option",
-                              {
-                                key: index,
-                                domProps: { value: item.store_id },
-                              },
-                              [_vm._v(_vm._s(item.store))]
-                            )
-                          }),
-                          0
-                        ),
-                      ],
-                      1
-                    ),
-                  ],
-                  1
-                ),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  { staticClass: "column" },
+                  { staticClass: "column is-6" },
                   [
                     _c(
                       "b-field",

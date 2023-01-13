@@ -9,14 +9,14 @@
                         </div>
 
                         <div class="columns mt-5">
-                            <div class="column">
+                            <!-- <div class="column">
                                 <b-field label="Store" label-position="on-border">
                                     <b-select v-model="search.storeid">
                                         <option v-for="(item, index) in stores" :key="index" :value="item.store_id">{{ item.store }}</option>
                                     </b-select>
                                 </b-field>
-                            </div>
-                            <div class="column">
+                            </div> -->
+                            <div class="column is-6">
                                 <b-field label="Order Id" label-position="on-border">
                                     <b-input type="text" v-model="search.product_order_id" @keyup.native.enter="loadAsyncData" placeholder="Order Id">
                                     </b-input>
@@ -320,12 +320,17 @@ export default{
 
         initData(){
             this.stores = JSON.parse(this.propStores)
-        }
 
+            //this.search.storeid = this.stores[0].store_id
+        }
 
     },
 
+    created(){
+    },
+
     mounted(){
+
         this.loadAsyncData();
         this.initData()
     }

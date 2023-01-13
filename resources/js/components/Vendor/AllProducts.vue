@@ -32,7 +32,7 @@
                             </div>
                         </div>
 
-                        <div class="columns">
+                        <!-- <div class="columns">
                             <div class="column">
                                 <b-field label="Store" label-position="on-border">
                                     <b-select v-model="search.store" @input="loadAsyncData">
@@ -40,7 +40,7 @@
                                     </b-select>
                                 </b-field>
                             </div>
-                        </div>
+                        </div> -->
 
 <!--                        <div class="buttons mt-3">-->
 <!--                            <b-button icon-left="plus" class="is-primary">NEW</b-button>-->
