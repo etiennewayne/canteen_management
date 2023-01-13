@@ -71,9 +71,15 @@
                                 {{ props.row.store.store }}
                             </b-table-column>
 
-
                             <b-table-column field="product" label="Product" sortable v-slot="props">
                                 {{ props.row.product }}
+                            </b-table-column>
+
+                            <b-table-column field="product_total_rating" label="Ratings" sortable v-slot="props">
+                                <b-rate show-score 
+                                    disabled
+                                    v-model="props.row.product_total_rating">
+                                </b-rate>
                             </b-table-column>
 
                             <b-table-column field="qty" label="Quantity" centered sortable v-slot="props">

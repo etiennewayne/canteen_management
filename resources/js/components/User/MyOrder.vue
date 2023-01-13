@@ -2,7 +2,7 @@
     <div>
         <div class="section">
             <div class="columns is-centered">
-                <div class="column is-8">
+                <div class="column is-10">
                     <div class="box">
                         <div class="box-header">
                             Order History
@@ -47,7 +47,7 @@
                                     {{ props.row.delivery_type }}
                                 </b-table-column>
 
-                                <b-table-column field="est_delivery" label="Est Delivery" centered v-slot="props">
+                                <b-table-column field="est_delivery" label="Est Delivery/Pick Up" centered v-slot="props">
                                     <span v-if="props.row.est_delivery">{{ props.row.est_delivery | formatTime}}</span>
                                 </b-table-column>
 

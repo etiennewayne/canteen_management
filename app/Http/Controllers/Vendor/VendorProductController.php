@@ -34,6 +34,17 @@ class VendorProductController extends Controller
         $sort = explode('.', $req->sort_by);
 
         $data = Product::where('product', 'like', '%' . $req->product . '%')
+            ->addSelect(['total_rating' => function ($q){
+                $q->selectRaw('sum(rating)')
+                ->from('product_ratings')
+                ->whereColumn('product_id', 'products.product_id');
+            }])
+            ->addSelect(['total_raters' => function ($q){
+                $q->selectRaw('count(*)')
+                ->from('product_ratings')
+                ->whereColumn('product_id', 'products.product_id');
+            }])
+            ->selectRaw('(select(total_rating) / (select count(*) from product_ratings where product_id = products.product_id)) as product_total_rating')
             ->where('store_id', $store->store_id)
             ->orderBy($sort[0], $sort[1])
             ->paginate($req->perpage);

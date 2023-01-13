@@ -35,10 +35,22 @@ class AllProductsController extends Controller
         $sort = explode('.', $req->sort_by);
 
         $data = Product::with(['store'])
+            ->addSelect(['total_rating' => function ($q){
+                $q->selectRaw('sum(rating)')
+                ->from('product_ratings')
+                ->whereColumn('product_id', 'products.product_id');
+            }])
+            ->addSelect(['total_raters' => function ($q){
+                $q->selectRaw('count(*)')
+                ->from('product_ratings')
+                ->whereColumn('product_id', 'products.product_id');
+            }])
+            ->selectRaw('(select(total_rating) / (select count(*) from product_ratings where product_id = products.product_id)) as product_total_rating')
             ->where('product', 'like', $req->product . '%')
             ->whereHas('store', function($q) use ($req){
                 $q->where('store',  $req->store);
             })
+            //->toSql();
             ->orderBy($sort[0], $sort[1])
             ->paginate($req->perpage);
 

@@ -53,6 +53,15 @@
                             <td>{{ item.price | formatPrice }}</td>
                             <td>{{ item.order_type }}</td>
                         </tr>
+                        <tr>
+                            <td colspan="4"></td>
+                           
+
+                            <td colspan="2">
+                                <strong>TOTAL: </strong>
+                                {{ totalSales | formatPrice }}
+                            </td>
+                        </tr>
                     </table>
                 </div>
 
@@ -113,6 +122,17 @@ export default{
         this.loadAsyncData();
         this.initData()
 
+    },
+
+    computed: {
+        totalSales(){
+            let total = 0;
+            
+            this.data.forEach(el =>{
+                total += el.price
+            })
+            return total
+        }
     }
 }
 </script>

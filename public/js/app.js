@@ -10228,6 +10228,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: ['propStores'],
   data: function data() {
@@ -10791,6 +10797,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 var now = new Date();
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: ['propStores'],
@@ -10824,6 +10839,15 @@ var now = new Date();
     //this.loadOffices();
     this.loadAsyncData();
     this.initData();
+  },
+  computed: {
+    totalSales: function totalSales() {
+      var total = 0;
+      this.data.forEach(function (el) {
+        total += el.price;
+      });
+      return total;
+    }
   }
 });
 
@@ -10840,6 +10864,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+//
+//
 //
 //
 //
@@ -38196,7 +38222,7 @@ var render = function () {
     [
       _c("div", { staticClass: "section" }, [
         _c("div", { staticClass: "columns is-centered" }, [
-          _c("div", { staticClass: "column is-8" }, [
+          _c("div", { staticClass: "column is-10" }, [
             _c("div", { staticClass: "box" }, [
               _c("div", { staticClass: "box-header" }, [
                 _vm._v(
@@ -38337,7 +38363,7 @@ var render = function () {
                       _c("b-table-column", {
                         attrs: {
                           field: "est_delivery",
-                          label: "Est Delivery",
+                          label: "Est Delivery/Pick Up",
                           centered: "",
                         },
                         scopedSlots: _vm._u([
@@ -38867,6 +38893,37 @@ var render = function () {
                                   _vm._s(props.row.product) +
                                   "\n                            "
                               ),
+                            ]
+                          },
+                        },
+                      ]),
+                    }),
+                    _vm._v(" "),
+                    _c("b-table-column", {
+                      attrs: {
+                        field: "product_total_rating",
+                        label: "Ratings",
+                        sortable: "",
+                      },
+                      scopedSlots: _vm._u([
+                        {
+                          key: "default",
+                          fn: function (props) {
+                            return [
+                              _c("b-rate", {
+                                attrs: { "show-score": "", disabled: "" },
+                                model: {
+                                  value: props.row.product_total_rating,
+                                  callback: function ($$v) {
+                                    _vm.$set(
+                                      props.row,
+                                      "product_total_rating",
+                                      $$v
+                                    )
+                                  },
+                                  expression: "props.row.product_total_rating",
+                                },
+                              }),
                             ]
                           },
                         },
@@ -39863,6 +39920,19 @@ var render = function () {
                   _c("td", [_vm._v(_vm._s(item.order_type))]),
                 ])
               }),
+              _vm._v(" "),
+              _c("tr", [
+                _c("td", { attrs: { colspan: "4" } }),
+                _vm._v(" "),
+                _c("td", { attrs: { colspan: "2" } }, [
+                  _c("strong", [_vm._v("TOTAL: ")]),
+                  _vm._v(
+                    "\n                            " +
+                      _vm._s(_vm._f("formatPrice")(_vm.totalSales)) +
+                      "\n                        "
+                  ),
+                ]),
+              ]),
             ],
             2
           ),
@@ -39999,13 +40069,13 @@ var render = function () {
                       ),
                       _vm._v(" "),
                       _c("b-rate", {
-                        attrs: { "custom-text": "4.6" },
+                        attrs: { "show-score": "", disabled: "" },
                         model: {
-                          value: _vm.rate,
+                          value: item.product_total_rating,
                           callback: function ($$v) {
-                            _vm.rate = $$v
+                            _vm.$set(item, "product_total_rating", $$v)
                           },
-                          expression: "rate",
+                          expression: "item.product_total_rating",
                         },
                       }),
                     ],

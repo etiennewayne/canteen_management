@@ -29,8 +29,10 @@
                         <div style="display: flex;">
                             <div style="font-weight: bold; margin-right: 10px;">RATINGS:</div>
                             <b-rate
-                                v-model="rate"
-                                custom-text="4.6"></b-rate>
+                                show-score
+                                disabled
+                                v-model="item.product_total_rating"
+                                ></b-rate>
                         </div>
                         <div style="display: flex">
                             <div style="font-weight: bold; margin-right: 10px;">PRICE:</div>
